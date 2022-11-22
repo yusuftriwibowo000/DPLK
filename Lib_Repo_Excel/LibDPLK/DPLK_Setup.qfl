@@ -1,6 +1,158 @@
-﻿REM ----- SETUP
+﻿Set objkey = CreateObject("WScript.Shell")
+REM ----- SETUP
 
 'Add New Setup Portofolio
 Sub AddSetupPortofolio
+	Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
+		portoId 			= DataTable.Value("TEXT1", dtlocalsheet)
+		portoNama 			= DataTable.Value("TEXT2", dtlocalsheet)
+		invId				= DataTable.Value("TEXT3", dtlocalsheet)
+		kode				= DataTable.Value("TEXT4", dtlocalsheet)
+		noUrut				= DataTable.Value("TEXT5", dtlocalsheet)
+		prefixSurat			= DataTable.Value("TEXT6", dtlocalsheet)
+		portoIdOjk			= DataTable.Value("TEXT7", dtlocalsheet)
+		keterangan			= DataTable.Value("TEXT8", dtlocalsheet)
+		statusRegister		= DataTable.Value("TEXT9", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("TEXT10", dtlocalsheet)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Porto Id").Set portoId
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Porto Nama").Set portoNama
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Inv Id").Click
+	wait 1
+	objkey.SendKeys(invId)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Kode").Set kode
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field No Urut").Set noUrut
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Prefix Surat").Set prefixSurat
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Porto Id OJK").Set portoIdOjk
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Portofolio").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
 	
 End Sub
+
+'View Setup Portofolio
+Sub ViewSetupPortofolio
+	Dim portoId
+	portoId = DataTable.Value("TEXT1", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Detail Data Pada Porto Id : " &portoId, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Portofolio
+Sub EditSetupPortofolio
+	Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
+		portoId 			= DataTable.Value("TEXT1", dtlocalsheet)
+		portoNama 			= DataTable.Value("TEXT2", dtlocalsheet)
+		invId				= DataTable.Value("TEXT3", dtlocalsheet)
+		kode				= DataTable.Value("TEXT4", dtlocalsheet)
+		noUrut				= DataTable.Value("TEXT5", dtlocalsheet)
+		prefixSurat			= DataTable.Value("TEXT6", dtlocalsheet)
+		portoIdOjk			= DataTable.Value("TEXT7", dtlocalsheet)
+		keterangan			= DataTable.Value("TEXT8", dtlocalsheet)
+		statusRegister		= DataTable.Value("TEXT9", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("TEXT10", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Btn Edit").Click
+	wait 2
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Porto Id").Set portoId
+'	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Porto Nama").Set portoNama
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Inv Id").Click
+'	wait 1
+'	objkey.SendKeys(invId)
+'	wait 1
+'	objkey.SendKeys "{ENTER}"
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Kode").Set kode
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field No Urut").Set noUrut
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Prefix Surat").Set prefixSurat
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Porto Id OJK").Set portoIdOjk
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Keterangan").Set keterangan
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Status Register").Click
+'	wait 1
+'	objkey.SendKeys(statusRegister)
+'	wait 1
+'	objkey.SendKeys "{ENTER}"
+'	wait 1
+'	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Portofolio").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+'Delete Setup Portofolio
+Sub DeleteSetupPortofolio
+	Dim portoId
+	portoId = DataTable.Value("TEXT1", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Portofolio").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Dengan Porto Id " &portoId& "Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+

@@ -1,0 +1,1 @@
+﻿var __testDataSource={items:[{dataFilePath:'Default.xlsx',dataFileFormat:'excel',dataFileFolder:'D:\\01. Projects\\01. BNI Automation\\2021 BNI Mobile\\MB - APPS\\03. MB - Scripts\\Verifications Script\\Res1',namePairs:[]}]};

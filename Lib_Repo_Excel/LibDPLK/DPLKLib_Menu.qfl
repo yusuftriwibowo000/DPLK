@@ -568,9 +568,10 @@ End  If
 End Function
 
 REM ---------------------------- SIDEBAR MENU DPLK------------------------------------
-Sub GoTo_SidebarMenu(dtSidebarMenu)
-	Dim dtMainSidebar
+Sub GoTo_SidebarMenu()
+	Dim dtMainSidebar, dtSidebarMenu
 	dtMainSidebar = DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
+	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
 	wait 5
 	Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar").Click
@@ -580,265 +581,33 @@ Sub GoTo_SidebarMenu(dtSidebarMenu)
 	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
 	wait 2
 	
-	dtSidebarMenu	= Ucase(dtSidebarMenu)
-	
-	Select Case dtSidebarMenu
-		Case "SETUP"
-		If Browser("DPLK").Page("Sidebar").Link("Sidebar Setup").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Sidebar Setup").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Menu Setup", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Menu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "PASAR UANG"
-		If Browser("DPLK").Page("Sidebar").Link("Sidebar Pasar Uang").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Sidebar Pasar Uang").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Menu Pasar Uang", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Menu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "FIXED INCOME"
-		If Browser("DPLK").Page("Sidebar").Link("Sidebar Fixed Income").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Sidebar Fixed Income").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Menu Fixed Income", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Menu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "REKSADANA"
-		If Browser("DPLK").Page("Sidebar").Link("Sidebar Reksadana").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Sidebar Reksadana").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Menu Reksadana", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Menu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "INVESTASI UMUM"
-		If Browser("DPLK").Page("Sidebar").Link("Sidebar Investasi Umum").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Sidebar Investasi Umum").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Menu Investasi Umum", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Menu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case Else 
-			Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
-			Call DA_Logout("1")
-	End Select
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu").SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu").Click
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	Else
+		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+		Call DA_Logout("1")
+	End If
 End Sub
 
 REM ---------------------------- SIDEBAR SUBMENU DPLK------------------------------------
-Sub GoTo_SidebarSubMenu(dtSidebarSubMenu)
+Sub GoTo_SidebarSubMenu()
+	Dim dtSidebarSubMenu
+	dtSidebarSubMenu = DataTable.Value("SIDEBAR_SUBMENU",dtlocalsheet)
 	
-	dtSidebarSubMenu	= Ucase(dtSidebarSubMenu)
-	
-	Select Case dtSidebarSubMenu
-		Case "SETUP KEGIATAN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Kegiatan").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Kegiatan").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Kegiatan", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP MAPPING PVR-TB"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Mapping PVR-TB").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Mapping PVR-TB").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Mapping PVR-TB", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP MAPPING KEGIATAN INVESTASI"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Mapping Kegiatan Investasi").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Mapping Kegiatan Investasi").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Mapping Kegiatan Investasi", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP PORTOFOLIO"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Portofolio").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Portofolio").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Portofolio", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP KLASIFIKASI"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Klasifikasi").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Klasifikasi").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Klasifikasi", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP FUND MANAGER"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Fund Manager").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Fund Manager").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Fund Manager", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP CUSTODIAN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Custodian").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Custodian").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Custodian", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP JENIS EMITEN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Jenis Emiten").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Jenis Emiten").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Jenis Emiten", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP GROUP EMITEN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Group Emiten").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Group Emiten").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Group Emiten", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP EMITEN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Emiten").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Emiten").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Emiten", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP SEKTOR"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Sektor").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Sektor").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Sektor", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP SUBSEKTOR"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Subsektor").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Subsektor").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Subsektor", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP JENIS BROKER"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Jenis Broker").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Jenis Broker").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Jenis Broker", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP BROKER"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Broker").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Broker").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Broker", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP PIC BROKER"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup PIC Broker").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup PIC Broker").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup PIC Broker", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP TIPE DEVIDEN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Tipe Deviden").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Tipe Deviden").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Tipe Deviden", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP JENIS BEBAN"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Jenis Beban").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Jenis Beban").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Jenis Beban", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP PARAMETER INVESTASI"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Parameter Investasi").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Parameter Investasi").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Parameter Investasi", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case "SETUP MAPPING JURNAL INV"
-		If Browser("DPLK").Page("Sidebar").Link("Setup - Setup Mapping Jurnal Inv").Exist(10) Then
-			Browser("DPLK").Page("Sidebar").Link("Setup - Setup Mapping Jurnal Inv").Click
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"),"Pergi Ke Submenu Setup Mapping Jurnal Inv", " ",  compatibilityMode.Desktop, ReportStatus.Passed)
-		Else 
-			Reporter.ReportEvent micFail,  "Submenu Tidak Ada", "Transaksi Gagal"
-			Call DA_Logout("1")		
-		End If
-		
-		Case Else 
-			Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
-			Call DA_Logout("1")
-	End Select
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu").SetTOProperty "text", dtSidebarSubMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu").Click
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Submenu "&dtSidebarSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	Else
+		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+		Call DA_Logout("1")
+	End If
 End Sub
 
 REM ----- Tampil Sidebar Split

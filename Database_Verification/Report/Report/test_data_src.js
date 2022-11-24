@@ -1,0 +1,1 @@
+﻿var __testDataSource={items:[{dataFilePath:'Default.xlsx',dataFileFormat:'excel',dataFileFolder:'D:\\MGS_GIT_Auto\\Keagenan\\Verifications Script\\Report',namePairs:[]}]};

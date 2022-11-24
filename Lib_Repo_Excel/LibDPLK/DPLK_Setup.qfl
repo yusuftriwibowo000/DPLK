@@ -152,7 +152,7 @@ Sub DeleteSetupPortofolio
 	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Portofolio").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Dengan Porto Id " &portoId& "Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Dengan Porto Id " &portoId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 End Sub
 

@@ -1,0 +1,1235 @@
+<?xml version="1.0"?>
+<Results version="1.0">
+<ReportNode type="testrun">
+<ReportNode type="Iteration">
+<ReportNode type="Action">
+<ReportNode type="Step">
+<Data>
+    <Name>The retrieve DataTable.Value operation failed. The &lt;MYSQL_CONNECTION&gt; column does not exist.</Name>
+    <ErrorText>The retrieve DataTable.Value operation failed. The &lt;MYSQL_CONNECTION&gt; column does not exist.</ErrorText>
+    <Description>The retrieve DataTable.Value operation failed. The &amp;lt;MYSQL_CONNECTION&amp;gt; column does not exist.&lt;BR/&gt;Line (106): &amp;quot;dtConnection 	= DataTable.Value(&amp;quot;MYSQL_CONNECTION&amp;quot;, &amp;quot;KeagenanDBConfig&amp;quot;)&amp;quot;. </Description>
+    <StartTime>2021-04-25 01:39:43</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[dtConnection 	= DataTable.Value("MYSQL_CONNECTION", "KeagenanDBConfig")]]></Scripts>
+          <LineNo><![CDATA[106]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <IconKey>65f58bc915d54df1acd0d180b3fb46de</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <MergeIsErrorIcon>True</MergeIsErrorIcon>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\926db2d3-3b9d-49fc-b2af-2afa38f56e90.jpeg" />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>The retrieve DataTable.Value operation failed. The &lt;MYSQL_PASSWORD&gt; column does not exist.</Name>
+    <ErrorText>The retrieve DataTable.Value operation failed. The &lt;MYSQL_PASSWORD&gt; column does not exist.</ErrorText>
+    <Description>The retrieve DataTable.Value operation failed. The &amp;lt;MYSQL_PASSWORD&amp;gt; column does not exist.&lt;BR/&gt;Line (108): &amp;quot;dtPswd 			= DataTable.Value(&amp;quot;MYSQL_PASSWORD&amp;quot;, &amp;quot;KeagenanDBConfig&amp;quot;)&amp;quot;. </Description>
+    <StartTime>2021-04-25 01:39:43</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[dtPswd 			= DataTable.Value("MYSQL_PASSWORD", "KeagenanDBConfig")]]></Scripts>
+          <LineNo><![CDATA[108]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <IconKey>65f58bc915d54df1acd0d180b3fb46de</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <MergeIsErrorIcon>True</MergeIsErrorIcon>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\52e8005c-91dc-4f6b-a926-93a27077d421.jpeg" />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>The retrieve DataTable.Value operation failed. The &lt;MYSQL_QUERY&gt; column does not exist.</Name>
+    <ErrorText>The retrieve DataTable.Value operation failed. The &lt;MYSQL_QUERY&gt; column does not exist.</ErrorText>
+    <Description>The retrieve DataTable.Value operation failed. The &amp;lt;MYSQL_QUERY&amp;gt; column does not exist.&lt;BR/&gt;Line (109): &amp;quot;dtSQL_Query 	= DataTable.Value(&amp;quot;MYSQL_QUERY&amp;quot;, &amp;quot;KeagenanDBConfig&amp;quot;)&amp;quot;. </Description>
+    <StartTime>2021-04-25 01:39:43</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[dtSQL_Query 	= DataTable.Value("MYSQL_QUERY", "KeagenanDBConfig")]]></Scripts>
+          <LineNo><![CDATA[109]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <IconKey>65f58bc915d54df1acd0d180b3fb46de</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <MergeIsErrorIcon>True</MergeIsErrorIcon>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\3b9c0972-ace4-4342-9306-05c88834f919.jpeg" />
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>SQL Developer Toolbar.Exist</Name>
+    <Description>"Object does not exist"</Description>
+    <StartTime>2021-04-25 01:39:54</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaToolbar</Type>
+            <Name><![CDATA[SQL Developer Toolbar]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object does not exist"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[toolkit class]]></Name>
+            <Value><![CDATA[org.openide.awt.Toolbar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaToolbar]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>7dc0eec9acbd45968ef22d86626285cb</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>SystemUtil.Run "C:\sqldeveloper\sqldeveloper.exe",1</Name>
+    <StartTime>2021-04-25 01:39:54</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <IconKey>95c14f04d07c44ff8612320759dc5a52</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>SQL Developer Toolbar.Exist</Name>
+    <Description>"Object exists"</Description>
+    <StartTime>2021-04-25 01:40:01</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaToolbar</Type>
+            <Name><![CDATA[SQL Developer Toolbar]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object exists"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[toolkit class]]></Name>
+            <Value><![CDATA[org.openide.awt.Toolbar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaToolbar]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>7dc0eec9acbd45968ef22d86626285cb</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Oracle SQL Developer.Activate</Name>
+    <Description />
+    <StartTime>2021-04-25 01:40:06</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <Operation>Activate</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Oracle SQL Developer.Maximize</Name>
+    <Description />
+    <StartTime>2021-04-25 01:40:06</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <Operation>Maximize</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>SQL Developer Toolbar.Press</Name>
+    <Description>"sqlworksheet"</Description>
+    <StartTime>2021-04-25 01:40:06</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaToolbar</Type>
+            <Name><![CDATA[SQL Developer Toolbar]]></Name>
+          </Object>
+        </Path>
+        <Operation>Press</Operation>
+        <OperationData><![CDATA["sqlworksheet"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[toolkit class]]></Name>
+            <Value><![CDATA[org.openide.awt.Toolbar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaToolbar]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>7dc0eec9acbd45968ef22d86626285cb</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Connection:.Select</Name>
+    <Description />
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Select Connection]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaList</Type>
+            <Name><![CDATA[Connection:]]></Name>
+          </Object>
+        </Path>
+        <Operation>Select</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaList]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[attached text]]></Name>
+            <Value><![CDATA[Connection:]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>3964acbc9ba849b5abc132a10fab23f8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Select Connection</Name>
+    <Description>JavaDialog</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Duration>0</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Select Connection]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaDialog]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaDialog]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Select Connection]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>72fccbeaa6ef4c2c8769691d29a72f53</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:39:54</StartTime>
+    <Duration>15</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Connection:</Name>
+    <ErrorText>Unspecified error
+</ErrorText>
+    <Description>Unspecified&amp;nbsp;error&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Object's physical description:&lt;br&gt;to_class = JavaList&lt;br&gt;Attached Text = Connection:&lt;br&gt;</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[JavaWindow("Oracle SQL Developer").JavaDialog("Select Connection").JavaList("Connection:").Select dtConnection]]></Scripts>
+          <LineNo><![CDATA[173]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Select Connection]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaList</Type>
+            <Name><![CDATA[Connection:]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Unspecified&nbsp;error<br/>]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaList]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[attached text]]></Name>
+            <Value><![CDATA[Connection:]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>3964acbc9ba849b5abc132a10fab23f8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <NodeType>Run Error</NodeType>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\b674b58a-7114-4bec-855f-93817286e147.jpeg" highlight="569,346,160,22" />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>OK.Click</Name>
+    <Description>"LEFT"</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Select Connection]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaButton</Type>
+            <Name><![CDATA[OK]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <OperationData><![CDATA["LEFT"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaButton]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[label]]></Name>
+            <Value><![CDATA[OK]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>900c1854084a4ce1b4f0cd6546108388</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Select Connection</Name>
+    <Description>JavaDialog</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Duration>0</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Select Connection]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaDialog]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaDialog]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Select Connection]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>72fccbeaa6ef4c2c8769691d29a72f53</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Password:.Set</Name>
+    <Description>""</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Connection Information]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaEdit</Type>
+            <Name><![CDATA[Password:]]></Name>
+          </Object>
+        </Path>
+        <Operation>Set</Operation>
+        <OperationData><![CDATA[""]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaEdit]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[attached text]]></Name>
+            <Value><![CDATA[Password:]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>8aa18b90463d4bf982370b9a8a4c087b</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>OK.Click</Name>
+    <Description>"LEFT"</Description>
+    <StartTime>2021-04-25 01:40:11</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Connection Information]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaButton</Type>
+            <Name><![CDATA[OK]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <OperationData><![CDATA["LEFT"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaButton]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[label]]></Name>
+            <Value><![CDATA[OK]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>900c1854084a4ce1b4f0cd6546108388</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Connection Information</Name>
+    <Description>JavaDialog</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Duration>25</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaDialog</Type>
+            <Name><![CDATA[Connection Information]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaDialog]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaDialog]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Connection Information(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>72fccbeaa6ef4c2c8769691d29a72f53</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:40:09</StartTime>
+    <Duration>25</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>IdeEditorPane.Set</Name>
+    <ErrorText>Cannot identify the object "IdeEditorPane" (of class JavaEdit).
+Verify that this object's properties match an object currently displayed in your application.</ErrorText>
+    <Description>Cannot&amp;nbsp;identify&amp;nbsp;the&amp;nbsp;object&amp;nbsp;"IdeEditorPane"&amp;nbsp;(of&amp;nbsp;class&amp;nbsp;JavaEdit).&lt;br/&gt;Verify&amp;nbsp;that&amp;nbsp;this&amp;nbsp;object's&amp;nbsp;properties&amp;nbsp;match&amp;nbsp;an&amp;nbsp;object&amp;nbsp;currently&amp;nbsp;displayed&amp;nbsp;in&amp;nbsp;your&amp;nbsp;application.&lt;br/&gt;&lt;br/&gt;Object's physical description:&lt;br&gt;to_class = JavaEdit&lt;br&gt;</Description>
+    <StartTime>2021-04-25 01:40:34</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[JavaWindow("Oracle SQL Developer").JavaEdit("IdeEditorPane").Set dtSQL_Query]]></Scripts>
+          <LineNo><![CDATA[180]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaEdit</Type>
+            <Name><![CDATA[IdeEditorPane]]></Name>
+          </Object>
+        </Path>
+        <Operation>Set</Operation>
+        <OperationData><![CDATA[""]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaEdit]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>8aa18b90463d4bf982370b9a8a4c087b</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\d807d568-56c1-4e64-bed0-0372378aa3ce.jpeg" highlight="0,0,1280,688" />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:40:34</StartTime>
+    <Duration>23</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Query Toolbar.Press</Name>
+    <ErrorText>Object is disabled</ErrorText>
+    <Description>Object&amp;nbsp;is&amp;nbsp;disabled&lt;br/&gt;&lt;br/&gt;Object's physical description:&lt;br&gt;Toolkit Class = oracle.ide.controls.Toolbar&lt;br&gt;to_class = JavaToolbar&lt;br&gt;Index = 1&lt;br&gt;</Description>
+    <StartTime>2021-04-25 01:40:57</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[JavaWindow("Oracle SQL Developer").JavaToolbar("Query Toolbar").Press "run"]]></Scripts>
+          <LineNo><![CDATA[182]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaToolbar</Type>
+            <Name><![CDATA[Query Toolbar]]></Name>
+          </Object>
+        </Path>
+        <Operation>Press</Operation>
+        <OperationData><![CDATA["run"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[toolkit class]]></Name>
+            <Value><![CDATA[oracle.ide.controls.Toolbar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaToolbar]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>7dc0eec9acbd45968ef22d86626285cb</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\e95c8bcd-a7b4-4e7a-916f-ad96e6528ccf.jpeg" highlight="0,0,1280,688" />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:40:57</StartTime>
+    <Duration>26</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Fetched Message</Name>
+    <ErrorText>Unspecified error
+</ErrorText>
+    <Description>Unspecified&amp;nbsp;error&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Object's physical description:&lt;br&gt;to_class = JavaStaticText&lt;br&gt;miccommentproperty = &lt;br&gt;Label = .*Fetched.*&lt;br&gt;</Description>
+    <StartTime>2021-04-25 01:41:23</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[isResultDisplayed = JavaWindow("Oracle SQL Developer").JavaStaticText("Fetched Message").Object.isVisible()]]></Scripts>
+          <LineNo><![CDATA[189]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaStaticText</Type>
+            <Name><![CDATA[Fetched Message]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Unspecified&nbsp;error<br/>]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaStaticText]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[label]]></Name>
+            <Value><![CDATA[.*Fetched.*]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>005f6fa5db58479c96d0372c70866b3e</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <NodeType>Run Error</NodeType>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\2ba5b8c1-eb61-45f4-9f92-dbc34c7d88b3.jpeg" highlight="0,0,1280,688" />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:41:23</StartTime>
+    <Duration>26</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Fetched Message</Name>
+    <ErrorText>Unspecified error
+</ErrorText>
+    <Description>Unspecified&amp;nbsp;error&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Object's physical description:&lt;br&gt;to_class = JavaStaticText&lt;br&gt;miccommentproperty = &lt;br&gt;Label = .*Fetched.*&lt;br&gt;</Description>
+    <StartTime>2021-04-25 01:41:49</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[isResultDisplayed = JavaWindow("Oracle SQL Developer").JavaStaticText("Fetched Message").Object.isVisible()]]></Scripts>
+          <LineNo><![CDATA[189]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaStaticText</Type>
+            <Name><![CDATA[Fetched Message]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Unspecified&nbsp;error<br/>]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaStaticText]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[label]]></Name>
+            <Value><![CDATA[.*Fetched.*]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>005f6fa5db58479c96d0372c70866b3e</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <NodeType>Run Error</NodeType>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\40c4a7d5-0b55-4706-827e-8fc1c468cfd3.jpeg" highlight="0,0,1280,688" />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:41:49</StartTime>
+    <Duration>28</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Fetched Message</Name>
+    <ErrorText>Unspecified error
+</ErrorText>
+    <Description>Unspecified&amp;nbsp;error&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;Object's physical description:&lt;br&gt;to_class = JavaStaticText&lt;br&gt;miccommentproperty = &lt;br&gt;Label = .*Fetched.*&lt;br&gt;</Description>
+    <StartTime>2021-04-25 01:42:17</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[DA_SQLCheckpoint]]></FunctionName>
+          <Scripts><![CDATA[isResultDisplayed = JavaWindow("Oracle SQL Developer").JavaStaticText("Fetched Message").Object.isVisible()]]></Scripts>
+          <LineNo><![CDATA[189]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[Database]]></ModuleName>
+          <FileName><![CDATA[Database]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[Call DA_SQLCheckpoint("MYSQL", sInputData, Parameter("TransactionDate"))]]></Scripts>
+          <LineNo><![CDATA[57]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+          <Object>
+            <Type>JavaStaticText</Type>
+            <Name><![CDATA[Fetched Message]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Unspecified&nbsp;error<br/>]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaStaticText]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[label]]></Name>
+            <Value><![CDATA[.*Fetched.*]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>005f6fa5db58479c96d0372c70866b3e</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <NodeType>Run Error</NodeType>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\70cbd097-6d91-43d6-bea4-88dd0d93de21.jpeg" />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Stop Run</Name>
+    <Description>Run stopped by user.</Description>
+    <StartTime>2021-04-25 01:42:22</StartTime>
+    <Result>Information</Result>
+    <Extension>
+      <IconKey>17dea5be6b554778912a3f620634a33e</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Oracle SQL Developer</Name>
+    <Description>JavaWindow</Description>
+    <StartTime>2021-04-25 01:42:17</StartTime>
+    <Duration>5</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <TestObject>
+        <Repository>Local</Repository>
+        <Path>
+          <Object>
+            <Type>JavaWindow</Type>
+            <Name><![CDATA[Oracle SQL Developer]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[JavaWindow]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[to_class]]></Name>
+            <Value><![CDATA[JavaWindow]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[title]]></Name>
+            <Value><![CDATA[Oracle SQL Developer(.*)]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>d73142c157864da093ebf170ec4de4e8</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Database</Name>
+    <Description />
+    <StartTime>2021-04-25 01:39:43</StartTime>
+    <Duration>159</Duration>
+    <Result>Failed</Result>
+    <InputParameters>
+      <Parameter name="Jurnal" value="NoJurnal" type="System.String" />
+      <Parameter name="TransactionDate" value="TrxDate" type="System.String" />
+    </InputParameters>
+    <Extension>
+      <IconKey>69fb1b2a67604cb6a27b92d3f7011c7a</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Action0</Name>
+    <Description />
+    <StartTime>2021-04-25 01:39:43</StartTime>
+    <Duration>159</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <IconKey>f581ad11494844a5b8717a3b15f5bbd9</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Index>1</Index>
+    <TestedApplications />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Stop Run</Name>
+    <Description>Run stopped by user.</Description>
+    <StartTime>2021-04-25 01:42:22</StartTime>
+    <Result>Information</Result>
+    <Extension>
+      <IconKey>42ea0a7e08934c46972164bc5c1cf78a</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Verifications Script</Name>
+    <ToolName>Micro Focus Unified Functional Testing</ToolName>
+    <ToolVersion>0</ToolVersion>
+    <ToolVersionStringLiteral>15.0.1</ToolVersionStringLiteral>
+    <Description />
+    <StartTime>2021-04-25 01:39:42</StartTime>
+    <Duration>160</Duration>
+    <Result>Failed</Result>
+    <InputParameters />
+    <Extension>
+      <IconKey>19d3110dd0c944e0aa77f3cdb034b69b</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Environment>
+      <Timezone>+07:00:00</Timezone>
+      <Locale>English (Indonesia)</Locale>
+      <User>BNI</User>
+      <CpuInfo>Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz</CpuInfo>
+      <NumberOfCores>12</NumberOfCores>
+      <TotalMemory>16252</TotalMemory>
+      <HostName>LAPTOP-59EUVPAR</HostName>
+      <OSInfo>Windows 10</OSInfo>
+    </Environment>
+    <TestedApplications />
+    <Links>
+      <Link type="DataTable" reference="Default.xlsx" displayname="Default Data Table" />
+    </Links>
+  </Data>
+</ReportNode>
+<GeneralInfo>
+    <ResultName>Report</ResultName>
+    <RunStartTime>2021-04-25 01:39:42</RunStartTime>
+    <Timezone>+07:00:00</Timezone>
+    <OrchestrationToolName>Micro Focus Unified Functional Testing</OrchestrationToolName>
+    <OrchestrationToolVersion>0</OrchestrationToolVersion>
+    <OrchestrationToolVersionStringLiteral>15.0.1</OrchestrationToolVersionStringLiteral>
+  </GeneralInfo>
+</Results>

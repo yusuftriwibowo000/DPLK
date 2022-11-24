@@ -1,0 +1,46 @@
+﻿Set objkey = CreateObject("WScript.Shell")
+
+REM -------------- Log Audit Trail
+
+'Search Data Log Audit Trail
+Sub SearchLogAuditTrail
+	Dim tglWaktu, aksiUser, key, menuName
+		tglWaktu	= DataTable.Value("TEXT1",dtlocalsheet)
+		aksiUser	= DataTable.Value("TEXT2",dtlocalsheet)
+		key			= DataTable.Value("TEXT3",dtlocalsheet)
+		menuName	= DataTable.Value("TEXT4",dtlocalsheet)
+		
+	wait 2
+	Browser("DPLK").Page("Log Audit Trail").WebEdit("Field Tanggal & Waktu").Set tglWaktu
+	wait 2
+	Browser("DPLK").Page("Log Audit Trail").WebEdit("Field Aksi User").Set aksiUser
+	wait 2
+	Browser("DPLK").Page("Log Audit Trail").WebEdit("Field Key").Set key
+	wait 2
+	Browser("DPLK").Page("Log Audit Trail").WebEdit("Field Menu Name").Set menuName
+	wait 10
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Log Audit Trail"), "Isi Search Field yang Akan Dicari", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Log Audit Trail
+Sub ViewLogAuditTrail
+	Dim tglWaktu, aksiUser, key, menuName
+		tglWaktu	= DataTable.Value("TEXT1",dtlocalsheet)
+		aksiUser	= DataTable.Value("TEXT2",dtlocalsheet)
+		key			= DataTable.Value("TEXT3",dtlocalsheet)
+		menuName	= DataTable.Value("TEXT4",dtlocalsheet)
+		
+	Call SearchLogAuditTrail()
+	
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Log Audit Trail").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Log Audit Trail").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Log Audit Trail"), "Berikut Detail Log "&aksiUser& " Pada Porto Id " &key , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Log Audit Trail"), "Berikut Detail Log "&aksiUser& " Pada Porto Id " &key , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub

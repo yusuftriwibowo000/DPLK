@@ -144,7 +144,8 @@ Function DA_Login()
 	
 	Call spOpenBrowser(Openbrowser, url)
 	Call spLoadingScreenLogin()
-
+	
+	Call RefreshPage()
 	Call Da_LoginDetail()
 End Function
 
@@ -166,7 +167,7 @@ Function DA_LoginDetail()
 	If Browser("DPLK").Page("Login").WebElement("Alert Invalid UserName or Password").Exist(10) Then
 		wait 2
 		Reporter.ReportEvent micFail, "Core Mati", "Gagal Masuk Ke Dashboard DPLK"
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Login"), " Gagal Masuk ke Homepage DPLK", " " , compatibilityMode.Desktop, ReportStatus.Failed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Login"), " Gagal Masuk ke Dashboard DPLK", " " , compatibilityMode.Desktop, ReportStatus.Failed)
 		Call CloseBrowser()
 		Call spReportSave()
 		Call ExitActionIteration()
@@ -574,8 +575,12 @@ Sub GoTo_SidebarMenu()
 	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
 	wait 5
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar"), "Klik Button Pilih Role", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar").Click
-	wait 1
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"), "Pilih Role " &dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").SetTOProperty "text", dtMainSidebar
 	wait 1
 	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
@@ -619,21 +624,8 @@ Sub FR_Goto_BatchSidebarMenu(IndexArr)
 	call FR_GoTo_SidebarMenu(dtSidebarMenuBatch(IndexArr))
 End Sub
 
-Sub BackMobile()
-	Do while Browser("DPLK").Page("HeadBar").WebElement("Back").Exist(1)
-		Browser("DPLK").Page("HeadBar").WebElement("Back").Click
-	loop
-End Sub
-
-Sub BackMobile2()
-	Do while Browser("DPLK").Page("HeadBar").WebElement("Back 2").Exist(1)
-		Browser("DPLK").Page("HeadBar").WebElement("Back 2").Click
-	loop
-
-End Sub
-
 Sub RefreshPage
 	Set objkey = CreateObject("WScript.Shell")
 	objkey.SendKeys "{F5}"
-	wait 5
+	wait 3
 End Sub

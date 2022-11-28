@@ -161,6 +161,7 @@ Function DA_LoginDetail()
 	
 	Browser("DPLK").Page("Login").WebEdit("Field Username").Set dtLoginUsername
 	Browser("DPLK").Page("Login").WebEdit("Field Password").Set dtLoginPassword
+	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Login"), "Input Data Login", "UserID: " & dtLoginUsername , compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Login").WebButton("Btn Login").Click

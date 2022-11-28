@@ -4,16 +4,16 @@ REM -------------------------------- Setup Portofolio --------------------------
 'Add New Setup Portofolio
 Sub AddSetupPortofolio
 	Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
-		portoId 			= DataTable.Value("TEXT1", dtlocalsheet)
-		portoNama 			= DataTable.Value("TEXT2", dtlocalsheet)
-		invId				= DataTable.Value("TEXT3", dtlocalsheet)
-		kode				= DataTable.Value("TEXT4", dtlocalsheet)
-		noUrut				= DataTable.Value("TEXT5", dtlocalsheet)
-		prefixSurat			= DataTable.Value("TEXT6", dtlocalsheet)
-		portoIdOjk			= DataTable.Value("TEXT7", dtlocalsheet)
-		keterangan			= DataTable.Value("TEXT8", dtlocalsheet)
-		statusRegister		= DataTable.Value("TEXT9", dtlocalsheet)
-		keteranganRegister	= DataTable.Value("TEXT10", dtlocalsheet)
+		portoId 			= DataTable.Value("PORTO_ID", dtlocalsheet)
+		portoNama 			= DataTable.Value("PORTO_NAMA", dtlocalsheet)
+		invId				= DataTable.Value("INV_ID", dtlocalsheet)
+		kode				= DataTable.Value("KODE", dtlocalsheet)
+		noUrut				= DataTable.Value("NO_URUT", dtlocalsheet)
+		prefixSurat			= DataTable.Value("PREFIX_SURAT", dtlocalsheet)
+		portoIdOjk			= DataTable.Value("PORTO_ID_OJK", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -61,7 +61,7 @@ End Sub
 'View Setup Portofolio
 Sub ViewSetupPortofolio
 	Dim portoId
-	portoId = DataTable.Value("TEXT1", dtlocalsheet)
+	portoId = DataTable.Value("PORTO_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
 	wait 2
@@ -71,23 +71,23 @@ Sub ViewSetupPortofolio
 	wait 2
 	Browser("DPLK").Page("Setup Portofolio").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Detail Data Pada Porto Id : " &portoId, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Detail Data Pada Porto Id " &portoId, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
 'Edit Setup Portofolio
 Sub EditSetupPortofolio
 	Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
-		portoId 			= DataTable.Value("TEXT1", dtlocalsheet)
-		portoNama 			= DataTable.Value("TEXT2", dtlocalsheet)
-		invId				= DataTable.Value("TEXT3", dtlocalsheet)
-		kode				= DataTable.Value("TEXT4", dtlocalsheet)
-		noUrut				= DataTable.Value("TEXT5", dtlocalsheet)
-		prefixSurat			= DataTable.Value("TEXT6", dtlocalsheet)
-		portoIdOjk			= DataTable.Value("TEXT7", dtlocalsheet)
-		keterangan			= DataTable.Value("TEXT8", dtlocalsheet)
-		statusRegister		= DataTable.Value("TEXT9", dtlocalsheet)
-		keteranganRegister	= DataTable.Value("TEXT10", dtlocalsheet)
+		portoId 			= DataTable.Value("PORTO_ID", dtlocalsheet)
+		portoNama 			= DataTable.Value("PORTO_NAMA", dtlocalsheet)
+		invId				= DataTable.Value("INV_ID", dtlocalsheet)
+		kode				= DataTable.Value("KODE", dtlocalsheet)
+		noUrut				= DataTable.Value("NO_URUT", dtlocalsheet)
+		prefixSurat			= DataTable.Value("PREFIX_SURAT", dtlocalsheet)
+		portoIdOjk			= DataTable.Value("PORTO_ID_OJK", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
 	wait 2
@@ -111,7 +111,7 @@ End Sub
 'Delete Setup Portofolio
 Sub DeleteSetupPortofolio
 	Dim portoId
-	portoId = DataTable.Value("TEXT1", dtlocalsheet)
+	portoId = DataTable.Value("PORTO_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
 	wait 2
@@ -135,14 +135,14 @@ REM -------------------------------- Setup Kegiatan ----------------------------
 'Add New Setup Kegiatan
 Sub AddSetupKegiatan
 	Dim kegiatanId, kegiatanNama, kegiatanPasarModal, namaShortcut, flagJurnal, keterangan, statusRegister, keteranganRegister
-		kegiatanId			= DataTable.Value("TEXT1", dtlocalsheet)
-		kegiatanNama		= DataTable.Value("TEXT2", dtlocalsheet)
-		kegiatanPasarModal	= DataTable.Value("TEXT3", dtlocalsheet)
-		namaShortcut		= DataTable.Value("TEXT4", dtlocalsheet)
-		flagJurnal			= DataTable.Value("TEXT5", dtlocalsheet)
-		keterangan			= DataTable.Value("TEXT6", dtlocalsheet)
-		statusRegister		= DataTable.Value("TEXT7", dtlocalsheet)
-		keteranganRegister	= DataTable.Value("TEXT8", dtlocalsheet)
+		kegiatanId			= DataTable.Value("KEGIATAN_ID", dtlocalsheet)
+		kegiatanNama		= DataTable.Value("KEGIATAN_NAMA", dtlocalsheet)
+		kegiatanPasarModal	= DataTable.Value("KEGIATAN_PASARMODAL", dtlocalsheet)
+		namaShortcut		= DataTable.Value("NAMA_SHORTCUT", dtlocalsheet)
+		flagJurnal			= DataTable.Value("FLAG_JURNAL", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -183,7 +183,7 @@ End Sub
 'View Setup Kegiatan
 Sub ViewSetupKegiatan
 	Dim kegiatanId
-	kegiatanId = DataTable.Value("TEXT1", dtlocalsheet)
+	kegiatanId	= DataTable.Value("KEGIATAN_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
 	wait 2
@@ -193,23 +193,23 @@ Sub ViewSetupKegiatan
 	wait 2
 	Browser("DPLK").Page("Setup Kegiatan").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Detail Data Pada Kegiatan Id : " &kegiatanId, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Detail Data Pada Kegiatan Id " &kegiatanId, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
 'Edit Setup Kegiatan
 Sub EditSetupKegiatan
 	Dim kegiatanId, kegiatanNama, kegiatanPasarModal, namaShortcut, flagJurnal, keterangan, statusRegister, keteranganRegister
-		kegiatanId			= DataTable.Value("TEXT1", dtlocalsheet)
-		kegiatanNama		= DataTable.Value("TEXT2", dtlocalsheet)
-		kegiatanPasarModal	= DataTable.Value("TEXT3", dtlocalsheet)
-		namaShortcut		= DataTable.Value("TEXT4", dtlocalsheet)
-		flagJurnal			= DataTable.Value("TEXT5", dtlocalsheet)
-		keterangan			= DataTable.Value("TEXT6", dtlocalsheet)
-		statusRegister		= DataTable.Value("TEXT7", dtlocalsheet)
-		keteranganRegister	= DataTable.Value("TEXT8", dtlocalsheet)
+		kegiatanId			= DataTable.Value("KEGIATAN_ID", dtlocalsheet)
+		kegiatanNama		= DataTable.Value("KEGIATAN_NAMA", dtlocalsheet)
+		kegiatanPasarModal	= DataTable.Value("KEGIATAN_PASARMODAL", dtlocalsheet)
+		namaShortcut		= DataTable.Value("NAMA_SHORTCUT", dtlocalsheet)
+		flagJurnal			= DataTable.Value("FLAG_JURNAL", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 
-	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set portoId
+	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -217,14 +217,14 @@ Sub EditSetupKegiatan
 	wait 2
 	Browser("DPLK").Page("Setup Kegiatan").WebElement("Btn Edit").Click
 	wait 2
-	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Kegiatan Nama").Set kegiatanNama
+	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Kegiatan Pasarmodal").Set kegiatanPasarModal
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Kegiatan").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Kegiatan").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	
 End Sub
@@ -232,7 +232,7 @@ End Sub
 'Delete Setup Kegiatan
 Sub DeleteSetupKegiatan
 	Dim kegiatanId
-	kegiatanId = DataTable.Value("TEXT1", dtlocalsheet)
+	kegiatanId	= DataTable.Value("KEGIATAN_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
 	wait 2
@@ -248,5 +248,263 @@ Sub DeleteSetupKegiatan
 	wait 2
 	If Browser("DPLK").Page("Setup Kegiatan").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Dengan Kegiatan Id " &kegiatanId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+REM -------------------------------- Setup Klasifikasi -----------------------------------------
+
+'Add New Setup Klasifikasi
+Sub AddSetupKlasifikasi
+	Dim kodeKlasifikasi, namaKlasifikasi, noUrut, jmlBulanMinKepemilikan, statusRegister, keteranganRegister
+		kodeKlasifikasi			= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+		namaKlasifikasi			= DataTable.Value("NAMA_KLASIFIKASI", dtlocalsheet)
+		noUrut					= DataTable.Value("NO_URUT", dtlocalsheet)
+		jmlBulanMinKepemilikan	= DataTable.Value("JML_BULAN_MIN_KEPEMILIKAN", dtlocalsheet)
+		statusRegister			= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Kode Klasifikasi").Set kodeKlasifikasi
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Nama Klasifikasi").Set namaKlasifikasi
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebNumber("Field No Urut").Set noUrut
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Jumlah Bulan Min Kepemilikan").Set jmlBulanMinKepemilikan
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+	
+End Sub
+
+'View Setup Klasifikasi
+Sub ViewSetupKlasifikasi
+	Dim kodeKlasifikasi
+	kodeKlasifikasi	= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Berikut Detail Data Pada Kode Klasifikasi " &kodeKlasifikasi, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Klasifikasi
+Sub EditSetupKlasifikasi
+	Dim kodeKlasifikasi, namaKlasifikasi, noUrut, jmlBulanMinKepemilikan, statusRegister, keteranganRegister
+		kodeKlasifikasi			= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+		namaKlasifikasi			= DataTable.Value("NAMA_KLASIFIKASI", dtlocalsheet)
+		noUrut					= DataTable.Value("NO_URUT", dtlocalsheet)
+		jmlBulanMinKepemilikan	= DataTable.Value("JML_BULAN_MIN_KEPEMILIKAN", dtlocalsheet)
+		statusRegister			= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Edit").Click
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Nama Klasifikasi").Set namaKlasifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	
+End Sub
+
+'Delete Setup Klasifikasi
+Sub DeleteSetupKlasifikasi
+	Dim kodeKlasifikasi
+	kodeKlasifikasi	= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Dengan Kode Klasifikasi " &kodeKlasifikasi& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+REM -------------------------------- Setup Fund Manager -----------------------------------------
+
+'Add New Setup Fund Manager
+Sub AddSetupFundManager
+	Dim fundId, namaFund, namaSingkat, alamat, telp, fax, email, noPerjanjian, tglPerjanjian, masaPerjanjian, modalAwal, keterangan, statusRegister, keteranganRegister
+		fundId				= DataTable.Value("FUND_ID", dtlocalsheet)
+		namaFund			= DataTable.Value("NAMA_FUND", dtlocalsheet)
+		namaSingkat			= DataTable.Value("NAMA_SINGKAT", dtlocalsheet)
+		alamat				= DataTable.Value("ALAMAT", dtlocalsheet)
+		telp				= DataTable.Value("TELP", dtlocalsheet)
+		fax					= DataTable.Value("FAX", dtlocalsheet)
+		email				= DataTable.Value("EMAIL", dtlocalsheet)
+		noPerjanjian		= DataTable.Value("NO_PERJANJIAN", dtlocalsheet)
+		tglPerjanjian		= DataTable.Value("TGL_PERJANJIAN", dtlocalsheet)
+		masaPerjanjian		= DataTable.Value("MASA_PERJANJIAN", dtlocalsheet)
+		modalAwal			= DataTable.Value("MODAL_AWAL", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Fund Id").Set fundId
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Nama Fund").Set namaFund
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Nama Singkat").Set namaSingkat
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Alamat").Set alamat
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Telp").Set telp
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Fax").Set fax
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Email").Set email
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field No Perjanjian").Set noPerjanjian
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Tgl Perjanjian").Set tglPerjanjian
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Masa Perjanjian").Set masaPerjanjian
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Modal Awal").Set modalAwal
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Fund Manager").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+	
+End Sub
+
+'View Setup Fund Manager
+Sub ViewSetupFundManager
+	Dim fundId
+	fundId	= DataTable.Value("FUND_ID", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Set fundId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Berikut Detail Data Pada Fund Id " &fundId, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Fund Manager
+Sub EditSetupFundManager
+	Dim fundId, namaFund, namaSingkat, alamat, telp, fax, email, noPerjanjian, tglPerjanjian, masaPerjanjian, modalAwal, keterangan, statusRegister, keteranganRegister
+		fundId				= DataTable.Value("FUND_ID", dtlocalsheet)
+		namaFund			= DataTable.Value("NAMA_FUND", dtlocalsheet)
+		namaSingkat			= DataTable.Value("NAMA_SINGKAT", dtlocalsheet)
+		alamat				= DataTable.Value("ALAMAT", dtlocalsheet)
+		telp				= DataTable.Value("TELP", dtlocalsheet)
+		fax					= DataTable.Value("FAX", dtlocalsheet)
+		email				= DataTable.Value("EMAIL", dtlocalsheet)
+		noPerjanjian		= DataTable.Value("NO_PERJANJIAN", dtlocalsheet)
+		tglPerjanjian		= DataTable.Value("TGL_PERJANJIAN", dtlocalsheet)
+		masaPerjanjian		= DataTable.Value("MASA_PERJANJIAN", dtlocalsheet)
+		modalAwal			= DataTable.Value("MODAL_AWAL", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Set fundId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebElement("Btn Edit").Click
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Nama Fund").Set namaFund
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Fund Manager").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	
+End Sub
+
+'Delete Setup Fund Manager
+Sub DeleteSetupFundManager
+	Dim fundId
+	fundId	= DataTable.Value("FUND_ID", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Set fundId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Fund Manager").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Fund Manager").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Dengan Fund Id " &fundId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 End Sub

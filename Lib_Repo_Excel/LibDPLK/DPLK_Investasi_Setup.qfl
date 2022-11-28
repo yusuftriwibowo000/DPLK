@@ -508,3 +508,164 @@ Sub DeleteSetupFundManager
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Dengan Fund Id " &fundId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 End Sub
+
+REM -------------------------------- Setup Custodian -----------------------------------------
+
+'Add New Setup Custodian
+Sub AddSetupCustodian
+	Dim kodeCustody, namaCustody, alamat1, alamat2, kota, telp, email, pic, pic2, kodeBI, namaBank, cabangBank, noRekening, pemilikRekening, noGiro, statusRegister, keteranganRegister
+		kodeCustody			= DataTable.Value("KODE_CUSTODY", dtlocalsheet)
+		namaCustody			= DataTable.Value("NAMA_CUSTODY", dtlocalsheet)
+		alamat1				= DataTable.Value("ALAMAT1", dtlocalsheet)
+		alamat2				= DataTable.Value("ALAMAT2", dtlocalsheet)
+		kota				= DataTable.Value("KOTA", dtlocalsheet)
+		telp				= DataTable.Value("TELP", dtlocalsheet)
+		email				= DataTable.Value("EMAIL", dtlocalsheet)
+		pic					= DataTable.Value("PIC", dtlocalsheet)
+		pic2				= DataTable.Value("PIC2", dtlocalsheet)
+		kodeBI				= DataTable.Value("KODE_BI", dtlocalsheet)
+		namaBank			= DataTable.Value("NAMA_BANK", dtlocalsheet)
+		cabangBank			= DataTable.Value("CABANG_BANK", dtlocalsheet)
+		noRekening			= DataTable.Value("NO_REKENING", dtlocalsheet)
+		pemilikRekening		= DataTable.Value("PEMILIK_REKENING", dtlocalsheet)
+		noGiro				= DataTable.Value("NO_GIRO", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Kode Custody").Set kodeCustody
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Nama Custody").Set namaCustody
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Alamat1").Set alamat1
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Alamat2").Set alamat2
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Kota").Set kota
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Telp").Set telp
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Email").Set email
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field PIC").Set pic
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field PIC2").Set pic2
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebElement("Dropdown Kode BI").Click
+	wait 1
+	objkey.SendKeys(kodeBI)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Nama Bank").Set namaBank
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Cabang Bank").Set cabangBank
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field No Rekening").Set noRekening
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Pemilik Rekening").Set pemilikRekening
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field No Giro").Set noGiro
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Custodian").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+	
+End Sub
+
+'View Setup Custodian
+Sub ViewSetupCustodian
+	Dim kodeCustody
+	kodeCustody	= DataTable.Value("KODE_CUSTODY", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Set kodeCustody
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Berikut Detail Data Pada Kode Custody " &kodeCustody, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Custodian
+Sub EditSetupCustodian
+	Dim kodeCustody, namaCustody, alamat1, alamat2, kota, telp, email, pic, pic2, kodeBI, namaBank, cabangBank, noRekening, pemilikRekening, noGiro, statusRegister, keteranganRegister
+		kodeCustody			= DataTable.Value("KODE_CUSTODY", dtlocalsheet)
+		namaCustody			= DataTable.Value("NAMA_CUSTODY", dtlocalsheet)
+		alamat1				= DataTable.Value("ALAMAT1", dtlocalsheet)
+		alamat2				= DataTable.Value("ALAMAT2", dtlocalsheet)
+		kota				= DataTable.Value("KOTA", dtlocalsheet)
+		telp				= DataTable.Value("TELP", dtlocalsheet)
+		email				= DataTable.Value("EMAIL", dtlocalsheet)
+		pic					= DataTable.Value("PIC", dtlocalsheet)
+		pic2				= DataTable.Value("PIC2", dtlocalsheet)
+		kodeBI				= DataTable.Value("KODE_BI", dtlocalsheet)
+		namaBank			= DataTable.Value("NAMA_BANK", dtlocalsheet)
+		cabangBank			= DataTable.Value("CABANG_BANK", dtlocalsheet)
+		noRekening			= DataTable.Value("NO_REKENING", dtlocalsheet)
+		pemilikRekening		= DataTable.Value("PEMILIK_REKENING", dtlocalsheet)
+		noGiro				= DataTable.Value("NO_GIRO", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Set kodeCustody
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebElement("Btn Edit").Click
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Nama Custody").Set namaCustody
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Custodian").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	
+End Sub
+
+'Delete Setup Custodian
+Sub DeleteSetupCustodian
+	Dim kodeCustody
+	kodeCustody	= DataTable.Value("KODE_CUSTODY", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Set kodeCustody
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Custodian").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Custodian").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Dengan Kode Custody " &kodeCustody& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub

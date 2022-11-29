@@ -52,10 +52,15 @@ Sub AddSetupPortofolio
 	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Portofolio").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Dengan Porto Id "&portoId&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
-	
 End Sub
 
 'View Setup Portofolio
@@ -105,6 +110,12 @@ Sub EditSetupPortofolio
 	wait 2
 	If Browser("DPLK").Page("Setup Portofolio").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Data Dengan Porto Id "&portoId&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 End Sub
 
@@ -127,7 +138,14 @@ Sub DeleteSetupPortofolio
 	wait 2
 	If Browser("DPLK").Page("Setup Portofolio").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Dengan Porto Id " &portoId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Data Dengan Porto Id "&portoId&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Dengan Porto Id " &portoId& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	wait 2
 End Sub
 
 REM -------------------------------- Setup Kegiatan -----------------------------------------
@@ -174,10 +192,15 @@ Sub AddSetupKegiatan
 	Browser("DPLK").Page("Setup Kegiatan").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Kegiatan").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Dengan Kegiatan Id "&kegiatanId&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
-	
 End Sub
 
 'View Setup Kegiatan
@@ -225,8 +248,14 @@ Sub EditSetupKegiatan
 	wait 2
 	If Browser("DPLK").Page("Setup Kegiatan").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Data Dengan Kegiatan Id "&kegiatanId&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	
+	wait 2
 End Sub
 
 'Delete Setup Kegiatan
@@ -248,7 +277,14 @@ Sub DeleteSetupKegiatan
 	wait 2
 	If Browser("DPLK").Page("Setup Kegiatan").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Dengan Kegiatan Id " &kegiatanId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Data Dengan Kegiatan Id "&kegiatanId&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Dengan Kegiatan Id " &kegiatanId& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	wait 2
 End Sub
 
 REM -------------------------------- Setup Klasifikasi -----------------------------------------
@@ -289,7 +325,13 @@ Sub AddSetupKlasifikasi
 	Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Dengan Kode Klasifikasi "&kodeKlasifikasi&" Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 	
@@ -338,8 +380,14 @@ Sub EditSetupKlasifikasi
 	wait 2
 	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Berikut Data Dengan Kode Klasifikasi "&kodeKlasifikasi&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	
+	wait 2
 End Sub
 
 'Delete Setup Klasifikasi
@@ -361,7 +409,14 @@ Sub DeleteSetupKlasifikasi
 	wait 2
 	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Dengan Kode Klasifikasi " &kodeKlasifikasi& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), " Berikut Data Dengan Kode Klasifikasi "&kodeKlasifikasi&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Dengan Kode Klasifikasi " &kodeKlasifikasi& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	wait 2
 End Sub
 
 REM -------------------------------- Setup Fund Manager -----------------------------------------
@@ -426,10 +481,15 @@ Sub AddSetupFundManager
 	Browser("DPLK").Page("Setup Fund Manager").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Fund Manager").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Set fundId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Dengan Kode Fund Id " &fundId& " Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
-	
 End Sub
 
 'View Setup Fund Manager
@@ -483,8 +543,14 @@ Sub EditSetupFundManager
 	wait 2
 	If Browser("DPLK").Page("Setup Fund Manager").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Set fundId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Berikut Data Dengan Kode Fund Id " &fundId& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	
+	wait 2
 End Sub
 
 'Delete Setup Fund Manager
@@ -506,7 +572,14 @@ Sub DeleteSetupFundManager
 	wait 2
 	If Browser("DPLK").Page("Setup Fund Manager").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Dengan Fund Id " &fundId& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Set fundId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Berikut Data Dengan Kode Fund Id " &fundId& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Fund Manager"), "Data Dengan Fund Id " &fundId& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	Wait 2
 End Sub
 
 REM -------------------------------- Setup Custodian -----------------------------------------
@@ -584,10 +657,15 @@ Sub AddSetupCustodian
 	Browser("DPLK").Page("Setup Custodian").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Custodian").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Berhasil Ditambah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Set kodeCustody
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Dengan Kode Custody " &kodeCustody& " Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
-	
 End Sub
 
 'View Setup Custodian
@@ -644,8 +722,14 @@ Sub EditSetupCustodian
 	wait 2
 	If Browser("DPLK").Page("Setup Custodian").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Set kodeCustody
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Berikut Data Dengan Kode Custody " &kodeCustody& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	
+	Wait 2
 End Sub
 
 'Delete Setup Custodian
@@ -667,5 +751,12 @@ Sub DeleteSetupCustodian
 	wait 2
 	If Browser("DPLK").Page("Setup Custodian").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Dengan Kode Custody " &kodeCustody& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Set kodeCustody
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Berikut Data Dengan Kode Custody " &kodeCustody& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Custodian"), "Data Dengan Kode Custody " &kodeCustody& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	wait 2
 End Sub

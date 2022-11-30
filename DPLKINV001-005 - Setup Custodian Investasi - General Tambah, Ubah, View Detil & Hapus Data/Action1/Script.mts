@@ -11,6 +11,7 @@ Call spReportInitiate()
 dtPreparation = Split(preparation, ";")
 Call spAddScenario(dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult, dtPreparation)
 iteration = Environment.Value("ActionIteration")
+
 REM ------- DPLK
 Call DA_Login()
 Call GoTo_SidebarMenu()
@@ -36,11 +37,11 @@ Sub spLoadLibrary()
 	
 	Set objSysInfo 		= Createobject("Wscript.Network")	
 	
-	tempDPLKPath 	= Environment.Value("TestDir")
-	tempDPLKPath2 	= InStrRev(tempDPLKPath, "\")
-	PathDPLK 		= Left(tempDPLKPath, tempDPLKPath2)
+	tempDPLKPath 		= Environment.Value("TestDir")
+	tempDPLKPath2 		= InStrRev(tempDPLKPath, "\")
+	PathDPLK 			= Left(tempDPLKPath, tempDPLKPath2)
 	
-	LibPathDPLK	= PathDPLK & "Lib_Repo_Excel\LibDPLK\"
+	LibPathDPLK			= PathDPLK & "Lib_Repo_Excel\LibDPLK\"
 	LibReport			= PathDPLK & "Lib_Repo_Excel\LibReport\"
 	LibRepo				= PathDPLK & "Lib_Repo_Excel\Repo\"
 

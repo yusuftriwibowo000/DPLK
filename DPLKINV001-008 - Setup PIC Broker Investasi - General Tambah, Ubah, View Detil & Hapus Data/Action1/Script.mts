@@ -1,5 +1,5 @@
 ﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult @@ script infofile_;_ZIP::ssf7.xml_;_
-Dim dt_Username, dtSidebarMenu, dtSidebarSubMenu, iteration
+Dim preparation ,iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
@@ -7,25 +7,27 @@ Call spInitiateData("DPLKLib_Report.xlsx", "DPLKINV001-008 - Setup PIC Broker In
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
-Call spAddScenario(dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult, Array("Login Sebagai : " & dt_Username))
 
+dtPreparation = Split(preparation, ";")
+Call spAddScenario(dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult, dtPreparation)
 iteration = Environment.Value("ActionIteration")
-REM ------- DPLK
-'Call DA_Login()
-'Call GoTo_SidebarMenu(dtSidebarMenu)
-'Call GoTo_SidebarSubMenu(dtSidebarSubMenu)
 
-'If iteration = 1 Then
-'	Call AddSetupPortofolio()	
-'ElseIf iteration = 2 Then
-'	Call ViewSetupPortofolio()
-'ElseIf iteration = 3 Then
-'	Call EditSetupPortofolio()
-'ElseIf iteration = 4 Then
-'	Call DeleteSetupPortofolio()
-'End If
-'
-'Call DA_Logout("0")
+REM ------- DPLK
+Call DA_Login()
+Call GoTo_SidebarMenu()
+Call GoTo_SidebarSubMenu()
+
+If iteration = 1 Then
+	Call AddSetupPICBroker()	
+ElseIf iteration = 2 Then
+	Call ViewSetupPICBroker()
+ElseIf iteration = 3 Then
+	Call EditSetupPICBroker()
+ElseIf iteration = 4 Then
+	Call DeleteSetupPICBroker()
+End If
+
+Call DA_Logout("0")
 
 Call spReportSave()
 	
@@ -49,17 +51,17 @@ Sub spLoadLibrary()
 	
 	REM ---- DPLK lib
 	LoadFunctionLibrary (LibPathDPLK & "DPLKLib_Menu.qfl")
-	LoadFunctionLibrary (LibPathDPLK & "DPLK_Setup.qfl")
-'	Call RepositoriesCollection.Add(LibRepo & "RP_Login.tsr")
-'	Call RepositoriesCollection.Add(LibRepo & "RP_Dashboard.tsr")
-'	Call RepositoriesCollection.Add(LibRepo & "RP_Setup.tsr")
-'	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
+	LoadFunctionLibrary (LibPathDPLK & "DPLK_Investasi_Setup.qfl")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Login.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Administration_Dashboard.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Investasi_Setup.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
 	
 End Sub
 
 Sub spGetDatatable()
 	REM --------- Data
-	dt_Username					= DataTable.Value("USERID",dtLocalSheet)
+	preparation		 			= DataTable.Value("PREPARATION",dtlocalsheet)
 	
 	REM --------- Reporting
 	dt_TCID						= DataTable.Value("TC_ID", dtLocalSheet)
@@ -67,7 +69,4 @@ Sub spGetDatatable()
 	dt_ScenarioDesc				= DataTable.Value("SCENARIO_DESC", dtLocalSheet)
 	dt_ExpectedResult			= DataTable.Value("EXPECTED_RESULT", dtLocalSheet)
 	
-	REM --------- Menu
-	dtSidebarMenu				= DataTable.Value("SIDEBAR_MENU", dtlocalsheet)
-	dtSidebarSubMenu			= DataTable.Value("SIDEBAR_SUBMENU", dtlocalsheet)
 End Sub

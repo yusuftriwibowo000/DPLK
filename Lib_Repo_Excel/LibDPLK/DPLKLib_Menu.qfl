@@ -576,20 +576,20 @@ Sub GoTo_SidebarMenu()
 	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
 	wait 5
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar"), "Klik Button Pilih Role", " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
-	Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar").Click
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"), "Pilih Role " &dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
-	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").SetTOProperty "text", dtMainSidebar
-	wait 1
-	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
-	wait 2
+'	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar"), "Klik Button Pilih Role", " ", compatibilityMode.Desktop, ReportStatus.Done)
+'	wait 2
+'	Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar").Click
+'	wait 2
+'	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"), "Pilih Role " &dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Done)
+'	wait 2
+'	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").SetTOProperty "text", dtMainSidebar
+'	wait 1
+'	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
+'	wait 2
 	
-	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu").SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu").Exist(10) Then
-		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu").Click
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -614,15 +614,6 @@ Sub GoTo_SidebarSubMenu()
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")
 	End If
-End Sub
-
-REM ----- Tampil Sidebar Split
-Sub FR_Goto_BatchSidebarMenu(IndexArr)
-	Dim dtSidebarMenuBatch,dtSidebarMenu
-	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
-	dtSidebarMenuBatch = split (dtSidebarMenu,",")
-	
-	call FR_GoTo_SidebarMenu(dtSidebarMenuBatch(IndexArr))
 End Sub
 
 Sub RefreshPage

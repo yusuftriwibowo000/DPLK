@@ -27,6 +27,7 @@ ElseIf iteration = 4 Then
 	Call DeleteSetupCustodian()
 End If
 
+Call ClickSidebar()
 Call DA_Logout("0")
 
 Call spReportSave()

@@ -26,6 +26,7 @@ ElseIf iteration = 4 Then
 	Call DeleteSetupKlasifikasi()
 End If
 
+Call ClickSidebar()
 Call DA_Logout("0")
 
 Call spReportSave()

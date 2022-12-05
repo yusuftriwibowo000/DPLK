@@ -27,6 +27,7 @@ ElseIf iteration = 4 Then
 	Call DeleteSetupKegiatan()
 End If
 
+Call ClickSidebar()
 Call DA_Logout("0")
 
 Call spReportSave()

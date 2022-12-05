@@ -27,6 +27,7 @@ ElseIf iteration = 4 Then
 	Call DeleteSetupGroupEmiten()
 End If
 
+Call ClickSidebar()
 Call DA_Logout("0")
 
 Call spReportSave()
@@ -35,13 +36,13 @@ Sub spLoadLibrary()
 	Dim LibPathDPLK, LibReport, LibRepo, objSysInfo
 	Dim tempDPLKPath, tempDPLKPath2, PathDPLK
 	
-	Set objSysInfo 		= Createobject("Wscript.Network")	
+	Set objSysInfo 	= Createobject("Wscript.Network")	
 	
 	tempDPLKPath 	= Environment.Value("TestDir")
 	tempDPLKPath2 	= InStrRev(tempDPLKPath, "\")
 	PathDPLK 		= Left(tempDPLKPath, tempDPLKPath2)
 	
-	LibPathDPLK	= PathDPLK & "Lib_Repo_Excel\LibDPLK\"
+	LibPathDPLK		= PathDPLK & "Lib_Repo_Excel\LibDPLK\"
 	LibReport		= PathDPLK & "Lib_Repo_Excel\LibReport\"
 	LibRepo			= PathDPLK & "Lib_Repo_Excel\Repo\"
 

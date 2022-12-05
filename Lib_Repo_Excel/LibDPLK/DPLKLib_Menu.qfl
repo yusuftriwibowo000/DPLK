@@ -2,6 +2,7 @@
 Dim testCaseName
 testCaseName = Environment("TestName")
 
+
 'REM ------ Untuk ambil file excel untuk membaca datatable
 Function fnGetDataTable(byval filename)
 
@@ -571,8 +572,9 @@ End Function
 
 REM ---------------------------- SIDEBAR MENU DPLK------------------------------------
 Sub GoTo_SidebarMenu()
-	Dim dtMainSidebar, dtSidebarMenu
-	dtMainSidebar = DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
+'	Dim dtMainSidebar,
+	Dim dtSidebarMenu
+'	dtMainSidebar = DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
 	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
 	wait 5
@@ -620,4 +622,16 @@ Sub RefreshPage
 	Set objkey = CreateObject("WScript.Shell")
 	objkey.SendKeys "{F5}"
 	wait 3
+End Sub
+
+Sub ClickSidebar
+	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Click
+		wait 2
+	Else
+		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+		Call DA_Logout("1")
+	End If
 End Sub

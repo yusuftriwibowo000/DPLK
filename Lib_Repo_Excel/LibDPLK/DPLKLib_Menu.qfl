@@ -606,12 +606,41 @@ Sub GoTo_SidebarSubMenu()
 	Dim dtSidebarSubMenu
 	dtSidebarSubMenu = DataTable.Value("SIDEBAR_SUBMENU",dtlocalsheet)
 	
-	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu").SetTOProperty "text", dtSidebarSubMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu").Exist(10) Then
-		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu").Click
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").SetTOProperty "text", dtSidebarSubMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Submenu "&dtSidebarSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
+	Else
+		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+		Call DA_Logout("1")
+	End If
+End Sub
+
+Sub GoTo_SidebarSubMenu2()
+	Dim dtSidebarSubMenu, dtSidebarSubSubMenu
+	dtSidebarSubMenu 	= DataTable.Value("SIDEBAR_SUBMENU",dtlocalsheet)
+	dtSidebarSubSubMenu = DataTable.Value("SIDEBAR_SUBMENU_SUBMENU",dtlocalsheet)
+	
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").SetTOProperty "text", dtSidebarSubMenu
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").SetTOProperty "text", dtSidebarSubSubMenu
+
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Click
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Submenu "&dtSidebarSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		
+		If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Exist(10) Then
+			Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Click
+			wait 2
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sub Submenu "&dtSidebarSubSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+		Else
+			Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+			Call DA_Logout("1")
+		End If
 	Else
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")

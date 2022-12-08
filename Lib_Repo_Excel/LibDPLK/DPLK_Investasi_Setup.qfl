@@ -2048,7 +2048,7 @@ Sub EditSetupEmiten
 	If Browser("DPLK").Page("Setup Emiten").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Data").Set kodeEmiten
+		Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Set namaEmiten
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Data Dengan Nama Emiten " &namaEmiten& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else

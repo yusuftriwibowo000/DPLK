@@ -21,12 +21,15 @@ If iteration = 1 Then
 	Call AddSetupProfileBank()
 ElseIf iteration = 2 Then
 	Call ViewSetupProfileBank()
-ElseIf iteration = 3 Then
-	Call EditSetupProfileBank()
+ElseIf iteration = 3 or iteration = 5 Then
+	Call VerifikasiProfileBank()
 ElseIf iteration = 4 Then
+	Call EditSetupProfileBank()
+ElseIf iteration = 6 Then
 	Call DeleteSetupProfileBank()
 End If
 
+Call ClickSidebarSubmenu()
 Call ClickSidebar()
 Call DA_Logout("0")
 

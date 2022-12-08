@@ -1,0 +1,372 @@
+﻿Set objkey = CreateObject("WScript.Shell")
+
+'setup pemasar
+Dim namaPemasar
+
+'setup jenis parameter
+Dim kodeParameter, namaParameter, tipeData, nilaiDefault, grupParameter, statusInternal
+
+'setup jenis manfaat
+Dim kodeJenisManfaat, namaJenisManfaat
+
+REM -------------------------------- Global Function -----------------------------------------
+Sub ConfirmOtorisasi
+	Dim password
+	password = DataTable.Value("PASSWORD", dtlocalsheet)
+	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
+		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
+		wait 2
+	End If
+
+End Sub
+
+REM -------------------------------- Setup Pemasar -----------------------------------------
+
+'Add New Setup Pemasar
+Sub AddSetupPemasar
+	namaPemasar	= DataTable.Value("NAMA_PEMASAR", dtlocalsheet)
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Nama Pemasar").Set namaPemasar
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Pemasar").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Search Data").Set namaPemasar
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Dengan Nama Pemasar "&namaPemasar&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'View Setup Pemasar
+Sub ViewSetupPemasar
+	namaPemasar	= DataTable.Value("NAMA_PEMASAR", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Search Data").Set namaPemasar
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Berikut Detail Data Pada Nama Pemasar " &namaPemasar, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Pemasar
+Sub EditSetupPemasar
+	Dim namaPemasarSplit
+	namaPemasar			= DataTable.Value("NAMA_PEMASAR", dtlocalsheet)
+	namaPemasarSplit	= Split(namaPemasar," ")
+	
+	Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Search Data").Set namaPemasarSplit(0)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebElement("Btn Edit").Click
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Nama Pemasar").Set namaPemasar
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Pemasar").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Search Data").Set namaPemasar
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Berikut Data Dengan Nama Pemasar "&namaPemasar&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+'Delete Setup Pemasar
+Sub DeleteSetupPemasar
+	namaPemasar	= DataTable.Value("NAMA_PEMASAR", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Search Data").Set namaPemasar
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Pemasar").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Pemasar").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Dengan Nama Pemasar " &namaPemasar& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Pemasar").WebEdit("Field Search Data").Set namaPemasar
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Berikut Data Dengan Nama Pemasar "&namaPemasar&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Pemasar"), "Data Dengan Nama Pemasar " &namaPemasar& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+REM -------------------------------- Setup Jenis Parameter -----------------------------------------
+
+'Add New Setup Jenis Parameter
+Sub AddSetupJenisParameter
+	kodeParameter	= DataTable.Value("KODE_PARAMETER", dtlocalsheet)
+	namaParameter	= DataTable.Value("NAMA_PARAMETER", dtlocalsheet)
+	tipeData		= DataTable.Value("TIPE_DATA", dtlocalsheet)
+	nilaiDefault	= DataTable.Value("NILAI_DEFAULT", dtlocalsheet)
+	grupParameter	= DataTable.Value("GRUP_PARAMETER", dtlocalsheet)
+	statusInternal	= DataTable.Value("STATUS_INTERNAL", dtlocalsheet)	
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Kode Parameter").Set kodeParameter
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Nama Parameter").Set namaParameter
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Tipe Data").Set tipeData
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Nilai Default").Set nilaiDefault
+	wait 1
+	If grupParameter <> "" Then
+		Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Dropdown Grup Parameter").Click
+		wait 1
+		objkey.SendKeys(statusInternal)
+		wait 1
+		objkey.SendKeys "{ENTER}"
+		wait 1
+	End If
+	Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Dropdown Status Internal").Click
+	wait 1
+	objkey.SendKeys(statusInternal)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Jenis Parameter").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Set kodeParameter
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Dengan Kode Parameter "&kodeParameter&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'View Setup Jenis Parameter
+Sub ViewSetupJenisParameter
+	kodeParameter	= DataTable.Value("KODE_PARAMETER", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Set kodeParameter
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Berikut Detail Data Pada Kode Parameter " &kodeParameter, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Jenis Parameter
+Sub EditSetupJenisParameter
+	kodeParameter	= DataTable.Value("KODE_PARAMETER", dtlocalsheet)
+	namaParameter	= DataTable.Value("NAMA_PARAMETER", dtlocalsheet)
+	tipeData		= DataTable.Value("TIPE_DATA", dtlocalsheet)
+	nilaiDefault	= DataTable.Value("NILAI_DEFAULT", dtlocalsheet)
+	grupParameter	= DataTable.Value("GRUP_PARAMETER", dtlocalsheet)
+	statusInternal	= DataTable.Value("STATUS_INTERNAL", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Set kodeParameter
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Btn Edit").Click
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Nilai Default").Set nilaiDefault
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Jenis Parameter").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Set kodeParameter
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Berikut Data Dengan Kode Parameter "&kodeParameter&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+'Delete Setup Jenis Parameter
+Sub DeleteSetupJenisParameter
+	kodeParameter	= DataTable.Value("KODE_PARAMETER", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Set kodeParameter
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Parameter").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Dengan Kode Parameter " &kodeParameter& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Set kodeParameter
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Berikut Data Dengan Kode Parameter "&kodeParameter&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Parameter"), "Data Dengan Kode Parameter " &kodeParameter& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+REM -------------------------------- Setup Jenis Manfaat -----------------------------------------
+
+'Add New Setup Jenis Manfaat
+Sub AddSetupJenisManfaat
+	kodeJenisManfaat	= DataTable.Value("KODE_JENIS_MANFAAT", dtlocalsheet)
+	namaJenisManfaat	= DataTable.Value("NAMA_JENIS_MANFAAT", dtlocalsheet)
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Kode Jenis Manfaat").Set kodeJenisManfaat
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Nama Jenis Manfaat").Set namaJenisManfaat
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Search Data").Set kodeJenisManfaat
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Dengan Kode Jenis Manfaat "&kodeJenisManfaat&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'View Setup Jenis Manfaat
+Sub ViewSetupJenisManfaat
+	kodeJenisManfaat	= DataTable.Value("KODE_JENIS_MANFAAT", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Search Data").Set kodeJenisManfaat
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Berikut Detail Data Pada Kode Jenis Manfaat " &kodeJenisManfaat, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Jenis Manfaat
+Sub EditSetupJenisManfaat
+	kodeJenisManfaat	= DataTable.Value("KODE_JENIS_MANFAAT", dtlocalsheet)
+	namaJenisManfaat	= DataTable.Value("NAMA_JENIS_MANFAAT", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Search Data").Set kodeJenisManfaat
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Btn Edit").Click
+	wait 2
+'	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Kode Jenis Manfaat").Set kodeJenisManfaat
+'	wait 1
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Nama Jenis Manfaat").Set namaJenisManfaat
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Search Data").Set kodeJenisManfaat
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Berikut Data Dengan Kode Jenis Manfaat "&kodeJenisManfaat&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+'Delete Setup Jenis Manfaat
+Sub DeleteSetupJenisManfaat
+	kodeJenisManfaat	= DataTable.Value("KODE_JENIS_MANFAAT", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Search Data").Set kodeJenisManfaat
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Jenis Manfaat").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Jenis Manfaat").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Dengan Kode Jenis Manfaat " &kodeJenisManfaat& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Jenis Manfaat").WebEdit("Field Search Data").Set kodeJenisManfaat
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Berikut Data Dengan Kode Jenis Manfaat "&kodeJenisManfaat&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Manfaat"), "Data Dengan Kode Jenis Manfaat " &kodeJenisManfaat& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub

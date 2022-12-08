@@ -572,10 +572,9 @@ End Function
 
 REM ---------------------------- SIDEBAR MENU DPLK------------------------------------
 Sub GoTo_SidebarMenu()
-'	Dim dtMainSidebar,
-	Dim dtSidebarMenu
-'	dtMainSidebar = DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
-	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
+	Dim dtSidebarMenu, dtMainSidebar
+	dtMainSidebar 	= DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
+	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
 	wait 5
 '	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar"), "Klik Button Pilih Role", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -589,9 +588,9 @@ Sub GoTo_SidebarMenu()
 '	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
 '	wait 2
 	
-	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Exist(10) Then
-		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Click
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -599,6 +598,7 @@ Sub GoTo_SidebarMenu()
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")
 	End If
+	
 End Sub
 
 REM ---------------------------- SIDEBAR SUBMENU DPLK------------------------------------
@@ -647,18 +647,37 @@ Sub GoTo_SidebarSubMenu2()
 	End If
 End Sub
 
+'Refresh Halaman
 Sub RefreshPage
 	Set objkey = CreateObject("WScript.Shell")
 	objkey.SendKeys "{F5}"
 	wait 3
 End Sub
 
+'Klik Sidebar tanpa Capture
 Sub ClickSidebar
-	dtSidebarMenu = DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
-	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Exist(10) Then
-		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu Investasi").Click
-		wait 2
+	Dim dtSidebarMenu, dtMainSidebar
+	dtMainSidebar 	= DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
+	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
+	
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Click
+	Else
+		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+		Call DA_Logout("1")
+	End If
+End Sub
+
+'Klik Sidebar Submenu tanpa Capture
+Sub ClickSidebarSubmenu
+	Dim dtSidebarSubMenu
+	dtSidebarSubMenu 	= DataTable.Value("SIDEBAR_SUBMENU",dtlocalsheet)
+	
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").SetTOProperty "text", dtSidebarSubMenu
+
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Click
 	Else
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")

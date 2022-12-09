@@ -592,7 +592,7 @@ Sub GoTo_SidebarMenu()
 	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Exist(10) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Click
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu& " Pada "&dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 	Else
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"

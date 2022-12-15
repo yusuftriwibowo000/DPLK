@@ -18,13 +18,13 @@ Call GoTo_SidebarMenu()
 Call GoTo_SidebarSubMenu()
 
 If iteration = 1 Then
-	Call AddSetupStatusRekening()
+	Call AddSetupJenisDokumenPerjanjian()
 ElseIf iteration = 2 Then
-	Call ViewSetupStatusRekening()
+	Call ViewSetupJenisDokumenPerjanjian()
 ElseIf iteration = 3 Then
-	Call EditSetupStatusRekening()
+	Call EditSetupJenisDokumenPerjanjian()
 ElseIf iteration = 4 Then
-	Call DeleteSetupStatusRekening()
+	Call DeleteSetupJenisDokumenPerjanjian()
 End If
 
 Call ClickSidebar()

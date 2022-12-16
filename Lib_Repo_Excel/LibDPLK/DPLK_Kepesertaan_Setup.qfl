@@ -2317,6 +2317,7 @@ REM -------------------------------- Setup Jenis Alamat ------------------------
 Sub AddSetupJenisAlamat
 	kodeJenisAlamat	= DataTable.Value("KODE_JENIS_ALAMAT", dtlocalsheet)
 	namaJenisAlamat	= DataTable.Value("NAMA_JENIS_ALAMAT", dtlocalsheet)
+	noUrut			= DataTable.Value("NO_URUT", dtlocalsheet)
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Alamat").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -2326,6 +2327,8 @@ Sub AddSetupJenisAlamat
 	Browser("DPLK").Page("Setup Jenis Alamat").WebEdit("Field Kode Jenis Alamat").Set kodeJenisAlamat
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Alamat").WebEdit("Field Nama Jenis Alamat").Set namaJenisAlamat
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Alamat").WebNumber("Field No Urut").Set noUrut
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Alamat"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -2363,6 +2366,7 @@ End Sub
 Sub EditSetupJenisAlamat
 	kodeJenisAlamat	= DataTable.Value("KODE_JENIS_ALAMAT", dtlocalsheet)
 	namaJenisAlamat	= DataTable.Value("NAMA_JENIS_ALAMAT", dtlocalsheet)
+	noUrut			= DataTable.Value("NO_URUT", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Jenis Alamat").WebEdit("Field Search Data").Set kodeJenisAlamat
 	wait 2
@@ -2373,6 +2377,8 @@ Sub EditSetupJenisAlamat
 	Browser("DPLK").Page("Setup Jenis Alamat").WebElement("Btn Edit").Click
 	wait 2
 	Browser("DPLK").Page("Setup Jenis Alamat").WebEdit("Field Nama Jenis Alamat").Set namaJenisAlamat
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Alamat").WebNumber("Field No Urut").Set noUrut
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Alamat"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2

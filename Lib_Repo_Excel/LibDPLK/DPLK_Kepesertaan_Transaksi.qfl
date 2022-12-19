@@ -1,0 +1,113 @@
+﻿Set objkey = CreateObject("WScript.Shell")
+
+'Register Produk
+Dim kodeProduk, namaProduk, keterangan, valuta, tglMulai, tglBerakhir, tipePeserta, usiaMinimal, usiaMaksimal, iuranMinimal, iuranMaksimal, kodeManfaat, statusRegister, keteranganRegister
+
+REM -------------------------------- Transaksi->Produk->Register Produk -----------------------------------------
+
+'Add New Register Produk
+Sub AddRegisterProduk
+	kodeProduk			= DataTable.Value("KODE_PRODUK", dtlocalsheet)
+	namaProduk			= DataTable.Value("NAMA_PRODUK", dtlocalsheet)
+	keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+	valuta				= DataTable.Value("VALUTA", dtlocalsheet)
+	tglMulai			= DataTable.Value("TGL_MULAI", dtlocalsheet)
+	tglBerakhir			= DataTable.Value("TGL_BERAKHIR", dtlocalsheet)
+	tipePeserta			= DataTable.Value("TIPE_PESERTA", dtlocalsheet)
+	usiaMinimal			= DataTable.Value("USIA_MINIMAL", dtlocalsheet)
+	usiaMaksimal		= DataTable.Value("USIA_MAKSIMAL", dtlocalsheet)
+	iuranMinimal		= DataTable.Value("IURAN_MINIMAL", dtlocalsheet)
+	iuranMaksimal		= DataTable.Value("IURAN_MAKSIMAL", dtlocalsheet)
+	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Produk").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Nama Produk").Set namaProduk
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebElement("Dropdown Valuta").Click
+	wait 1
+	objkey.SendKeys(valuta)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Tanggal Mulai").Set tglMulai
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Tanggal Berakhir").Set tglBerakhir
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebElement("Dropdown Tipe Peserta").Click
+	wait 1
+	objkey.SendKeys(tipePeserta)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Usia Minimal").Set usiaMinimal
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Usia Maksimal").Set usiaMaksimal
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Iuran Minimal").Set iuranMinimal
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Iuran Maksimal").Set iuranMaksimal
+	wait 1
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Call ChecklistRegisterProdukManfaat()
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Register Produk").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 1
+	objkey.SendKeys"{PGUP}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk"), "Isi Semua Field yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Produk").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Register Produk").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		objkey.SendKeys"{PGDN}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk"), "Berikut Riwayat Transaksi Setelah Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Register Produk").WebButton("Btn Kembali").Click
+		wait 2
+		Browser("DPLK").Page("Register Produk").WebEdit("Field Search Data").Set kodeProduk
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk"), "Data Dengan Kode Produk "&kodeProduk&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Produk"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Checklist Register Produk, Tab Manfaat
+Sub ChecklistRegisterProdukManfaat
+	kodeManfaat	= Split(DataTable.Value("KODE_MANFAAT", dtlocalsheet), ";")
+	jmlRow 		= Browser("DPLK").Page("Register Produk").WebTable("Kolom Tabel Kode Manfaat").RowCount()
+	
+	For i = 0 To UBound(kodeManfaat) Step 1
+		For j = 1 To jmlRow Step 1
+			kdManfaat = Browser("DPLK").Page("Register Produk").WebTable("Kolom Tabel Kode Manfaat").GetCellData(j, 1)
+			If UCase(kdManfaat) = UCase(kodeManfaat(i)) Then
+				set CekBox = Browser("DPLK").Page("Register Produk").WebTable("Kolom Tabel Kode Manfaat").ChildItem(j,7,"WebCheckBox",0)
+				CekBox.click
+				
+				Exit For
+			End If
+		Next
+	Next
+End Sub

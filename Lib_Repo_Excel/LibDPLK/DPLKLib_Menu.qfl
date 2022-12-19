@@ -588,9 +588,9 @@ Sub GoTo_SidebarMenu()
 '	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
 '	wait 2
 	
-	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Exist(10) Then
-		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Click
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu& " Pada "&dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -660,9 +660,9 @@ Sub ClickSidebar
 	dtMainSidebar 	= DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
 	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
-	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Exist(10) Then
-		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtMainSidebar).Click
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Click
 	Else
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")

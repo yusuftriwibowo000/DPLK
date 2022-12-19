@@ -3,7 +3,7 @@ Dim preparation
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS002-001 - Kepesertaan - Register Produk Tambah Data Yang Akan di-Approve.xlsx", "DPLKKPS002")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS002-001 - Kepesertaan - Register Produk Tambah.xlsx", "DPLKKPS002")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()

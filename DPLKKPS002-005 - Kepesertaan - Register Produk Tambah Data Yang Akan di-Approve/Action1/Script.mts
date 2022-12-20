@@ -3,7 +3,7 @@ Dim preparation
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS002-001 - Kepesertaan - Register Produk Tambah.xlsx", "DPLKKPS002")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS002-005 - Kepesertaan - Register Produk Tambah Data Yang Akan di-Approve.xlsx", "DPLKKPS002")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
@@ -17,8 +17,8 @@ Call GoTo_SidebarMenu()
 Call GoTo_SidebarSubMenu2()
 
 Call AddRegisterProduk()
-Call ClickSidebarSubmenu()
-Call ClickSidebar()
+'Call ClickSidebarSubmenu()
+'Call ClickSidebar()
 Call DA_Logout("0")
 
 Call spReportSave()

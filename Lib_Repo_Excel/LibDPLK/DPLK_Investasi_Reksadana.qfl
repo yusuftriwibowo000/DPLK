@@ -10,6 +10,10 @@ Dim kodeJenisPorto, namaJenisPorto
 Dim kodeReksadana, namaMI, jenisReksadana, namaReksadana, namaSingkat, keterangan, stSyariah, pemenuhanSBN, proporsiSBN, nonAktif, tglNonAktif
 Dim kodeBI, noRekening, pemilikRekening, cabangBank, alamat, dtDefault
 
+'Upload Entry Harga Pasar
+Dim tglMarket, fileExcel
+Dim tempDPLKPath, tempDPLKPath2, uploadPathDPLK, pathDPLK, fullPathFile
+
 REM -------------------------------- Global Function -----------------------------------------
 Sub ConfirmOtorisasi
 	Dim password
@@ -407,5 +411,60 @@ Sub DeleteProfileReksa
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana " &kodeReksadana& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	wait 2
+End Sub
+
+REM -------------------------------- Entry Harga Pasar -----------------------------------------
+
+'Upload Entry Harga Pasar
+Sub UploadEntryHargaPasar
+	'membuat path DPLK file upload
+	tempDPLKPath 	= Environment.Value("TestDir")
+	tempDPLKPath2 	= InStrRev(tempDPLKPath, "\")
+	pathDPLK		= Left(tempDPLKPath, tempDPLKPath2)
+	uploadPathDPLK	= pathDPLK & "File_Upload\"
+	
+	'memanggil data dibutuhkan dari excel dan membuat data
+	tglMarket		= DataTable.Value("TGL_MARKET",dtlocalsheet)
+	fileExcel		= DataTable.Value("FILE_EXCEL",dtlocalsheet)
+	fullPathFile	= uploadPathDPLK & fileExcel
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Upload"), "Klik Button Upload", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Upload").Click
+	wait 2
+	Browser("DPLK").Page("Entry Harga Pasar").WebEdit("Field Tgl Market").Set tglMarket
+	wait 1
+	Browser("DPLK").Page("Entry Harga Pasar").WebFile("Upload File Excel").Set fullPathFile
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Import", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Import").Click
+	wait 2
+	innerText = Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Reksadana Berhasil").GetROProperty("innertext")
+	wait 1
+	Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Reksadana Berhasil").SetTOProperty "innertext", innerText
+	wait 2
+	If Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Reksadana Berhasil").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berhasil Upload Harga Pasar", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Kembali").Click
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berikut Data Entry Harga Pasar pada Tanggal Market "&tglMarket, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Gagal Upload Harga Pasar", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	End If
+End Sub
+
+'Search Datatable Entry Harga Pasar
+Sub SearchEntryHargaPasar
+	tglMarket	= DataTable.Value("TGL_MARKET",dtlocalsheet)
+	
+	Browser("DPLK").Page("Entry Harga Pasar").WebEdit("Field Search Data").Set Left(tglMarket, 2)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berikut Data Entry Harga Pasar pada Tanggal Market "&tglMarket, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub

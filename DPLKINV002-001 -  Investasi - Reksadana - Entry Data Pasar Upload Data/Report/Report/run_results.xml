@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<Results version="1.0">
+<ReportNode type="testrun">
+<ReportNode type="Iteration">
+<ReportNode type="Action">
+<ReportNode type="Iteration">
+<ReportNode type="Step">
+<Data>
+    <Name>LoadFunctionLibrary</Name>
+    <Description>LoadFunctionLibrary function passed</Description>
+    <StartTime>2022-12-27 10:58:26</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>604ec16061984a93bb322778bd8bd552</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>LoadFunctionLibrary</Name>
+    <Description>LoadFunctionLibrary function passed</Description>
+    <StartTime>2022-12-27 10:58:26</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>604ec16061984a93bb322778bd8bd552</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>LoadFunctionLibrary</Name>
+    <Description>LoadFunctionLibrary function passed</Description>
+    <StartTime>2022-12-27 10:58:26</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>604ec16061984a93bb322778bd8bd552</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>LoadFunctionLibrary</Name>
+    <Description>LoadFunctionLibrary function passed</Description>
+    <StartTime>2022-12-27 10:58:26</StartTime>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>604ec16061984a93bb322778bd8bd552</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Object reference not set to an instance of an object.</Name>
+    <ErrorText>Object reference not set to an instance of an object.</ErrorText>
+    <Description>&lt;BR/&gt;Function file: C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\LibReport\Run Report BNI.vbs&lt;BR/&gt;Line (87): &amp;quot;PDI_ProjectCode = &amp;quot;19595 + 19722&amp;quot;&amp;quot;.</Description>
+    <StartTime>2022-12-27 10:58:28</StartTime>
+    <Result>Failed</Result>
+    <Extension>
+      <StackTrace>
+        <StackFrame>
+          <ModuleName><![CDATA[FuncLibExecutableUnitName]]></ModuleName>
+          <FileName><![CDATA[C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\LibReport\Run Report BNI.vbs]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[spInitiateReportAttributes]]></FunctionName>
+          <Scripts><![CDATA[Call react.SetCustomAttributes("UFT Version", attUFTVersion)]]></Scripts>
+          <LineNo><![CDATA[87]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[FuncLibExecutableUnitName]]></ModuleName>
+          <FileName><![CDATA[C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\LibReport\BNI_GlobalFunction.qfl]]></FileName>
+          <Language><![CDATA[VBScript - script block]]></Language>
+          <FunctionName><![CDATA[spReportInitiate]]></FunctionName>
+          <Scripts><![CDATA[Call spInitiateReportAttributes()]]></Scripts>
+          <LineNo><![CDATA[124]]></LineNo>
+        </StackFrame>
+        <StackFrame>
+          <ModuleName><![CDATA[DPLKINV002-001-Investasi-Reksa]]></ModuleName>
+          <FileName><![CDATA[DPLKINV002-001-Investasi-Reksa]]></FileName>
+          <Language><![CDATA[VBScript global code]]></Language>
+          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
+          <Scripts><![CDATA[spReportInitiate]]></Scripts>
+          <LineNo><![CDATA[0]]></LineNo>
+        </StackFrame>
+      </StackTrace>
+      <IconKey>a3f6f262f3ea465cb7c6f4986603507b</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+      <MergeIsErrorIcon>True</MergeIsErrorIcon>
+    </Extension>
+    <Snapshot reference="Resources\Snapshots\22bb2d7b-92dd-4d23-8560-5b460fbd7d8b.jpeg" />
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Stop global iteration replay</Name>
+    <Description>Run stopped by user.</Description>
+    <StartTime>2022-12-27 10:58:29</StartTime>
+    <Result>Information</Result>
+    <Extension>
+      <IconKey>c243a6293e1c4091b6b04e3459488022</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>DPLKINV002-001-Investasi-Reksa</Name>
+    <Description />
+    <StartTime>2022-12-27 10:58:25</StartTime>
+    <Duration>4</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <IconKey>cbb9d5da971d4a8f9e8f0ef6e27fde8c</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Index>1</Index>
+    <TestedApplications>
+      <TestedApplication>
+        <RuntimeEngineInfo />
+        <Name>Google Chrome</Name>
+        <Path>C:\Program Files\Google\Chrome\Application\chrome.exe</Path>
+        <Version>108.0</Version>
+        <Technology>web</Technology>
+        <Reserved />
+        <AdditionalInfos>
+          <Info>http://192.168.168.111/</Info>
+        </AdditionalInfos>
+      </TestedApplication>
+    </TestedApplications>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>DPLKINV002-001-Investasi-Reksa</Name>
+    <Description />
+    <StartTime>2022-12-27 10:58:25</StartTime>
+    <Duration>4</Duration>
+    <Result>Failed</Result>
+    <InputParameters />
+    <Extension>
+      <IconKey>1a383b2d87d44d8f84b60e09bfbc7f06</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Action0</Name>
+    <Description />
+    <StartTime>2022-12-27 10:58:23</StartTime>
+    <Duration>6</Duration>
+    <Result>Failed</Result>
+    <Extension>
+      <IconKey>cbb9d5da971d4a8f9e8f0ef6e27fde8c</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Index>1</Index>
+    <TestedApplications />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>DPLKINV002-001 -  Investasi - Reksadana - Entry Data Pasar Upload Data</Name>
+    <ToolName>Micro Focus UFT One</ToolName>
+    <ToolVersion>2021</ToolVersion>
+    <ToolVersionStringLiteral>2021</ToolVersionStringLiteral>
+    <Description />
+    <StartTime>2022-12-27 10:58:21</StartTime>
+    <Duration>8</Duration>
+    <Result>Failed</Result>
+    <InputParameters />
+    <Extension>
+      <ParallelRunnerEnvInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <ID />
+        <Manufacturer />
+        <Model />
+        <OsType />
+        <OsVersion />
+        <DesktopBrowser>Google Chrome</DesktopBrowser>
+        <ErrorMessage />
+      </ParallelRunnerEnvInfo>
+      <IconKey>24f239ef72c74d1dbf63597f5da850ac</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <Environment>
+      <Timezone>+07:00:00</Timezone>
+      <Locale>English (Indonesia)</Locale>
+      <User>1427</User>
+      <CpuInfo>AMD Ryzen 5 5500U with Radeon Graphics         </CpuInfo>
+      <NumberOfCores>12</NumberOfCores>
+      <TotalMemory>6006</TotalMemory>
+      <HostName>DGLQAO-821972-1</HostName>
+      <OSInfo>Windows 10 22H2 (x64)</OSInfo>
+    </Environment>
+    <TestedApplications />
+    <Links>
+      <Link type="DataTable" reference="Default.xlsx" displayname="Default Data Table" />
+    </Links>
+  </Data>
+</ReportNode>
+<GeneralInfo>
+    <ResultName>Report</ResultName>
+    <RunStartTime>2022-12-27 10:58:21</RunStartTime>
+    <Timezone>+07:00:00</Timezone>
+    <OrchestrationToolName>Micro Focus UFT One</OrchestrationToolName>
+    <OrchestrationToolVersion>2021</OrchestrationToolVersion>
+    <OrchestrationToolVersionStringLiteral>2021</OrchestrationToolVersionStringLiteral>
+  </GeneralInfo>
+</Results>

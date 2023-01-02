@@ -98,11 +98,11 @@ Function spReportInitiate()
 	Dim Tester1, Tester2, TestManager, TestingGroupHead, DevelopmentManager, RequirementManager, ProjectManager
 	
 	author					= DataTable.Value ("AUTHOR", dtGlobalSheet)
-	shortDescHeader		= DataTable.Value ("HEADER_DESCRIPTION", dtGlobalSheet)
+	shortDescHeader			= DataTable.Value ("HEADER_DESCRIPTION", dtGlobalSheet)
 	shortDescBody			= DataTable.Value ("HEADER_BODY", dtGlobalSheet)
 	
 	projectType				= DataTable.Value ("PROJECT_TYPE", dtGlobalSheet)
-	projectName			= DataTable.Value ("PROJECT_NAME", dtGlobalSheet)
+	projectName				= DataTable.Value ("PROJECT_NAME", dtGlobalSheet)
 	projectCode				= DataTable.Value ("PROJECT_CODE", dtGlobalSheet)
 		
 	coverTitle				= DataTable.Value ("COVER_TITLE", dtGlobalSheet)
@@ -112,8 +112,8 @@ Function spReportInitiate()
 	Tester2					= DataTable.Value ("TESTER2", dtGlobalSheet)
 	TestManager				= DataTable.Value ("TEST_MANAGER", dtGlobalSheet)
 	TestingGroupHead		= DataTable.Value ("TESTING_GROUPHEAD", dtGlobalSheet)
-	DevelopmentManager	= DataTable.Value ("DEVELOPMENT_MANAGER", dtGlobalSheet)
-	RequirementManager	= DataTable.Value ("REQUIREMENT_MANAGER", dtGlobalSheet)
+	DevelopmentManager		= DataTable.Value ("DEVELOPMENT_MANAGER", dtGlobalSheet)
+	RequirementManager		= DataTable.Value ("REQUIREMENT_MANAGER", dtGlobalSheet)
 	ProjectManager			= DataTable.Value ("PROJECT_MANAGER", dtGlobalSheet)
 	
 	REM ------------ Initiated Report Library

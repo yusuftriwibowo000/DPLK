@@ -8,10 +8,10 @@
 <Data>
     <Name>LoadFunctionLibrary</Name>
     <Description>LoadFunctionLibrary function passed</Description>
-    <StartTime>2023-01-04 16:07:43</StartTime>
+    <StartTime>2023-01-05 14:19:39</StartTime>
     <Result>Passed</Result>
     <Extension>
-      <IconKey>36d5627112e6452994aaa05a92a75f8e</IconKey>
+      <IconKey>122e9a466bd643bba1e2a3677e859977</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <DeviceInfo />
@@ -21,10 +21,10 @@
 <Data>
     <Name>LoadFunctionLibrary</Name>
     <Description>LoadFunctionLibrary function passed</Description>
-    <StartTime>2023-01-04 16:07:43</StartTime>
+    <StartTime>2023-01-05 14:19:39</StartTime>
     <Result>Passed</Result>
     <Extension>
-      <IconKey>36d5627112e6452994aaa05a92a75f8e</IconKey>
+      <IconKey>122e9a466bd643bba1e2a3677e859977</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <DeviceInfo />
@@ -34,10 +34,10 @@
 <Data>
     <Name>LoadFunctionLibrary</Name>
     <Description>LoadFunctionLibrary function passed</Description>
-    <StartTime>2023-01-04 16:07:43</StartTime>
+    <StartTime>2023-01-05 14:19:39</StartTime>
     <Result>Passed</Result>
     <Extension>
-      <IconKey>36d5627112e6452994aaa05a92a75f8e</IconKey>
+      <IconKey>122e9a466bd643bba1e2a3677e859977</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <DeviceInfo />
@@ -47,10 +47,10 @@
 <Data>
     <Name>LoadFunctionLibrary</Name>
     <Description>LoadFunctionLibrary function passed</Description>
-    <StartTime>2023-01-04 16:07:43</StartTime>
+    <StartTime>2023-01-05 14:19:39</StartTime>
     <Result>Passed</Result>
     <Extension>
-      <IconKey>36d5627112e6452994aaa05a92a75f8e</IconKey>
+      <IconKey>122e9a466bd643bba1e2a3677e859977</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <DeviceInfo />
@@ -58,93 +58,863 @@
 </ReportNode>
 <ReportNode type="Step">
 <Data>
-    <Name>Object reference not set to an instance of an object.</Name>
-    <ErrorText>Object reference not set to an instance of an object.</ErrorText>
-    <Description>&lt;BR/&gt;Function file: C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\LibReport\Run Report BNI.vbs&lt;BR/&gt;Line (87): &amp;quot;PDI_ProjectCode = &amp;quot;19595 + 19722&amp;quot;&amp;quot;.</Description>
-    <StartTime>2023-01-04 16:07:44</StartTime>
-    <Result>Failed</Result>
+    <Name>SystemUtil.Run "chrome",3</Name>
+    <StartTime>2023-01-05 14:19:41</StartTime>
+    <Result>Done</Result>
     <Extension>
-      <StackTrace>
-        <StackFrame>
-          <ModuleName><![CDATA[FuncLibExecutableUnitName]]></ModuleName>
-          <FileName><![CDATA[C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\LibReport\Run Report BNI.vbs]]></FileName>
-          <Language><![CDATA[VBScript - script block]]></Language>
-          <FunctionName><![CDATA[spInitiateReportAttributes]]></FunctionName>
-          <Scripts><![CDATA[Call react.SetCustomAttributes("UFT Version", attUFTVersion)]]></Scripts>
-          <LineNo><![CDATA[87]]></LineNo>
-        </StackFrame>
-        <StackFrame>
-          <ModuleName><![CDATA[FuncLibExecutableUnitName]]></ModuleName>
-          <FileName><![CDATA[C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\LibReport\BNI_GlobalFunction.qfl]]></FileName>
-          <Language><![CDATA[VBScript - script block]]></Language>
-          <FunctionName><![CDATA[spReportInitiate]]></FunctionName>
-          <Scripts><![CDATA[Call spInitiateReportAttributes()]]></Scripts>
-          <LineNo><![CDATA[124]]></LineNo>
-        </StackFrame>
-        <StackFrame>
-          <ModuleName><![CDATA[DPLKINV003-001-Investasi-Fixed]]></ModuleName>
-          <FileName><![CDATA[DPLKINV003-001-Investasi-Fixed]]></FileName>
-          <Language><![CDATA[VBScript global code]]></Language>
-          <FunctionName><![CDATA[VBScript global code]]></FunctionName>
-          <Scripts><![CDATA[spReportInitiate]]></Scripts>
-          <LineNo><![CDATA[0]]></LineNo>
-        </StackFrame>
-      </StackTrace>
-      <IconKey>a085e5357d0b49a9bc7276e55cc90167</IconKey>
+      <IconKey>03a95c15ee264af48ec64c3d5ed07147</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
-      <MergeIsErrorIcon>True</MergeIsErrorIcon>
     </Extension>
-    <Snapshot reference="Resources\Snapshots\f9b7859d-eeaa-473c-84b3-0e31a64d250d.jpeg" />
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Field Username.Exist</Name>
+    <Description>"Object exists"</Description>
+    <StartTime>2023-01-05 14:19:43</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Login]]></Name>
+          </Object>
+          <Object>
+            <Type>WebEdit</Type>
+            <Name><![CDATA[Field Username]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object exists"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[type]]></Name>
+            <Value><![CDATA[text]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[UserName]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[INPUT]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>8bfe78e3d7734a189231c33ea41fd321</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
     <DeviceInfo />
   </Data>
 </ReportNode>
 <ReportNode type="Step">
 <Data>
-    <Name>Stop global iteration replay</Name>
+    <Name>Field Username.Set</Name>
+    <Description>"32382"</Description>
+    <StartTime>2023-01-05 14:19:46</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Login]]></Name>
+          </Object>
+          <Object>
+            <Type>WebEdit</Type>
+            <Name><![CDATA[Field Username]]></Name>
+          </Object>
+        </Path>
+        <Operation>Set</Operation>
+        <OperationData><![CDATA["32382"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[type]]></Name>
+            <Value><![CDATA[text]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[UserName]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[INPUT]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>8bfe78e3d7734a189231c33ea41fd321</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Field Password.Set</Name>
+    <Description>"bni1234"</Description>
+    <StartTime>2023-01-05 14:19:46</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Login]]></Name>
+          </Object>
+          <Object>
+            <Type>WebEdit</Type>
+            <Name><![CDATA[Field Password]]></Name>
+          </Object>
+        </Path>
+        <Operation>Set</Operation>
+        <OperationData><![CDATA["bni1234"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[type]]></Name>
+            <Value><![CDATA[password]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[Password]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[INPUT]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>8bfe78e3d7734a189231c33ea41fd321</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Btn Login.Click</Name>
+    <Description />
+    <StartTime>2023-01-05 14:19:51</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Login]]></Name>
+          </Object>
+          <Object>
+            <Type>WebButton</Type>
+            <Name><![CDATA[Btn Login]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[type]]></Name>
+            <Value><![CDATA[submit]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[Login]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[INPUT]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>1adab539ea6b45ea9907dda941941f7a</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Alert Invalid UserName or Password.Exist</Name>
+    <Description>"Object does not exist"</Description>
+    <StartTime>2023-01-05 14:20:04</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Login]]></Name>
+          </Object>
+          <Object>
+            <Type>WebElement</Type>
+            <Name><![CDATA[Alert Invalid UserName or Password]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object does not exist"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[innertext]]></Name>
+            <Value><![CDATA[Invalid UserName or Password]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[DIV]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>98ca47c9bd3044dd805da51d90864088</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Login</Name>
+    <Description>Page</Description>
+    <StartTime>2023-01-05 14:19:43</StartTime>
+    <Duration>26</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Login]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>2d21c45a581d43f4b749bc9aec828e30</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Alert Notifikasi.Exist</Name>
+    <Description>"Object exists"</Description>
+    <StartTime>2023-01-05 14:20:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Administration_Dashboard.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Dashboard]]></Name>
+          </Object>
+          <Object>
+            <Type>WebElement</Type>
+            <Name><![CDATA[Alert Notifikasi]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object exists"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[innertext]]></Name>
+            <Value><![CDATA[INFORMASI]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[DIV]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[class]]></Name>
+            <Value><![CDATA[modal-header]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[acc_name]]></Name>
+            <Value><![CDATA[]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>98ca47c9bd3044dd805da51d90864088</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Btn OK.Click</Name>
+    <Description />
+    <StartTime>2023-01-05 14:20:09</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Administration_Dashboard.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Dashboard]]></Name>
+          </Object>
+          <Object>
+            <Type>WebButton</Type>
+            <Name><![CDATA[Btn OK]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[type]]></Name>
+            <Value><![CDATA[button]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[role]]></Name>
+            <Value><![CDATA[]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[Ok]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[BUTTON]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[acc_name]]></Name>
+            <Value><![CDATA[]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>1adab539ea6b45ea9907dda941941f7a</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Dashboard</Name>
+    <Description>Page</Description>
+    <StartTime>2023-01-05 14:20:09</StartTime>
+    <Duration>5</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Administration_Dashboard.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Dashboard]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>2d21c45a581d43f4b749bc9aec828e30</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Sidebar Menu Fixed Income Investasi.Exist</Name>
+    <Description>"Object exists"</Description>
+    <StartTime>2023-01-05 14:20:14</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Sidebar.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Sidebar]]></Name>
+          </Object>
+          <Object>
+            <Type>Link</Type>
+            <Name><![CDATA[Sidebar Menu Fixed Income Investasi]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object exists"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[text]]></Name>
+            <Value><![CDATA[Fixed Income]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>ffeb505bae8a46199aa2536bc17dc6b1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Sidebar Menu Fixed Income Investasi.Click</Name>
+    <Description />
+    <StartTime>2023-01-05 14:20:14</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Sidebar.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Sidebar]]></Name>
+          </Object>
+          <Object>
+            <Type>Link</Type>
+            <Name><![CDATA[Sidebar Menu Fixed Income Investasi]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[text]]></Name>
+            <Value><![CDATA[Fixed Income]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>ffeb505bae8a46199aa2536bc17dc6b1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Sidebar Submenu Without Sub Menu.Exist</Name>
+    <Description>"Object exists"</Description>
+    <StartTime>2023-01-05 14:20:18</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Sidebar.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Sidebar]]></Name>
+          </Object>
+          <Object>
+            <Type>Link</Type>
+            <Name><![CDATA[Sidebar Submenu Without Sub Menu]]></Name>
+          </Object>
+        </Path>
+        <Operation>Exist</Operation>
+        <OperationData><![CDATA["Object exists"]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[text]]></Name>
+            <Value><![CDATA[Entry Harga Pasar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>ffeb505bae8a46199aa2536bc17dc6b1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>"Sidebar Submenu Without Sub Menu"- Smart Identification</Name>
+    <Description>&lt;P&gt;&lt;span class="text"&gt;The smart identification mechanism was invoked.&lt;/span&gt;&lt;/P&gt;&lt;P&gt;&lt;SPAN class=text&gt;Reason: object not unique (556 objects found)&lt;/SPAN&gt;&lt;/P&gt;           &lt;SPAN class=text&gt;&lt;b&gt;Original description:&lt;/b&gt;&lt;/SPAN&gt;&lt;br&gt;text=Entry Harga Pasar&lt;br&gt;micclass=Link&lt;br&gt;html tag=A&lt;br&gt;&lt;P&gt;&lt;FONT face=Verdana size=2&gt;&lt;SPAN class=text&gt;&lt;B&gt;Smart Identification Alternative Description: &lt;/B&gt;&lt;/SPAN&gt;&lt;/FONT&gt;&lt;/P&gt;&lt;FONT face=Verdana size=2&gt;&lt;u&gt;Base filter properties (556 objects found)&amp;nbsp;&lt;/FONT&gt;&lt;/u&gt;&lt;br&gt;
+micclass=Link&lt;br&gt;html tag=A&lt;br&gt;&lt;br&gt;&lt;FONT face=Verdana size=2&gt;&lt;u&gt;Optional filter properties&lt;/FONT&gt;&lt;/u&gt;&lt;br&gt;
+text=Entry Harga Pasar&lt;SPAN class=passed&gt; (Used&lt;/SPAN&gt;, 2 matches)&lt;/SPAN&gt;&lt;br&gt;html id=&lt;SPAN class=passed&gt; (Used&lt;/SPAN&gt;, 2 matches)&lt;/SPAN&gt;&lt;br&gt;class=nav-sub-link navsublink&lt;SPAN class=passed&gt; (Used&lt;/SPAN&gt;, 2 matches)&lt;/SPAN&gt;&lt;br&gt;name=Setup Tipe Deviden&lt;SPAN class=Failed&gt; (Skipped)&lt;/SPAN&gt;&lt;br&gt;href=http://192.168.168.111/inv-ms-devidentipe&lt;SPAN class=Failed&gt; (Skipped)&lt;/SPAN&gt;&lt;br&gt;visible=-1&lt;SPAN class=passed&gt; (Used&lt;/SPAN&gt;, 1 matches)&lt;/SPAN&gt;&lt;br&gt;acc_name=&lt;SPAN class=warning&gt; (Ignored)&lt;FONT color=#000000&gt;&lt;/FONT&gt;&lt;/SPAN&gt;&lt;br&gt;</Description>
+    <StartTime>2023-01-05 14:20:18</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <SmartIdentificationInfo>
+        <SIDBasicProperties>
+          <Property>
+            <Name><![CDATA[micclass]]></Name>
+            <Value><![CDATA[Link]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+          <BasicMatch>556</BasicMatch>
+        </SIDBasicProperties>
+        <SIDOptionalProperties>
+          <Property>
+            <Name><![CDATA[text]]></Name>
+            <Value><![CDATA[Entry Harga Pasar]]></Value>
+            <Info><![CDATA[Used]]></Info>
+            <Matches>2</Matches>
+          </Property>
+          <Property>
+            <Name><![CDATA[html id]]></Name>
+            <Value><![CDATA[]]></Value>
+            <Info><![CDATA[Used]]></Info>
+            <Matches>2</Matches>
+          </Property>
+          <Property>
+            <Name><![CDATA[class]]></Name>
+            <Value><![CDATA[nav-sub-link navsublink]]></Value>
+            <Info><![CDATA[Used]]></Info>
+            <Matches>2</Matches>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[Setup Tipe Deviden]]></Value>
+            <Info><![CDATA[Skipped]]></Info>
+            <Matches>2</Matches>
+          </Property>
+          <Property>
+            <Name><![CDATA[href]]></Name>
+            <Value><![CDATA[http://192.168.168.111/inv-ms-devidentipe]]></Value>
+            <Info><![CDATA[Skipped]]></Info>
+            <Matches>2</Matches>
+          </Property>
+          <Property>
+            <Name><![CDATA[visible]]></Name>
+            <Value><![CDATA[True]]></Value>
+            <Info><![CDATA[Used]]></Info>
+            <Matches>1</Matches>
+          </Property>
+          <Property>
+            <Name><![CDATA[acc_name]]></Name>
+            <Value><![CDATA[]]></Value>
+            <Info><![CDATA[Ignored]]></Info>
+            <Matches>0</Matches>
+          </Property>
+        </SIDOptionalProperties>
+      </SmartIdentificationInfo>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Sidebar.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Sidebar]]></Name>
+          </Object>
+          <Object>
+            <Type>Link</Type>
+            <Name><![CDATA[Sidebar Submenu Without Sub Menu]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[<P><span class="text">The smart identification mechanism was invoked.</span></P><P><SPAN class=text>Reason: object not unique (556 objects found)</SPAN></P>           <SPAN class=text><b>Original description:</b></SPAN><br>text=Entry Harga Pasar<br>micclass=Link<br>html tag=A<br><P><FONT face=Verdana size=2><SPAN class=text><B>Smart Identification Alternative Description: </B></SPAN></FONT></P><FONT face=Verdana size=2><u>Base filter properties (556 objects found)&nbsp;</FONT></u><br>
+micclass=Link<br>html tag=A<br><br><FONT face=Verdana size=2><u>Optional filter properties</FONT></u><br>
+text=Entry Harga Pasar<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>html id=<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>class=nav-sub-link navsublink<SPAN class=passed> (Used</SPAN>, 2 matches)</SPAN><br>name=Setup Tipe Deviden<SPAN class=Failed> (Skipped)</SPAN><br>href=http://192.168.168.111/inv-ms-devidentipe<SPAN class=Failed> (Skipped)</SPAN><br>visible=-1<SPAN class=passed> (Used</SPAN>, 1 matches)</SPAN><br>acc_name=<SPAN class=warning> (Ignored)<FONT color=#000000></FONT></SPAN><br>]]></OperationData>
+        <Properties>
+          <Property>
+            <Name><![CDATA[text]]></Name>
+            <Value><![CDATA[Entry Harga Pasar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>36677b951404445383f17b512554a4bb</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Sidebar Submenu Without Sub Menu.Click</Name>
+    <Description />
+    <StartTime>2023-01-05 14:20:18</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Sidebar.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Sidebar]]></Name>
+          </Object>
+          <Object>
+            <Type>Link</Type>
+            <Name><![CDATA[Sidebar Submenu Without Sub Menu]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[text]]></Name>
+            <Value><![CDATA[Entry Harga Pasar]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>ffeb505bae8a46199aa2536bc17dc6b1</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<Data>
+    <Name>Sidebar</Name>
+    <Description>Page</Description>
+    <StartTime>2023-01-05 14:20:14</StartTime>
+    <Duration>13</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Sidebar.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Sidebar]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>2d21c45a581d43f4b749bc9aec828e30</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<ReportNode type="Context">
+<ReportNode type="Step">
+<Data>
+    <Name>Btn Upload.Click</Name>
+    <Description />
+    <StartTime>2023-01-05 14:20:27</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Investasi_Fixed_Income.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Entry Harga Pasar]]></Name>
+          </Object>
+          <Object>
+            <Type>WebButton</Type>
+            <Name><![CDATA[Btn Upload]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[type]]></Name>
+            <Value><![CDATA[]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[name]]></Name>
+            <Value><![CDATA[Upload]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[A]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>1adab539ea6b45ea9907dda941941f7a</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Dropdown Valuta.Click</Name>
+    <Description />
+    <StartTime>2023-01-05 14:20:29</StartTime>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Investasi_Fixed_Income.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Entry Harga Pasar]]></Name>
+          </Object>
+          <Object>
+            <Type>WebElement</Type>
+            <Name><![CDATA[Dropdown Valuta]]></Name>
+          </Object>
+        </Path>
+        <Operation>Click</Operation>
+        <Properties>
+          <Property>
+            <Name><![CDATA[innertext]]></Name>
+            <Value><![CDATA[IDR : Rupiah]]></Value>
+          </Property>
+          <Property>
+            <Name><![CDATA[html tag]]></Name>
+            <Value><![CDATA[SPAN]]></Value>
+          </Property>
+        </Properties>
+      </TestObject>
+      <IconKey>98ca47c9bd3044dd805da51d90864088</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+    <DeviceInfo />
+  </Data>
+</ReportNode>
+<ReportNode type="Step">
+<Data>
+    <Name>Stop Run</Name>
     <Description>Run stopped by user.</Description>
-    <StartTime>2023-01-04 16:07:44</StartTime>
+    <StartTime>2023-01-05 14:20:30</StartTime>
     <Result>Information</Result>
     <Extension>
-      <IconKey>ea73607bc392469988f10371e68e5601</IconKey>
+      <IconKey>cf7c3f6844324ca19b7717d17932a947</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
   </Data>
 </ReportNode>
 <Data>
-    <Name>DPLKINV003-001-Investasi-Fixed</Name>
-    <Description />
-    <StartTime>2023-01-04 16:07:43</StartTime>
-    <Duration>1</Duration>
-    <Result>Failed</Result>
+    <Name>Entry Harga Pasar</Name>
+    <Description>Page</Description>
+    <StartTime>2023-01-05 14:20:27</StartTime>
+    <Duration>3</Duration>
+    <Result>Done</Result>
     <Extension>
-      <IconKey>185f1cbb03a9482093b842851eaacb4f</IconKey>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Investasi_Fixed_Income.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+          <Object>
+            <Type>Page</Type>
+            <Name><![CDATA[Entry Harga Pasar]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[Page]]></OperationData>
+      </TestObject>
+      <IconKey>2d21c45a581d43f4b749bc9aec828e30</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>DPLK</Name>
+    <Description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;span style="text-align : left; font-size : 12px; "&gt;Local Browser&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</Description>
+    <StartTime>2023-01-05 14:19:43</StartTime>
+    <Duration>47</Duration>
+    <Result>Done</Result>
+    <Extension>
+      <TestObject>
+        <Repository>C:\Users\1427\Documents\BNI\DPLK\Lib_Repo_Excel\Repo\RP_Login.tsr</Repository>
+        <Path>
+          <Object>
+            <Type>Browser</Type>
+            <Name><![CDATA[DPLK]]></Name>
+          </Object>
+        </Path>
+        <OperationData><![CDATA[<table><tr><td><span style="text-align : left; font-size : 12px; ">Local Browser</span></td></tr></table>]]></OperationData>
+      </TestObject>
+      <IconKey>18c3c11687724d5b90d6e685e824f290</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>DPLKINV003-006-Investasi-Fixed</Name>
+    <Description />
+    <StartTime>2023-01-05 14:19:39</StartTime>
+    <Duration>51</Duration>
+    <Result>Passed</Result>
+    <Extension>
+      <IconKey>03055cc968674c1eba97675fe77d5cd8</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <Index>1</Index>
-    <TestedApplications>
-      <TestedApplication>
-        <RuntimeEngineInfo />
-        <Name>Google Chrome</Name>
-        <Path>C:\Program Files\Google\Chrome\Application\chrome.exe</Path>
-        <Version>108.0</Version>
-        <Technology>web</Technology>
-        <Reserved />
-        <AdditionalInfos>
-          <Info>http://192.168.168.111/</Info>
-        </AdditionalInfos>
-      </TestedApplication>
-    </TestedApplications>
   </Data>
 </ReportNode>
 <Data>
-    <Name>DPLKINV003-001-Investasi-Fixed</Name>
+    <Name>DPLKINV003-006-Investasi-Fixed</Name>
     <Description />
-    <StartTime>2023-01-04 16:07:43</StartTime>
-    <Duration>1</Duration>
-    <Result>Failed</Result>
+    <StartTime>2023-01-05 14:19:39</StartTime>
+    <Duration>51</Duration>
+    <Result>Passed</Result>
     <InputParameters />
     <Extension>
-      <IconKey>4b3853cc83b7410d8413ee651379ec12</IconKey>
+      <IconKey>4d405bccd43446128d29d42e25d3abf1</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
   </Data>
@@ -152,26 +922,38 @@
 <Data>
     <Name>Action0</Name>
     <Description />
-    <StartTime>2023-01-04 16:07:41</StartTime>
-    <Duration>3</Duration>
-    <Result>Failed</Result>
+    <StartTime>2023-01-05 14:19:36</StartTime>
+    <Duration>54</Duration>
+    <Result>Passed</Result>
     <Extension>
-      <IconKey>185f1cbb03a9482093b842851eaacb4f</IconKey>
+      <IconKey>03055cc968674c1eba97675fe77d5cd8</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <Index>1</Index>
     <TestedApplications />
   </Data>
 </ReportNode>
+<ReportNode type="Step">
 <Data>
-    <Name>DPLKINV003-001 - Fixed Income - Upload Harga Pasar</Name>
+    <Name>Stop Run</Name>
+    <Description>Run stopped by user.</Description>
+    <StartTime>2023-01-05 14:20:31</StartTime>
+    <Result>Information</Result>
+    <Extension>
+      <IconKey>d1e6c080a3dc4ce8af903af6f887f296</IconKey>
+      <IsPlainTextNodeName>True</IsPlainTextNodeName>
+    </Extension>
+  </Data>
+</ReportNode>
+<Data>
+    <Name>DPLKINV003-006 - Fixed Income - Upload Harga Pasar</Name>
     <ToolName>Micro Focus UFT One</ToolName>
     <ToolVersion>2021</ToolVersion>
     <ToolVersionStringLiteral>2021</ToolVersionStringLiteral>
     <Description />
-    <StartTime>2023-01-04 16:07:40</StartTime>
-    <Duration>4</Duration>
-    <Result>Failed</Result>
+    <StartTime>2023-01-05 14:19:35</StartTime>
+    <Duration>56</Duration>
+    <Result>Passed</Result>
     <InputParameters />
     <Extension>
       <ParallelRunnerEnvInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -183,7 +965,7 @@
         <DesktopBrowser>Google Chrome</DesktopBrowser>
         <ErrorMessage />
       </ParallelRunnerEnvInfo>
-      <IconKey>53fcccde1f9141baa59abf421e13c1c2</IconKey>
+      <IconKey>e6d656a65f884b19b1d1367114dc9b9b</IconKey>
       <IsPlainTextNodeName>True</IsPlainTextNodeName>
     </Extension>
     <Environment>
@@ -204,7 +986,7 @@
 </ReportNode>
 <GeneralInfo>
     <ResultName>Report</ResultName>
-    <RunStartTime>2023-01-04 16:07:40</RunStartTime>
+    <RunStartTime>2023-01-05 14:19:35</RunStartTime>
     <Timezone>+07:00:00</Timezone>
     <OrchestrationToolName>Micro Focus UFT One</OrchestrationToolName>
     <OrchestrationToolVersion>2021</OrchestrationToolVersion>

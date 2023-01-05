@@ -349,16 +349,16 @@ Sub UploadEntryHargaPasar
 	wait 2
 	Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Import").Click
 	wait 2
-	If Browser("DPLK").Page("Entry Harga Pasar").WebElement("Warning! Data Sudah Ada").Exist(5) Then
-		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Yakin Replace Data"), "Klik Button Yakin", " ", compatibilityMode.Desktop, ReportStatus.Passed)
-		wait 2
-		Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Yakin Replace Data").Click
-	End  If
+'	If Browser("DPLK").Page("Entry Harga Pasar").WebElement("Warning! Data Sudah Ada").Exist(5) Then
+'		wait 2
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Yakin Replace Data"), "Klik Button Yakin", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+'		wait 2
+'		Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Yakin Replace Data").Click
+'	End  If
 	
-'	innerText = Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Fixed Income Berhasil").GetROProperty("innertext")
-'	wait 1
-'	Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Fixed Income Berhasil").SetTOProperty "innertext", innerText
+	innerText = Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Fixed Income Berhasil").GetROProperty("innertext")
+	wait 1
+	Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Fixed Income Berhasil").SetTOProperty "innertext", innerText
 	If Browser("DPLK").Page("Entry Harga Pasar").WebElement("PopUp ×Upload Harga Pasar Fixed Income Berhasil").Exist(5) Then
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berhasil Upload Harga Pasar", " ", compatibilityMode.Desktop, ReportStatus.Passed)

@@ -7,7 +7,7 @@ Dim kodeTipeTransaksi, namaTipeTransaksi, statusRegister, keteranganRegister
 Dim kodeFixedIncome, portofolio, emiten, tipeKupon, namaFixedIncome, bondCode, kodeISIN, tglTerbit, lastKupon, tglMaturity, periodeKupon, persenKupon
 
 'Upload Entry Harga Pasar
-Dim valuta, tanggalMarket, fileExcel
+Dim valuta, tanggalMarket, fileExcel, page
 Dim tempDPLKPath, tempDPLKPath2, uploadPathDPLK, pathDPLK, fullPathFile
 
 REM -------------------------------- Global Function -----------------------------------------
@@ -364,8 +364,6 @@ Sub UploadEntryHargaPasar
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berhasil Upload Harga Pasar", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Entry Harga Pasar").WebButton("Btn Kembali").Click
-		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berikut Data Entry Harga Pasar pada Tanggal Market "&tanggalMarket, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Gagal Upload Harga Pasar", " ", compatibilityMode.Desktop, ReportStatus.Passed)
@@ -377,17 +375,17 @@ End Sub
 Sub SearchEntryHargaPasar
 	tanggalMarket	= DataTable.Value("TANGGAL_MARKET",dtlocalsheet)
 
-	Browser("DPLK").Page("Entry Harga Pasar").WebElement("Data Entry Harga Pasar").SetTOProperty "innertext", tanggalMarket
-	wait 1
-	
-	Do While Browser("DPLK").Page("Entry Harga Pasar").WebElement("Data Entry Harga Pasar").Exist(5)
-		page = 1
-		If Browser("DPLK").Page("Entry Harga Pasar").WebElement("Data Entry Harga Pasar").Exist(5) Then
-			wait 2
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berikut Data Entry Harga Pasar pada Tanggal Market "&tanggalMarket&" Page "&page, " ", compatibilityMode.Desktop, ReportStatus.Done)
-			wait 2
-			Browser("DPLK").Page("Entry Harga Pasar").Link("Btn Next Datatable").Click
-			page = page+1
-		End If
-	Loop
+	Browser("DPLK").Page("Entry Harga Pasar").WebEdit("Field Search Data").Set tanggalMarket
+	wait 3
+	page = 1
+	Do
+		jmlData			= Browser("DPLK").Page("Entry Harga Pasar").WebElement("Jumlah Data Datatable").GetROProperty("innertext")
+		splitJmlData	= Split(jmldata, " ")
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Harga Pasar"), "Berikut Data Entry Harga Pasar pada Tanggal Market "&tanggalMarket&" Page "&page, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Entry Harga Pasar").Link("Btn Next Datatable").Click
+		page = page + 1
+		
+	Loop Until splitJmlData(3) = splitJmlData(5)
 End Sub

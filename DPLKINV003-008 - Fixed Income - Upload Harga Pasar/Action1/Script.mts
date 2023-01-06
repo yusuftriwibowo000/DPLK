@@ -19,10 +19,7 @@ Call GoTo_SidebarMenu()
 Call GoTo_SidebarSubMenu()
 
 Call UploadEntryHargaPasar()
-'Call SearchEntryHargaPasar()
 
-'Call ClickSidebarSubmenu()
-'Call ClickSidebar()
 Call DA_Logout("0")
 
 Call spReportSave()

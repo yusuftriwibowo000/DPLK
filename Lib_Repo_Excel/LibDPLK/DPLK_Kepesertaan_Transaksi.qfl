@@ -24,6 +24,26 @@ Dim noUrut, nama, jabatan, email, noTelepon, noHP
 'Register Corporate - Rekening Bank
 Dim kodeBank, nomorRekening, namaPemegangRekening, cabangBank, kotaBank
 
+'Register Deposit (Bulk)
+'(kodePerusahaan variabelnya sudah ada di Register Corporate)
+Dim fileExcel, keteranganUpload, kantor, tanggalTransaksi
+Dim tempDPLKPath, tempDPLKPath2, uploadPathDPLK, pathDPLK, fullPathFile
+
+REM -------------------------------- Global Function -----------------------------------------
+Sub ConfirmOtorisasi
+	Dim password
+	password = DataTable.Value("PASSWORD", dtlocalsheet)
+	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
+		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
+		wait 2
+	End If
+
+End Sub
+
 REM -------------------------------- Transaksi->Produk->Register Produk -----------------------------------------
 
 'Add New Register Produk
@@ -547,5 +567,112 @@ Sub RegisterCorporateRekeningBank
 	Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Kota Bank").Set kotaBank
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Rekening Bank"), "Isi Semua Field yang Dibutuhkan pada Tab Rekening Bank" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+REM -------------------------------- Transaksi->Deposit->Register Deposit (Bulk) -----------------------------------------
+
+'Fungsi Tambah Register Deposit (Bulk)
+Sub TambahRegisterDepositBulk
+
+	'membuat path DPLK file upload
+	tempDPLKPath 	= Environment.Value("TestDir")
+	tempDPLKPath2 	= InStrRev(tempDPLKPath, "\")
+	pathDPLK		= Left(tempDPLKPath, tempDPLKPath2)
+	uploadPathDPLK	= pathDPLK & "File_Upload\"
+	
+	'memanggil data dibutuhkan dari excel dan membuat data
+	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
+	keteranganUpload	= DataTable.Value("KETERANGAN_UPLOAD", dtlocalsheet)
+	kantor				= DataTable.Value("KANTOR", dtlocalsheet)
+	tanggalTransaksi	= DataTable.Value("TANGGAL_TRANSAKSI", dtlocalsheet)
+	fileExcel			= DataTable.Value("FILE_EXCEL",dtlocalsheet)
+	fullPathFile		= uploadPathDPLK & fileExcel
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kode Perusahaan").Click
+	wait 1
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Kode Perusahaan").Set kodePerusahaan
+	wait 1
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Data Kode Perusahaan").Click
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebFile("Upload File").Set fullPathFile
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Keterangan Upload").Set keteranganUpload
+	wait 1
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Dropdown Kantor").Click
+	wait 1
+	objkey.SendKeys(kantor)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Tanggal Transaksi").Set tanggalTransaksi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Isi Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		objkey.SendKeys"{PGDN}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kembali").Click
+		wait 2
+		Call SearchRegisterDepositBulk()
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+'Fungsi Edit Register Deposit (Bulk)
+Sub EditRegisterDepositBulk
+	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+	
+	wait 2
+	Call SearchRegisterDepositBulk()
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Edit"), "Klik Button Edit" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Edit").Click
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Isi Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	wait 2
+	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Berhasil Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Gagal Diupadate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Fungsi Search Register Deposit (Bulk)
+Sub SearchRegisterDepositBulk
+	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
+	
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Data").Set kodePerusahaan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan No. Kolektif "& kodePerusahaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub

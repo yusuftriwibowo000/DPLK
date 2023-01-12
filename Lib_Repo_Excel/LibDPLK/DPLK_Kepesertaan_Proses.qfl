@@ -1,0 +1,12 @@
+﻿Set objkey = CreateObject("WScript.Shell")
+
+'Verifikasi Deposit (Bulk)
+'(kodePerusahaan variabelnya sudah ada di Register Corporate)
+Dim asd
+
+REM -------------------------------- Proses->Deposit->Verifikasi Deposit (Bulk) -----------------------------------------
+
+'Fungsi Verifikasi Deposit (Bulk)
+Sub VerifikasiDepositBulk
+	
+End Sub

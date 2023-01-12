@@ -601,6 +601,27 @@ Sub GoTo_SidebarMenu()
 	
 End Sub
 
+Sub GoTo_SidebarMenu2()
+	Dim dtSidebarMenu, dtMainSidebar, userId
+	dtMainSidebar 	= DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
+	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
+	userId			= DataTable.Value("USERID",dtlocalsheet)
+	
+	wait 3
+	
+	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "&dtSidebarMenu&" "&dtMainSidebar&" "& userId).SetTOProperty "text", dtSidebarMenu
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& userId).Exist(10) Then
+		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& userId).Click
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu& " Pada "&dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	Else
+		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
+		Call DA_Logout("1")
+	End If
+	
+End Sub
+
 REM ---------------------------- SIDEBAR SUBMENU DPLK------------------------------------
 Sub GoTo_SidebarSubMenu()
 	Dim dtSidebarSubMenu

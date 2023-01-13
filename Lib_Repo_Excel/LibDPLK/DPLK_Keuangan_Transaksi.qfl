@@ -1,0 +1,121 @@
+﻿Set objkey = CreateObject("WScript.Shell")
+
+'Entry Penerimaan Teller Kolektif
+Dim uploadID, keterangan, sumberDana, tujuanTransaksi
+
+
+REM -------------------------------- Global Function -----------------------------------------
+Sub ConfirmOtorisasi
+	Dim password
+	password = DataTable.Value("PASSWORD", dtlocalsheet)
+	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
+		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
+		wait 2
+	End If
+
+End Sub
+
+REM -------------------------------- Transaksi->Keuangan Kepesertaan->Entry Penerimaan Teller Kolektif -----------------------------------------
+
+'Search Entry Penerimaan Teller Kolektif by Keterangan
+Sub SearchEntryPenerimaanTellerKolektifByKeterangan
+	uploadID		= DataTable.Value("UPLOAD_ID", dtlocalsheet)
+	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Search Data").Set keterangan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").SetTOProperty "innertext", uploadID
+	wait 1
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").Click
+	wait 1
+	objkey.SendKeys"{RIGHT 23}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{RIGHT 9}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Add New Entry Penerimaan Teller Kolektif
+Sub AddEntryPenerimaanTellerKolektif
+
+	uploadID		= DataTable.Value("UPLOAD_ID", dtlocalsheet)
+	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	sumberDana		= DataTable.Value("SUMBER_DANA", dtlocalsheet)
+	tujuanTransaksi	= DataTable.Value("TUJUAN_TRANSAKSI", dtlocalsheet)
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Upload ID").Click
+	wait 1
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Search Upload ID").Set uploadID
+	wait 1
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Data Upload ID").Click
+	wait 1
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Sumber Dana").Set sumberDana
+	wait 1
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Tujuan Transaksi").Set tujuanTransaksi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Isi Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("PopUp ×Data berhasil proses").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berhasil Tambah Entry Penerimaan Teller Kolektif dengan Upload ID : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call SearchEntryPenerimaanTellerKolektifByKeterangan()
+		Browser("DPLK").Page("Dashboard").WebElement("Dropdown Cari Menu").Click
+		wait 1
+		objkey.SendKeys("Inquiry Penerimaan Kepesertaan")
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Pilih Menu Inquiry Penerimaan Kepesertaan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call ViewInquiryPenerimaanKepesertaan()
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Gagal Tambah Entry Penerimaan Teller Kolektif", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	
+End Sub
+
+REM -------------------------------- Transaksi->Keuangan Kepesertaan->Inquiry Penerimaan Kepesertaan -----------------------------------------
+
+'Search Inquiry Penerimaan Kepesertaan by Keterangan
+Sub SearchInquiryPenerimaanKepesertaanByKeterangan
+	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Inquiry Penerimaan Kepesertaan").WebEdit("Field Search Data").Set keterangan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penerimaan Kepesertaan"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Detail Inquiry Penerimaan Kepesertaan
+Sub ViewInquiryPenerimaanKepesertaan
+	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	
+	Call SearchInquiryPenerimaanKepesertaanByKeterangan()
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penerimaan Kepesertaan").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Penerimaan Kepesertaan").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penerimaan Kepesertaan"), "Berikut Detail dari Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+
+End Sub

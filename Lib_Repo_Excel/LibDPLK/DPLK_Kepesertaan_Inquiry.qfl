@@ -1,0 +1,46 @@
+﻿Set objkey = CreateObject("WScript.Shell")
+
+'Inquiry Deposit (Bulk)
+Dim uploadID
+
+REM -------------------------------- Global Function -----------------------------------------
+Sub ConfirmOtorisasi
+	Dim password
+	password = DataTable.Value("PASSWORD", dtlocalsheet)
+	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
+		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
+		wait 2
+	End If
+
+End Sub
+
+REM -------------------------------- Inquiry->Deposit->Inquiry Deposit (Bulk) -----------------------------------------
+
+'Search Inquiry Deposit (Bulk) by No Register
+Sub SearchInquiryDepositBulkByNoRegister
+	uploadID	= DataTable.Value("UPLOAD_ID",dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebEdit("Field Search No Register").Set uploadID
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Data dengan No Register : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Detail Inquiry Deposit (Bulk)
+Sub ViewInquiryDepositBulk
+	uploadID	= DataTable.Value("UPLOAD_ID",dtlocalsheet)
+	
+	Call SearchInquiryDepositBulkByNoRegister()
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Detail dari Data dengan No Register : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub

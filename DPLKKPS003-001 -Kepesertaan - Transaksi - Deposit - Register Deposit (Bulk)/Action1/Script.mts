@@ -15,11 +15,19 @@ iteration = Environment.Value("ActionIteration")
 
 REM ------- DPLK
 Call DA_Login()
-Call GoTo_SidebarMenu2()
-Call GoTo_SidebarSubMenu2()
+'If iteration = 1 Then
+'	Call GoTo_SidebarMenu2()
+'	Call GoTo_SidebarSubMenu2()
+'	Call EditRegisterDepositBulk()
+'ElseIf iteration = 2 Then
+	Call GoTo_SidebarMenu()
+	Call GoTo_SidebarSubMenu2()
+	Call VerifikasiDepositBulk()
+'End If
 
 'Call TambahRegisterDepositBulk()
-Call EditRegisterDepositBulk()
+'Call SearchRegisterDepositBulk()
+'Call EditRegisterDepositBulk()
 
 Call DA_Logout("0")
 
@@ -46,9 +54,11 @@ Sub spLoadLibrary()
 	REM ---- DPLK lib
 	LoadFunctionLibrary (LibPathDPLK & "DPLKLib_Menu.qfl")
 	LoadFunctionLibrary (LibPathDPLK & "DPLK_Kepesertaan_Transaksi.qfl")
+	LoadFunctionLibrary (LibPathDPLK & "DPLK_Kepesertaan_Proses.qfl")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Login.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Administration_Dashboard.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Kepesertaan_Transaksi.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Kepesertaan_Proses.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
 	
 End Sub

@@ -18,12 +18,11 @@ Call DA_Login()
 Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu2()
 
-Call SearchEntryPenerimaanTellerKolektifByKeterangan()
-'If iteration = 1 Then
-'	Call AddEntryPenerimaanTellerKolektif()
-'ElseIf iteration = 2 Then
-'	Call ViewInquiryDepositBulk()
-'End If
+If iteration = 1 Then
+	Call AddEntryPenerimaanTellerKolektif()
+ElseIf iteration = 2 Then
+	Call ViewInquiryDepositBulk()
+End If
 
 Call DA_Logout("0")
 
@@ -68,6 +67,5 @@ Sub spGetDatatable()
 	dt_TestScenarioDesc		= DataTable.Value("TEST_SCENARIO_DESC", dtLocalSheet)
 	dt_ScenarioDesc			= DataTable.Value("SCENARIO_DESC", dtLocalSheet)
 	dt_ExpectedResult		= DataTable.Value("EXPECTED_RESULT", dtLocalSheet)
-	
 End Sub
 

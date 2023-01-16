@@ -23,17 +23,18 @@ REM -------------------------------- Transaksi->Keuangan Kepesertaan->Entry Pene
 
 'Search Entry Penerimaan Teller Kolektif by Keterangan
 Sub SearchEntryPenerimaanTellerKolektifByKeterangan
-	uploadID		= DataTable.Value("UPLOAD_ID", dtlocalsheet)
 	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	Set devices 	= CreateObject("Mercury.DeviceReplay")
 	
 	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Search Data").Set keterangan
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").SetTOProperty "innertext", uploadID
-	wait 1
-	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").Click
+	x = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").GetROProperty("abs_y")
+	devices.MouseMove x,y
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 	wait 1
 	objkey.SendKeys"{RIGHT 23}"
 	wait 2

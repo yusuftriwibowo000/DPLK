@@ -629,6 +629,7 @@ Sub TambahRegisterDepositBulk
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
+	wait 2
 End Sub
 
 'Fungsi Edit Register Deposit (Bulk)

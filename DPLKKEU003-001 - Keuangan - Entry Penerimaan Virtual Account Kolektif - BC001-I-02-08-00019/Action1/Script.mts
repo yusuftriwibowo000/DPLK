@@ -1,10 +1,9 @@
-﻿
-Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult
+﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult
 Dim preparation ,iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS003-001 -Kepesertaan - Transaksi - Deposit - Register Deposit (Bulk).xlsx", "DPLKKPS003")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKEU003-001 - Keuangan - Entry Penerimaan Virtual Account Kolektif - BC001-I-02-08-00019.xlsx", "DPLKKEU003") 
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
@@ -16,19 +15,16 @@ iteration = Environment.Value("ActionIteration")
 
 REM ------- DPLK
 Call DA_Login()
-'If iteration = 1 Then
-'	Call GoTo_SidebarMenu2()
-'	Call GoTo_SidebarSubMenu2()
-'	Call EditRegisterDepositBulk()
-'ElseIf iteration = 2 Then
-	Call GoTo_SidebarMenu()
-	Call GoTo_SidebarSubMenu2()
-	Call VerifikasiDepositBulk()
-'End If
+Call GoTo_SidebarMenu2()
+Call GoTo_SidebarSubMenu2()
 
-'Call TambahRegisterDepositBulk()
-'Call SearchRegisterDepositBulk()
-'Call EditRegisterDepositBulk()
+'If iteration = 1 Then
+'	Call EditEntryPenerimaanVAKolektif()
+'ElseIf iteration = 2 Then
+'	Call EditApprovalPenerimaanKepesertaan()
+'ElseIf iteration = 3 Then
+	Call ViewInquiryPenerimaanKepesertaanByKodePenerimaan()
+'End If
 
 Call DA_Logout("0")
 
@@ -54,12 +50,12 @@ Sub spLoadLibrary()
 	
 	REM ---- DPLK lib
 	LoadFunctionLibrary (LibPathDPLK & "DPLKLib_Menu.qfl")
-	LoadFunctionLibrary (LibPathDPLK & "DPLK_Kepesertaan_Transaksi.qfl")
-	LoadFunctionLibrary (LibPathDPLK & "DPLK_Kepesertaan_Proses.qfl")
+	LoadFunctionLibrary (LibPathDPLK & "DPLK_Keuangan_Transaksi.qfl")
+	LoadFunctionLibrary (LibPathDPLK & "DPLK_Kepesertaan_Inquiry.qfl")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Login.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Administration_Dashboard.tsr")
-	Call RepositoriesCollection.Add(LibRepo & "RP_Kepesertaan_Transaksi.tsr")
-	Call RepositoriesCollection.Add(LibRepo & "RP_Kepesertaan_Proses.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Keuangan_Transaksi.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Kepesertaan_Inquiry.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
 	
 End Sub
@@ -73,5 +69,5 @@ Sub spGetDatatable()
 	dt_TestScenarioDesc		= DataTable.Value("TEST_SCENARIO_DESC", dtLocalSheet)
 	dt_ScenarioDesc			= DataTable.Value("SCENARIO_DESC", dtLocalSheet)
 	dt_ExpectedResult		= DataTable.Value("EXPECTED_RESULT", dtLocalSheet)
-	
 End Sub
+

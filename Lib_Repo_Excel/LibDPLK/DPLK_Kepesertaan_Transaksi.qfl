@@ -25,9 +25,13 @@ Dim noUrut, nama, jabatan, email, noTelepon, noHP
 Dim kodeBank, nomorRekening, namaPemegangRekening, cabangBank, kotaBank
 
 'Register Deposit (Bulk)
-'(kodePerusahaan variabelnya sudah ada di Register Corporate)
+'(kodePerusahaan gak dideklarasikan karena sudah ada variablenya di Register Corporate)
 Dim fileExcel, keteranganUpload, kantor, tanggalTransaksi
 Dim tempDPLKPath, tempDPLKPath2, uploadPathDPLK, pathDPLK, fullPathFile
+
+'Penarikan Iuran 10%
+'(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
+Dim keteranganPerubahan, nomorPeserta
 
 REM -------------------------------- Global Function -----------------------------------------
 Sub ConfirmOtorisasi
@@ -634,6 +638,7 @@ End Sub
 
 'Fungsi Edit Register Deposit (Bulk)
 Sub EditRegisterDepositBulk
+	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
 	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
 	
@@ -643,6 +648,8 @@ Sub EditRegisterDepositBulk
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Edit"), "Klik Button Edit" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Edit").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Detail Data Dengan No. Kolektif : "&kodePerusahaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys "{PGDN}"
 	wait 1
@@ -676,4 +683,89 @@ Sub SearchRegisterDepositBulk
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan No. Kolektif "& kodePerusahaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+End Sub
+
+REM -------------------------------- Transaksi->Penarikan Iuran 10% -----------------------------------------
+
+'Fungsi Add New Penarikan Iuran 10%
+Sub AddPenarikanIuran10Persen
+	keteranganPerubahan		= DataTable.Value("KETERANGAN_PERUBAHAN",dtlocalsheet)
+	nomorPeserta			= DataTable.Value("NOMOR_PESERTA",dtlocalsheet)
+	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
+	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	wait 1
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Search Nomor Peserta").Click
+	wait 2
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Search Nomor Rekening").Set nomorPeserta
+	wait 3
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Data Nomor Peserta").Click
+	wait 2
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Data Nomor Peserta").Click
+	wait 5
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 1
+	objkey.SendKeys "{PGUP 2}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Isi Fields Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Isi Fields Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Isi Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berhasil Tambah Data Penarikan Iuran 10%", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Kembali").Click
+		wait 2
+		Call SearchPenarikanIuran10Persen()
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Gagal Tambah Data Penarikan Iuran 10%", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	End If
+End Sub
+
+'Search Penarikan Iuran 10%
+Sub SearchPenarikanIuran10Persen
+	Dim jmlData, splitJmlData
+	nomorPeserta	= DataTable.Value("NOMOR_PESERTA",dtlocalsheet)
+	statusRegister	= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
+	
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Search Data").Set nomorPeserta
+	wait 2
+	
+	jmlData			= Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Jumlah Data List Tabel").GetROProperty("innertext")
+	splitJmlData	= Split(jmlData, " ")
+	
+	If statusRegister = "1 : Lanjutkan ke Verifikasi" and splitJmlData(1) = "0" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Data Dengan Nomor Peserta : "&nomorPeserta&" Tidak Terdapat Di List Tabel Karena Status Registernya : "&statusRegister, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	ElseIf statusRegister <> "1 : Lanjutkan ke Verifikasi" and splitJmlData(1) <> "0" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan Nomor Peserta : "&nomorPeserta, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	ElseIf statusRegister = "1 : Lanjutkan ke Verifikasi" or splitJmlData(1) <> "0" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan Nomor Peserta : "&nomorPeserta, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Data Tidak Ditemukan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 End Sub

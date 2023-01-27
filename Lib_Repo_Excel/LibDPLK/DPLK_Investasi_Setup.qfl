@@ -1,5 +1,10 @@
-﻿Set objkey = CreateObject("WScript.Shell")
+﻿Set objkey 		= CreateObject("WScript.Shell")
+Set devices 	= CreateObject("Mercury.DeviceReplay")
 
+'Setup Portofolio
+'Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
+Dim statusVerifikasi, keteranganVerifikasi, explain
+	
 REM -------------------------------- Global Function -----------------------------------------
 Sub ConfirmDelete
 	Dim password
@@ -7,12 +12,11 @@ Sub ConfirmDelete
 	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
 		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi Hapus Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
 		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
 		wait 2
 	End If
-
 End Sub
 
 REM -------------------------------- Setup Portofolio -----------------------------------------
@@ -164,6 +168,61 @@ Sub DeleteSetupPortofolio
 	wait 2
 End Sub
 
+'Approve Setup Portofolio
+Sub ApproveSetupPortofolio
+	Dim portoId
+	portoId				= DataTable.Value("PORTO_ID", dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmDelete()
+	If Browser("DPLK").Page("Setup Portofolio").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Set portoId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Data Dengan Porto Id "&portoId&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Portofolio").WebElement("Tabel Data Setup Portofolio").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Portofolio").WebElement("Tabel Data Setup Portofolio").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 10}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Berikut Data Dengan Porto Id "&portoId&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
 REM -------------------------------- Setup Kegiatan -----------------------------------------
 
 'Add New Setup Kegiatan
@@ -256,6 +315,8 @@ Sub EditSetupKegiatan
 	wait 2
 	Browser("DPLK").Page("Setup Kegiatan").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Detail Data Sebelum Diedit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Kegiatan Pasarmodal").Set kegiatanPasarModal
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -299,6 +360,61 @@ Sub DeleteSetupKegiatan
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Data Dengan Kegiatan Id "&kegiatanId&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Dengan Kegiatan Id " &kegiatanId& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Kegiatan
+Sub ApproveSetupKegiatan
+	Dim kegiatanId
+	kegiatanId			= DataTable.Value("KEGIATAN_ID", dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Kegiatan").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Kegiatan").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Kegiatan").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmDelete()
+	If Browser("DPLK").Page("Setup Kegiatan").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Set kegiatanId
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Data Dengan Kegiatan Id "&kegiatanId&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Kegiatan").WebElement("Tabel Data Setup Kegiatan").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Kegiatan").WebElement("Tabel Data Setup Kegiatan").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 10}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Berikut Data Dengan Kegiatan Id "&kegiatanId&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

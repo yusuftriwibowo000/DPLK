@@ -1,12 +1,13 @@
 ﻿Set objkey 		= CreateObject("WScript.Shell")
 Set devices 	= CreateObject("Mercury.DeviceReplay")
 
-'Setup Portofolio
+'Setup Portofolio, Setup Kegiatan, Setup Klasifikasi
 'Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
+'(Verifikasi, Batal Verifikasi, Kembalikan Ke Register)
 Dim statusVerifikasi, keteranganVerifikasi, explain
 	
 REM -------------------------------- Global Function -----------------------------------------
-Sub ConfirmDelete
+Sub ConfirmOtorisasi
 	Dim password
 	password = DataTable.Value("PASSWORD", dtlocalsheet)
 	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
@@ -201,7 +202,7 @@ Sub ApproveSetupPortofolio
 	wait 2
 	Browser("DPLK").Page("Setup Portofolio").WebButton("Btn Simpan").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Portofolio").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Portofolio"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -397,7 +398,7 @@ Sub ApproveSetupKegiatan
 	wait 2
 	Browser("DPLK").Page("Setup Kegiatan").WebButton("Btn Simpan").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Kegiatan").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Kegiatan"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -466,7 +467,6 @@ Sub AddSetupKlasifikasi
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
-	
 End Sub
 
 'View Setup Klasifikasi
@@ -503,6 +503,8 @@ Sub EditSetupKlasifikasi
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Edit").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Berikut Detail Data Sebelum Diedit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Nama Klasifikasi").Set namaKlasifikasi
 	wait 2
@@ -547,6 +549,61 @@ Sub DeleteSetupKlasifikasi
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), " Berikut Data Dengan Kode Klasifikasi "&kodeKlasifikasi&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Dengan Kode Klasifikasi " &kodeKlasifikasi& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Klasifikasi
+Sub ApproveSetupKlasifikasi
+	Dim kodeKlasifikasi
+	kodeKlasifikasi			= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Klasifikasi").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Klasifikasi").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Set kodeKlasifikasi
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Berikut Data Dengan Kode Klasifikasi "&kodeKlasifikasi&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Klasifikasi").WebElement("Tabel Data Setup Klasifikasi").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Klasifikasi").WebElement("Tabel Data Setup Klasifikasi").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 10}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Berikut Data Dengan Kode Klasifikasi "&kodeKlasifikasi&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Klasifikasi"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
@@ -1358,7 +1415,7 @@ Sub DeleteSetupPICBroker
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup PIC Broker").WebButton("Btn Ya, yakin! Hapus").Click
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Setup PIC Broker").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Jenis Broker " &Left(kodeBroker,3)& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
@@ -1503,7 +1560,7 @@ Sub DeleteSetupSektor
 	wait 2
 	Browser("DPLK").Page("Setup Sektor").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Sektor").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor " &kodeSektor& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -1635,7 +1692,7 @@ Sub DeleteSetupSubSektor
 	wait 2
 	Browser("DPLK").Page("Setup Subsektor").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Subsektor").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Subsektor"), "Data Dengan Kode Sub Sektor " &kodeSubSektor& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -1765,7 +1822,7 @@ Sub DeleteSetupJenisEmiten
 	wait 2
 	Browser("DPLK").Page("Setup Jenis Emiten").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Jenis Emiten").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Emiten"), "Data Dengan Kode Jenis Pemilik " &kodeJenisPemilik& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -1893,7 +1950,7 @@ Sub DeleteSetupGroupEmiten
 	wait 2
 	Browser("DPLK").Page("Setup Group Emiten").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Group Emiten").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Group Emiten"), "Data Dengan Nama Group Emiten " &namaGroupEmiten& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -2191,7 +2248,7 @@ Sub DeleteSetupEmiten
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Emiten").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Data Dengan Nama Emiten " &namaEmiten& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -2315,7 +2372,7 @@ Sub DeleteSetupTipeDeviden
 	wait 2
 	Browser("DPLK").Page("Setup Tipe Deviden").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Tipe Deviden").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Tipe Deviden"), "Data Dengan Kode Tipe Deviden " &kodeTipeDeviden& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -2443,7 +2500,7 @@ Sub DeleteSetupJenisBeban
 	wait 2
 	Browser("DPLK").Page("Setup Jenis Beban").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Jenis Beban").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Beban"), "Data Dengan Kode Beban " &kodeBeban& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -2581,7 +2638,7 @@ Sub DeleteSetupParameterInvestasi
 	wait 2
 	Browser("DPLK").Page("Setup Parameter Investasi").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Parameter Investasi").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Parameter Investasi"), "Data Dengan Kode Parameter " &kodeParameter& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
@@ -2757,7 +2814,7 @@ Sub DeleteSetupMappingPVRTB
 	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
-	Call ConfirmDelete()
+	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Dengan Kode Akun " &kodeAkun& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2

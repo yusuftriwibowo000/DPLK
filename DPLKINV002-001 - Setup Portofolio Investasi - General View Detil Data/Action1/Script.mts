@@ -3,7 +3,7 @@ Dim preparation ,iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKINV002-001 - Setup Portofolio Investasi - General View Detil Data.xlsx", "DPLKINV002")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKINV002-001 - Setup Portofolio Investasi - General View Detil Data.xlsx", "DPLKINV002-001")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
@@ -17,18 +17,9 @@ Call DA_Login()
 Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu()
 
-'If iteration = 1 Then
-'	Call AddSetupPortofolio()	
-'ElseIf iteration = 2 Then
 Call ViewSetupPortofolio()
-'ElseIf iteration = 3 Then
-'	Call EditSetupPortofolio()
-'ElseIf iteration = 4 Then
-'	Call DeleteSetupPortofolio()
-'End If
 
 Call DA_Logout("0")
-
 Call spReportSave()
 	
 Sub spLoadLibrary()

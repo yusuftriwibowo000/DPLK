@@ -5,6 +5,9 @@ Set devices 	= CreateObject("Mercury.DeviceReplay")
 'Dim portoId, portoNama, invId, kode, noUrut, prefixSurat, portoIdOjk, keterangan, statusRegister, keteranganRegister
 '(Verifikasi, Batal Verifikasi, Kembalikan Ke Register)
 Dim statusVerifikasi, keteranganVerifikasi, explain
+
+'Setup Broker
+Dim no, bank, cabang, noRekening, pemilikRekening, dtDefault
 	
 REM -------------------------------- Global Function -----------------------------------------
 Sub ConfirmOtorisasi
@@ -1284,7 +1287,7 @@ REM -------------------------------- Setup Broker ------------------------------
 
 'Add New Setup Broker
 Sub AddSetupBroker
-	Dim jenisBroker, kodeBroker, namaBroker, persenKomisi, persenVAT, persenLevy, persenKPEI, persenQTC, persenSalesTax, persenPPh23, nonAktif
+	Dim jenisBroker, kodeBroker, namaBroker, persenKomisi, persenVAT, persenLevy, persenKPEI, persenQTC, persenSalesTax, persenPPh23, nonAktif, statusRegister, keteranganRegister
 		jenisBroker			= DataTable.Value("JENIS_BROKER", dtlocalsheet)
 		kodeBroker			= DataTable.Value("KODE_BROKER", dtlocalsheet)
 		namaBroker			= DataTable.Value("NAMA_BROKER", dtlocalsheet)
@@ -1296,6 +1299,8 @@ Sub AddSetupBroker
 		persenSalesTax		= DataTable.Value("PERSEN_SALES_TAX", dtlocalsheet)
 		persenPPh23			= DataTable.Value("PERSEN_PPH23", dtlocalsheet)
 		nonAktif			= DataTable.Value("NON_AKTIF", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -1334,26 +1339,74 @@ Sub AddSetupBroker
 	wait 1
 	Call ChecklistSetupBroker()
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Isi Semua Field yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Isi Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
 	Call AddSetupBrokerRekening()
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Isi Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup Broker").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup Broker").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Set kodeJenisBroker
+		Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Dengan Kode Jenis Broker " &kodeJenisBroker& " Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Dengan Kode Broker : "&kodeBroker&" Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
 
 'Add Setup Broker Rekening
 Sub AddSetupBrokerRekening
+	no				= DataTable.Value("NO", dtlocalsheet)
+	bank			= DataTable.Value("BANK", dtlocalsheet)
+	cabang			= DataTable.Value("CABANG", dtlocalsheet)
+	noRekening		= DataTable.Value("NO_REKENING", dtlocalsheet)
+	pemilikRekening	= DataTable.Value("PEMILIK_REKENING", dtlocalsheet)
 	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebButton("Btn Tambah"), "Klik Button Tambah Untuk Tambah Data Rekening", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field No").Set no
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Bank").Click
+	wait 1
+	objkey.SendKeys(bank)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Cabang").Set cabang
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field No.Rekening").Set noRekening
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Pemilik Rekening").Set pemilikRekening
+	wait 1
+	If dtDefault = "Tidak" Then
+		Browser("DPLK").Page("Setup Broker").WebList("Dropdown Default").Click
+		wait 1
+		objkey.SendKeys"{DOWN}"
+		wait 1
+		objkey.SendKeys"{ENTER}"
+	End If
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Isi Fields Untuk Data Rekening, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebButton("Btn Simpan Modal").Click
 End Sub
 
 'Checklist Setup Broker
@@ -1380,80 +1433,158 @@ End Sub
 
 'View Setup Broker
 Sub ViewSetupBroker
-	Dim kodeJenisBroker
-	kodeJenisBroker	= DataTable.Value("KODE_JENIS_BROKER", dtlocalsheet)
+	Dim kodeBroker
+	kodeBroker	= DataTable.Value("KODE_BROKER", dtlocalsheet)
 	
-	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Set kodeJenisBroker
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Browser("DPLK").Page("Setup Jenis Broker").WebElement("Btn View").Click
+	Browser("DPLK").Page("Setup Broker").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Berikut Detail Data Pada Kode Custody " &kodeJenisBroker, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Pada Kode Broker : "&kodeBroker, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Pada Kode Broker : "&kodeBroker, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
 'Edit Setup Broker
 Sub EditSetupBroker
-	Dim kodeJenisBroker, namaJenisBroker, statusRegister, keteranganRegister
-		kodeJenisBroker		= DataTable.Value("KODE_JENIS_BROKER", dtlocalsheet)
-		namaJenisBroker		= DataTable.Value("NAMA_JENIS_BROKER", dtlocalsheet)
-		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
-		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	Dim kodeBroker
+	kodeBroker		= DataTable.Value("KODE_BROKER", dtlocalsheet)
+	no				= DataTable.Value("NO", dtlocalsheet)
+	bank			= DataTable.Value("BANK", dtlocalsheet)
+	cabang			= DataTable.Value("CABANG", dtlocalsheet)
+	noRekening		= DataTable.Value("NO_REKENING", dtlocalsheet)
+	pemilikRekening	= DataTable.Value("PEMILIK_REKENING", dtlocalsheet)
 
-	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Set kodeJenisBroker
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Search Data yang Akan Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Browser("DPLK").Page("Setup Jenis Broker").WebElement("Btn Edit").Click
+	Browser("DPLK").Page("Setup Broker").WebElement("Btn Edit").Click
 	wait 2
-	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Nama Jenis Broker").Set namaJenisBroker
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	objkey.SendKeys"{PGDN}"
 	wait 2
-	Browser("DPLK").Page("Setup Jenis Broker").WebButton("Btn Simpan").Click
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	If Browser("DPLK").Page("Setup Jenis Broker").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebElement("Btn Edit"), "Klik Button Edit Pada Data Rekening", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebElement("Btn Edit").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Rekening Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Cabang").Set cabang
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Ubah Field Data Rekening Yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebButton("Btn Simpan Modal").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Rekening Setelah Diubah, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Broker").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Set kodeJenisBroker
+		Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Berikut Data Dengan Kode Jenis Broker " &kodeJenisBroker& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Data Dengan Kode : " &kodeBroker& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	Wait 2
+	wait 2
 End Sub
 
 'Delete Setup Broker
 Sub DeleteSetupBroker
-	Dim kodeJenisBroker
-	kodeJenisBroker	= DataTable.Value("KODE_JENIS_BROKER", dtlocalsheet)
+	Dim kodeBroker
+	kodeBroker	= DataTable.Value("KODE_BROKER", dtlocalsheet)
 	
-	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Set kodeJenisBroker
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Data").Set kodeBroker
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Browser("DPLK").Page("Setup Jenis Broker").WebElement("Btn Hapus").Click
+	Browser("DPLK").Page("Setup Broker").WebElement("Btn Hapus").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Browser("DPLK").Page("Setup Jenis Broker").WebButton("Btn Ya, yakin! Hapus").Click
+	Browser("DPLK").Page("Setup Broker").WebButton("Btn Ya, yakin! Hapus").Click
+	Call ConfirmOtorisasi()
 	wait 2
-	If Browser("DPLK").Page("Setup Jenis Broker").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Dengan Kode Jenis Broker " &kodeJenisBroker& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	If Browser("DPLK").Page("Setup Broker").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Dengan Kode Broker : " &kodeBroker& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Set kodeJenisBroker
+		Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Berikut Data Dengan Kode Jenis Broker " &kodeJenisBroker& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Data Dengan Kode Broker : " &kodeBroker& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Dengan Kode Jenis Broker " &kodeJenisBroker& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Dengan Kode Broker : " &kodeBroker& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Broker
+Sub ApproveSetupBroker
+	Dim kodeBroker
+	kodeBroker				= DataTable.Value("KODE_BROKER", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Broker").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Broker").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Set kodeBroker
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Data Dengan Kode Broker : "&kodeBroker&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Broker").WebElement("Tabel Data Setup Broker").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Broker").WebElement("Tabel Data Setup Broker").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Berikut Data Dengan Kode Broker : "&kodeBroker&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Broker"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
@@ -1531,7 +1662,7 @@ Sub AddSetupPICBroker
 		wait 2
 		Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Set Left(kodeBroker, 3)
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Broker " &Left(kodeBroker, 3)& " Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Broker : " &Left(kodeBroker, 3)& " Telah Tersedia", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -1551,7 +1682,11 @@ Sub ViewSetupPICBroker
 	wait 2
 	Browser("DPLK").Page("Setup PIC Broker").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Detail Data Pada Kode Broker " &Left(kodeBroker, 3), " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Detail Data Pada Kode Broker : " &Left(kodeBroker, 3), " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Detail Data Pada Kode Broker : " &Left(kodeBroker, 3), " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
@@ -1580,6 +1715,14 @@ Sub EditSetupPICBroker
 	wait 2
 	Browser("DPLK").Page("Setup PIC Broker").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGUP}"
+	wait 1
 	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Nama").Set nama
 	wait 1
 	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Alamat").Set alamat
@@ -1590,6 +1733,12 @@ Sub EditSetupPICBroker
 	wait 1
 	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Keterangan").Set keterangan
 	wait 2
+	objkey.SendKeys"{PGUP}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Ubah Field Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup PIC Broker").WebButton("Btn Simpan").Click
@@ -1599,11 +1748,11 @@ Sub EditSetupPICBroker
 		wait 2
 		Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Set Left(kodeBroker,3)
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Data Dengan Kode Broker " &Left(kodeBroker,3)& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Data Dengan Kode Broker : " &Left(kodeBroker,3)& " Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	Wait 2
+	wait 2
 End Sub
 
 'Delete Setup PIC Broker
@@ -1625,13 +1774,68 @@ Sub DeleteSetupPICBroker
 	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Setup PIC Broker").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Jenis Broker " &Left(kodeBroker,3)& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Jenis Broker : " &Left(kodeBroker,3)& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Set Left(kodeBroker,3)
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Data Dengan Kode Broker " &Left(kodeBroker,3)& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Data Dengan Kode Broker : " &Left(kodeBroker,3)& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Broker " &Left(kodeBroker,3)& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Dengan Kode Broker : " &Left(kodeBroker,3)& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup PIC Broker
+Sub ApproveSetupPICBroker
+	Dim kodeBroker
+	kodeBroker				= DataTable.Value("KODE_BROKER", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Set Left(kodeBroker,3)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup PIC Broker").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup PIC Broker").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup PIC Broker").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup PIC Broker").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Set Left(kodeBroker,3)
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Data Dengan Kode Broker : "&Left(kodeBroker,3)&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup PIC Broker").WebElement("Tabel Data Setup PIC Broker").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup PIC Broker").WebElement("Tabel Data Setup PIC Broker").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 20}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Berikut Data Dengan Kode Broker : "&Left(kodeBroker,3)&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup PIC Broker"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

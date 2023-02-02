@@ -1,9 +1,9 @@
-﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult @@ script infofile_;_ZIP::ssf7.xml_;_
+﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult
 Dim preparation ,iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKINV001-007 - Setup Broker Investasi - General Tambah, Ubah, View Detil & Hapus Data.xlsx", "DPLKINV001")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKINV032-001 - Setup Broker Investasi - General View Detil.xlsx", "DPLKINV032-001")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
@@ -11,23 +11,15 @@ Call spReportInitiate()
 dtPreparation = Split(preparation, ";")
 Call spAddScenario(dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult, dtPreparation)
 iteration = Environment.Value("ActionIteration")
+
 REM ------- DPLK
-'Call DA_Login()
-'Call GoTo_SidebarMenu(dtSidebarMenu)
-'Call GoTo_SidebarSubMenu(dtSidebarSubMenu)
+Call DA_Login()
+Call GoTo_SidebarMenu2()
+Call GoTo_SidebarSubMenu()
 
-'If iteration = 1 Then
-'	Call AddSetupPortofolio()	
-'ElseIf iteration = 2 Then
-'	Call ViewSetupPortofolio()
-'ElseIf iteration = 3 Then
-'	Call EditSetupPortofolio()
-'ElseIf iteration = 4 Then
-'	Call DeleteSetupPortofolio()
-'End If
-'
-'Call DA_Logout("0")
+Call ViewSetupBroker()
 
+Call DA_Logout("0")
 Call spReportSave()
 	
 Sub spLoadLibrary()
@@ -36,11 +28,11 @@ Sub spLoadLibrary()
 	
 	Set objSysInfo 		= Createobject("Wscript.Network")	
 	
-	tempDPLKPath 	= Environment.Value("TestDir")
-	tempDPLKPath2 	= InStrRev(tempDPLKPath, "\")
-	PathDPLK 		= Left(tempDPLKPath, tempDPLKPath2)
+	tempDPLKPath 		= Environment.Value("TestDir")
+	tempDPLKPath2 		= InStrRev(tempDPLKPath, "\")
+	PathDPLK 			= Left(tempDPLKPath, tempDPLKPath2)
 	
-	LibPathDPLK	= PathDPLK & "Lib_Repo_Excel\LibDPLK\"
+	LibPathDPLK			= PathDPLK & "Lib_Repo_Excel\LibDPLK\"
 	LibReport			= PathDPLK & "Lib_Repo_Excel\LibReport\"
 	LibRepo				= PathDPLK & "Lib_Repo_Excel\Repo\"
 

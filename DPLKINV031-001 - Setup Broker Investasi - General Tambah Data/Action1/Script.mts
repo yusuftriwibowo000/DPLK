@@ -17,7 +17,7 @@ Call DA_Login()
 Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu()
 
-Call ApproveSetupCustodian()	
+Call AddSetupBroker()
 
 Call DA_Logout("0")
 Call spReportSave()

@@ -1882,7 +1882,7 @@ Sub AddSetupSektor
 	wait 1
 	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Keterangan Register").Set keteranganRegister
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Sektor").WebButton("Btn Simpan").Click
 	wait 2
@@ -1891,7 +1891,7 @@ Sub AddSetupSektor
 		wait 2
 		Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Set kodeSektor
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor "&kodeSektor&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor : "&kodeSektor&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -1911,7 +1911,7 @@ Sub ViewSetupSektor
 	wait 2
 	Browser("DPLK").Page("Setup Sektor").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Detail Data Pada Kode Sektor " &kodeSektor, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Detail Data Pada Kode Sektor : " &kodeSektor, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
@@ -1936,9 +1936,11 @@ Sub EditSetupSektor
 	wait 2
 	Browser("DPLK").Page("Setup Sektor").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Nama Singkat").Set namaSingkat
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Ubah Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Sektor").WebButton("Btn Simpan").Click
 	wait 2
@@ -1947,7 +1949,7 @@ Sub EditSetupSektor
 		wait 2
 		Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Set kodeSektor
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Data Dengan Kode Sektor "&kodeSektor&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Data Dengan Kode Sektor : "&kodeSektor&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -1973,13 +1975,68 @@ Sub DeleteSetupSektor
 	wait 2
 	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Sektor").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor " &kodeSektor& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor : " &kodeSektor& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Set kodeSektor
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Data Dengan Kode Sektor "&kodeSektor&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Data Dengan Kode Sektor : "&kodeSektor&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor " &kodeSektor& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Dengan Kode Sektor : " &kodeSektor& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Sektor
+Sub ApproveSetupSektor
+	Dim kodeSektor
+	kodeSektor				= DataTable.Value("KODE_SEKTOR", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Set kodeSektor
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Sektor").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Sektor").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Sektor").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Sektor").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Set kodeSektor
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Data Dengan Kode Sektor : "&kodeSektor&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Sektor").WebElement("Tabel Data Setup Sektor").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Sektor").WebElement("Tabel Data Setup Sektor").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Berikut Data Dengan Kode Sektor : "&kodeSektor&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Sektor"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

@@ -2692,17 +2692,15 @@ Sub AddSetupEmiten
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Keterangan Register").Set keteranganRegister
 	wait 1
-	Call ChecklistSetupEmiten()
+'	Call ChecklistSetupEmiten()
 	objkey.SendKeys "{PGUP}"
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Isi Semua Field yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Isi Semua Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys "{PGDN}"
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Isi Semua Field yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
 	Call AddSetupEmitenRekening()
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan"), "Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan").Click
 	wait 2
@@ -2729,7 +2727,7 @@ Sub AddSetupEmitenRekening
 	dtDefault		= DataTable.Value("DEFAULT", dtlocalsheet)
 	
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten").WebButton("Btn Tambah"), "Klik Button Tambah Untuk Menambah Data Rekenning", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten").WebButton("Btn Tambah"), "Klik Button Tambah Untuk Menambah Data Rekening", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Tambah").Click
 	wait 2
@@ -2747,11 +2745,9 @@ Sub AddSetupEmitenRekening
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Pemilik Rekening").Set pemilikRekening
 	wait 1
-	Browser("DPLK").Page("Setup Emiten").WebList("Dropdown Default").Click
-	wait 1
-	If dtDefault = "Ya" Then
-		objkey.SendKeys "{ENTER}"
-	Else
+	If dtDefault <> "Ya" Then
+		Browser("DPLK").Page("Setup Emiten").WebList("Dropdown Default").Click
+		wait 1
 		objkey.SendKeys "{DOWN}"
 		wait 1
 		objkey.SendKeys "{ENTER}"
@@ -2760,8 +2756,6 @@ Sub AddSetupEmitenRekening
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Isi Semua Field yang Dibutuhkan Untuk Menambah Data Rekening, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan Rekening").Click
-	wait 3
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Data Rekening Sudah Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
@@ -2780,15 +2774,13 @@ Sub EditSetupEmitenRekening
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Detail Data Rekening Sebelum Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebEdit("Field No.Rekening").Set noRekening
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan Rekening").Click
-	wait 3
-	objkey.SendKeys "{PGDN}"
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Data Rekening Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 
 End Sub
@@ -2819,8 +2811,7 @@ End Sub
 
 'View Setup Emiten
 Sub ViewSetupEmiten
-	Dim kodeEmiten, namaEmiten
-	kodeEmiten	= DataTable.Value("KODE_EMITEN", dtlocalsheet)
+	Dim namaEmiten
 	namaEmiten	= DataTable.Value("NAMA_EMITEN", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Set namaEmiten
@@ -2852,7 +2843,18 @@ Sub EditSetupEmiten
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebElement("Btn Edit").Click
-	Call EditSetupEmitenRekening
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Detail Data Sebelum Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Detail Data Sebelum Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call EditSetupEmitenRekening()
+	objkey.SendKeys "{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Data Rekening Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan"), "Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan").Click
@@ -2866,7 +2868,7 @@ Sub EditSetupEmiten
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
-	Wait 2
+	wait 2
 End Sub
 
 'Delete Setup Emiten
@@ -2896,6 +2898,61 @@ Sub DeleteSetupEmiten
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Data Dengan Nama Emiten " &namaEmiten& " Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Jenis Broker"), "Data Dengan Nama Emiten " &namaEmiten& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Emiten
+Sub ApproveSetupEmiten
+	Dim namaEmiten
+	namaEmiten				= DataTable.Value("NAMA_EMITEN", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Data").Set namaEmiten
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Emiten").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Emiten").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Emiten").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Data").Set namaEmiten
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Data Dengan Nama Emiten : "&namaEmiten&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Emiten").WebElement("Tabel Data Setup Emiten").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Emiten").WebElement("Tabel Data Setup Emiten").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 8}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Berikut Data Dengan Nama Emiten : "&namaEmiten&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Emiten"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

@@ -1,48 +1,48 @@
 ﻿Set objkey	= CreateObject("WScript.Shell")
 Set devices = CreateObject("Mercury.DeviceReplay")
 
-'Register Produk
-Dim kodeProduk, namaProduk, keterangan, valuta, tglMulai, tglBerakhir, tipePeserta, usiaMinimal, usiaMaksimal, iuranMinimal, iuranMaksimal, kodeManfaat, statusRegister, keteranganRegister
-
-'Register Corporate
-'(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
-Dim namaPerusahaan, namaAlias, badanHukum, noTeleponUtama, noFaxUtama, website, emailUtama, sektorUsaha, grupUsaha, negaraGrupUsaha
-Dim lamaBerusaha, jmlKaryawan, tipeKantor, kantorInduk, kodePerusahaan, npwp, pendapatanPerTahunUtama, sumberDanaUtama, tujuanPenggunaanDana, usiaPensiun, iuranPerBulan
-
-'Register Corporate - Alamat
-Dim alamat, provinsi, kotaKabupaten, kecamatan, kelurahan, kodePos, RT, RW
-
-'Register Corporate - Data Legalitas
-Dim noAktePengesahan, tanggal1, noAktePendirian, tanggal2, notaris1, tempatAkteDibuat, noAktePerubahan, tanggal3, notaris2, noIzinBerusaha, tanggal4, perizinanLainnya, tanggal5
-
-'Register Corporate - Beneficial Owner
-Dim namaSesuaiID, nomorIdentitas, alamatSesuaiID, tempatLahir, kewarganegaraan, jenisKelamin, statusPerkawinan, pekerjaan
-Dim alamatTempatKerja, noAreaTelepon, noTelepon1, sumberDana, pendapatanPerTahun, tujuanDana, hubHukum
-
-'Register Corporate - Contact Person
-Dim noUrut, nama, jabatan, email, noTelepon, noHP
-
-'Register Corporate - Rekening Bank
-Dim kodeBank, nomorRekening, namaPemegangRekening, cabangBank, kotaBank
-
-'Register Deposit (Bulk)
-'(kodePerusahaan gak dideklarasikan karena sudah ada variablenya di Register Corporate)
-Dim fileExcel, keteranganUpload, kantor, tanggalTransaksi
-Dim tempDPLKPath, tempDPLKPath2, uploadPathDPLK, pathDPLK, fullPathFile
-
-'Penarikan Iuran 10%
-'(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
-Dim keteranganPerubahan, nomorPeserta
-
-'Pemindahan Kepesertaan Kolektif
-'(keteranganPerubahan gak dideklarasikan karena sudah ada variablenya di Penarikan Iuran 10%)
-'(nomorRekening gak dideklarasikan karena sudah ada variablenya di Register Corporate - Rekening Bank)
-'(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
-Dim pilihPerusahaan, explain
-
-'Register Perjanjian Kerja Sama
-'(keterangan, valuta, tglMulai, tglBerakhir, usiaMinimal, usiaMaksimal, iuranMinimal, iuranMaksimal, statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
-Dim nomorPKS, jenisDokumenPerjanjian, jenisPerjanjian, nomorKolektif, kepesertaan, jenisProgramPensiun
+''Register Produk
+'Dim kodeProduk, namaProduk, keterangan, valuta, tglMulai, tglBerakhir, tipePeserta, usiaMinimal, usiaMaksimal, iuranMinimal, iuranMaksimal, kodeManfaat, statusRegister, keteranganRegister
+'
+''Register Corporate
+''(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
+'Dim namaPerusahaan, namaAlias, badanHukum, noTeleponUtama, noFaxUtama, website, emailUtama, sektorUsaha, grupUsaha, negaraGrupUsaha
+'Dim lamaBerusaha, jmlKaryawan, tipeKantor, kantorInduk, kodePerusahaan, npwp, pendapatanPerTahunUtama, sumberDanaUtama, tujuanPenggunaanDana, usiaPensiun, iuranPerBulan
+'
+''Register Corporate - Alamat
+'Dim alamat, provinsi, kotaKabupaten, kecamatan, kelurahan, kodePos, RT, RW
+'
+''Register Corporate - Data Legalitas
+'Dim noAktePengesahan, tanggal1, noAktePendirian, tanggal2, notaris1, tempatAkteDibuat, noAktePerubahan, tanggal3, notaris2, noIzinBerusaha, tanggal4, perizinanLainnya, tanggal5
+'
+''Register Corporate - Beneficial Owner
+'Dim namaSesuaiID, nomorIdentitas, alamatSesuaiID, tempatLahir, kewarganegaraan, jenisKelamin, statusPerkawinan, pekerjaan
+'Dim alamatTempatKerja, noAreaTelepon, noTelepon1, sumberDana, pendapatanPerTahun, tujuanDana, hubHukum
+'
+''Register Corporate - Contact Person
+'Dim noUrut, nama, jabatan, email, noTelepon, noHP
+'
+''Register Corporate - Rekening Bank
+'Dim kodeBank, nomorRekening, namaPemegangRekening, cabangBank, kotaBank
+'
+''Register Deposit (Bulk)
+''(kodePerusahaan gak dideklarasikan karena sudah ada variablenya di Register Corporate)
+'Dim fileExcel, keteranganUpload, kantor, tanggalTransaksi
+'Dim tempDPLKPath, tempDPLKPath2, uploadPathDPLK, pathDPLK, fullPathFile
+'
+''Penarikan Iuran 10%
+''(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
+'Dim keteranganPerubahan, nomorPeserta
+'
+''Pemindahan Kepesertaan Kolektif
+''(keteranganPerubahan gak dideklarasikan karena sudah ada variablenya di Penarikan Iuran 10%)
+''(nomorRekening gak dideklarasikan karena sudah ada variablenya di Register Corporate - Rekening Bank)
+''(statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
+'Dim pilihPerusahaan, explain
+'
+''Register Perjanjian Kerja Sama
+''(keterangan, valuta, tglMulai, tglBerakhir, usiaMinimal, usiaMaksimal, iuranMinimal, iuranMaksimal, statusRegister, keteranganRegister gak dideklarasikan karena sudah ada variablenya di Register Produk)
+'Dim nomorPKS, jenisDokumenPerjanjian, jenisPerjanjian, nomorKolektif, kepesertaan, jenisProgramPensiun
 
 REM -------------------------------- Global Function -----------------------------------------
 Sub ConfirmOtorisasi

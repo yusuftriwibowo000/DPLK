@@ -2468,7 +2468,7 @@ Sub ViewSetupGroupEmiten
 	Dim keterangan
 	keterangan	= DataTable.Value("KETERANGAN", dtlocalsheet)
 	
-	Browser("DPLK").Page("Setup Group Emiten").WebEdit("Field Search Data").Set namaGroupEmiten
+	Browser("DPLK").Page("Setup Group Emiten").WebEdit("Field Search Data").Set keterangan
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Group Emiten"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2

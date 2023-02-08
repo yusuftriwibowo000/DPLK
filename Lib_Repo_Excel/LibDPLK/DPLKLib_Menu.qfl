@@ -541,7 +541,7 @@ Function DA_Logout(ByVal isError)
 		wait 2
 		Browser("DPLK").Page("Dashboard").WebButton("Btn Logout").Click
 
-		If Browser("DPLK").Page("Login").WebElement("Login").Exist(30) Then
+		If Browser("DPLK").Page("Login").WebElement("Login").Exist(10) Then
 			Call CaptureImageUFTV2(Browser("DPLK").Page("Login"),"Berhasil Logout", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 			Call CloseBrowser()
 			Call spReportSave()
@@ -576,7 +576,7 @@ Sub GoTo_SidebarMenu()
 	dtMainSidebar 	= DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
 	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
-	wait 5
+	wait 2
 '	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar"), "Klik Button Pilih Role", " ", compatibilityMode.Desktop, ReportStatus.Done)
 '	wait 2
 '	Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar").Click
@@ -589,7 +589,7 @@ Sub GoTo_SidebarMenu()
 '	wait 2
 	
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Exist(10) Then
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Exist(5) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu& " Pada "&dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Passed)
@@ -607,10 +607,10 @@ Sub GoTo_SidebarMenu2()
 	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	role			= DataTable.Value("ROLE",dtlocalsheet)
 	
-	wait 3
+	wait 2
 	
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "&dtSidebarMenu&" "&dtMainSidebar&" "& role).SetTOProperty "text", dtSidebarMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& role).Exist(10) Then
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& role).Exist(5) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& role).Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sidebar "&dtSidebarMenu& " Pada "&dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Passed)
@@ -628,7 +628,7 @@ Sub GoTo_SidebarSubMenu()
 	dtSidebarSubMenu = DataTable.Value("SIDEBAR_SUBMENU",dtlocalsheet)
 	
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").SetTOProperty "text", dtSidebarSubMenu
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Exist(10) Then
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Exist(5) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Submenu "&dtSidebarSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
@@ -647,13 +647,13 @@ Sub GoTo_SidebarSubMenu2()
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").SetTOProperty "text", dtSidebarSubMenu
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").SetTOProperty "text", dtSidebarSubSubMenu
 
-	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Exist(10) Then
+	If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Exist(5) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu With Sub Menu").Click
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Submenu "&dtSidebarSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		
-		If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Exist(10) Then
+		If Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Exist(5) Then
 			Browser("DPLK").Page("Sidebar").Link("Sidebar Submenu Without Sub Menu").Click
 			wait 2
 			Call CaptureImageUFTV2(Browser("DPLK").Page("Dashboard"), "Pilih Sub Submenu "&dtSidebarSubSubMenu, " ", compatibilityMode.Desktop, ReportStatus.Passed)

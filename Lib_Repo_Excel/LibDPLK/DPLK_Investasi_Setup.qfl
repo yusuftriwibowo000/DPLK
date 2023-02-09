@@ -3501,6 +3501,271 @@ Sub ApproveSetupParameterInvestasi
 	wait 2
 End Sub
 
+REM -------------------------------- Setup Mapping Jurnal Investasi -----------------------------------------
+
+'Add New Setup Mapping Jurnal Investasi
+Sub AddSetupMappingJurnalInvestasi
+	Dim noUrut, kodeInstrumen, portoID, kegiatan, namaKegiatan, produk, kodeKlasifikasi, fundId, kodePortoReksadana, kodeJurnal, keterangan, statusRegister, keteranganRegister
+		noUrut				= DataTable.Value("NO_URUT", dtlocalsheet)
+		kodeInstrumen		= DataTable.Value("KODE_INSTRUMEN", dtlocalsheet)
+		portoID				= DataTable.Value("PORTO_ID", dtlocalsheet)
+		kegiatan			= DataTable.Value("KEGIATAN", dtlocalsheet)
+		namaKegiatan		= DataTable.Value("NAMA_KEGIATAN", dtlocalsheet)
+		produk				= DataTable.Value("PRODUK", dtlocalsheet)
+		kodeKlasifikasi		= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+		fundId				= DataTable.Value("FUND_ID", dtlocalsheet)
+		kodePortoReksadana	= DataTable.Value("KODE_PORTO_REKSADANA", dtlocalsheet)
+		kodeJurnal			= DataTable.Value("KODE_JURNAL", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebButton("Btn Tambah").Click
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field No Urut").Set noUrut
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Kode Instrumen").Set kodeInstrumen
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Porto ID").Click
+	wait 1
+	objkey.SendKeys(portoID)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kegiatan").Click
+	wait 1
+	objkey.SendKeys(kegiatan)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Nama Kegiatan").Set namaKegiatan
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Produk").Click
+	wait 1
+	objkey.SendKeys(produk)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kode Klasifikasi").Click
+	wait 1
+	objkey.SendKeys(kodeKlasifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Fund Id").Click
+	wait 1
+	objkey.SendKeys(fundId)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kode Porto Reksadana").Click
+	wait 1
+	objkey.SendKeys(kodePortoReksadana)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Kode Jurnal").Set kodeJurnal
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Dengan No. Urut : "&noUrut&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'View Setup Mapping Jurnal Investasi
+Sub ViewSetupMappingJurnalInvestasi
+	Dim noUrut
+	noUrut	= DataTable.Value("NO_URUT", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn View"), "Klik Button View Detail", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Detail Data Pada No. Urut : " &noUrut, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Edit Setup Mapping Jurnal Inv
+Sub EditSetupMappingJurnalInvestasi
+	Dim noUrut, kodeInstrumen, portoID, kegiatan, namaKegiatan, produk, kodeKlasifikasi, fundId, kodePortoReksadana, kodeJurnal, keterangan, statusRegister, keteranganRegister
+		noUrut				= DataTable.Value("NO_URUT", dtlocalsheet)
+		kodeInstrumen		= DataTable.Value("KODE_INSTRUMEN", dtlocalsheet)
+		portoID				= DataTable.Value("PORTO_ID", dtlocalsheet)
+		kegiatan			= DataTable.Value("KEGIATAN", dtlocalsheet)
+		namaKegiatan		= DataTable.Value("NAMA_KEGIATAN", dtlocalsheet)
+		produk				= DataTable.Value("PRODUK", dtlocalsheet)
+		kodeKlasifikasi		= DataTable.Value("KODE_KLASIFIKASI", dtlocalsheet)
+		fundId				= DataTable.Value("FUND_ID", dtlocalsheet)
+		kodePortoReksadana	= DataTable.Value("KODE_PORTO_REKSADANA", dtlocalsheet)
+		kodeJurnal			= DataTable.Value("KODE_JURNAL", dtlocalsheet)
+		keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+		statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+		keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn Edit").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Porto ID").Click
+	wait 1
+	objkey.SendKeys(portoID)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kegiatan").Click
+	wait 1
+	objkey.SendKeys(kegiatan)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Produk").Click
+	wait 1
+	objkey.SendKeys(produk)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	objkey.SendKeys"{PGUP}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Ubah Fields Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Ubah Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+				Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+			wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Data Dengan No. Urut : "&noUrut&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Delete Setup Mapping Jurnal Investasi
+Sub DeleteSetupMappingJurnalInvestasi
+	Dim noUrut
+	noUrut	= DataTable.Value("NO_URUT", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Dengan No. Urut : " &noUrut& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Data Dengan No. Urut : "&noUrut&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Dengan No. Urut : " &noUrut& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Mapping Jurnal Investasi
+Sub ApproveSetupMappingJurnalInvestasi
+	Dim noUrut
+	noUrut					= DataTable.Value("NO_URUT", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Isi Field Status Verifikasi dan noUrut Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Set noUrut
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Data Dengan No. Urut : "&noUrut&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Tabel Data Setup Mapping Jurnal Inv").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Tabel Data Setup Mapping Jurnal Inv").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Berikut Data Dengan No. Urut : "&noUrut&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping Jurnal Inv"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
 REM -------------------------------- Setup Mapping PVR-TB -----------------------------------------
 
 'Add New Setup Mapping PVR-TB
@@ -3524,7 +3789,7 @@ Sub AddSetupMappingPVRTB
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebButton("Btn Tambah").Click
 	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Entitas").Click
-	wait 1
+	wait 2
 	objkey.SendKeys(entitas)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -3573,7 +3838,7 @@ Sub AddSetupMappingPVRTB
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Keterangan Register").Set keteranganRegister
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebButton("Btn Simpan").Click
 	wait 2
@@ -3582,7 +3847,7 @@ Sub AddSetupMappingPVRTB
 		wait 2
 		Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Set kodeAkun
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Dengan Kode Akun "&kodeAkun&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Dengan Kode Akun : "&kodeAkun&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -3602,7 +3867,7 @@ Sub ViewSetupMappingPVRTB
 	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Detail Data Pada Kode Akun " &kodeAkun, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Detail Data Pada Kode Akun : " &kodeAkun, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
@@ -3629,7 +3894,13 @@ Sub EditSetupMappingPVRTB
 	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Keterangan").Set keterangan
+	wait 1
+	objkey.SendKeys"{PGUP}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Ubah Field Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -3640,7 +3911,7 @@ Sub EditSetupMappingPVRTB
 		wait 2
 		Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Set kodeAkun
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Data Dengan Kode Akun "&kodeAkun&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Data Dengan Kode Akun : "&kodeAkun&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -3666,13 +3937,68 @@ Sub DeleteSetupMappingPVRTB
 	wait 2
 	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Dengan Kode Akun " &kodeAkun& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Dengan Kode Akun : " &kodeAkun& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Set kodeAkun
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Data Dengan Kode Akun "&kodeAkun&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Data Dengan Kode Akun : "&kodeAkun&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Dengan Kode Akun " &kodeAkun& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Setup Mapping PVR-TB
+Sub ApproveSetupMappingPVRTB
+	Dim kodeAkun
+	kodeAkun				= DataTable.Value("KODE_AKUN", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Set kodeAkun
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Set kodeAkun
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Data Dengan Kode Akun : "&kodeAkun&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Tabel Data Setup Mapping PVR-TB").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Tabel Data Setup Mapping PVR-TB").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Berikut Data Dengan Kode Akun : "&kodeAkun&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup Mapping PVR-TB"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

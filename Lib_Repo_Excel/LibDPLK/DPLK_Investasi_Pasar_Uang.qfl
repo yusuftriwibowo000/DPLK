@@ -6,6 +6,14 @@ Dim ticketID, tglTransaksi, noSurat, keterangan
 'Verifikasi -> Verifikasi Ticket Deposito
 Dim ticketInduk, statusVerifikasi, keteranganVerifikasi
 
+'Pasar Uang -> Setup ->Setup Profile Bank
+Dim bankID, emiten, kodeBI, cabangBank, alamat, noTelp, namaPIC, daysBasis, jenisPerhitunganBunga, syariah, tglNonAktif, nonAktif
+'Pasar Uang -> Setup ->Setup Profile Bank-Rekening
+Dim kodeBuku, valuta, noRekening, pemilikRekening
+
+'Verifikasi -> Verifikasi Profile Bank
+Dim explain
+
 REM -------------------------------- Global Function -----------------------------------------
 Sub ConfirmOtorisasi
 	Dim password
@@ -13,7 +21,7 @@ Sub ConfirmOtorisasi
 	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
 		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorisasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
 		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
 		wait 2
@@ -25,19 +33,19 @@ REM -------------------------------- Pasar Uang -> Setup ->Setup Profile Bank --
 
 'Add New Setup Profile Bank
 Sub AddSetupProfileBank
-	Dim bankID, emiten, kodeBI, cabangBank, alamat, noTelp, namaPIC, daysBasis, jenisPerhitunganBunga, syariah, tglNonAktif, nonAktif
-		bankID					= DataTable.Value("BANK_ID", dtlocalsheet)
-		emiten					= DataTable.Value("EMITEN", dtlocalsheet)
-		kodeBI					= DataTable.Value("KODE_BI", dtlocalsheet)
-		cabangBank				= DataTable.Value("CABANG_BANK", dtlocalsheet)
-		alamat					= DataTable.Value("ALAMAT", dtlocalsheet)
-		noTelp					= DataTable.Value("NO_TELP", dtlocalsheet)
-		namaPIC					= DataTable.Value("NAMA_PIC", dtlocalsheet)
-		daysBasis				= DataTable.Value("DAYS_BASIS", dtlocalsheet)
-		jenisPerhitunganBunga	= DataTable.Value("JENIS_PERHITUNGAN_BUNGA", dtlocalsheet)
-		syariah					= DataTable.Value("SYARIAH", dtlocalsheet)
-		tglNonAktif				= DataTable.Value("TGL_NON_AKTIF", dtlocalsheet)
-		nonAktif				= DataTable.Value("NON_AKTIF", dtlocalsheet)
+
+	bankID					= DataTable.Value("BANK_ID", dtlocalsheet)
+	emiten					= DataTable.Value("EMITEN", dtlocalsheet)
+	kodeBI					= DataTable.Value("KODE_BI", dtlocalsheet)
+	cabangBank				= DataTable.Value("CABANG_BANK", dtlocalsheet)
+	alamat					= DataTable.Value("ALAMAT", dtlocalsheet)
+	noTelp					= DataTable.Value("NO_TELP", dtlocalsheet)
+	namaPIC					= DataTable.Value("NAMA_PIC", dtlocalsheet)
+	daysBasis				= DataTable.Value("DAYS_BASIS", dtlocalsheet)
+	jenisPerhitunganBunga	= DataTable.Value("JENIS_PERHITUNGAN_BUNGA", dtlocalsheet)
+	syariah					= DataTable.Value("SYARIAH", dtlocalsheet)
+	tglNonAktif				= DataTable.Value("TGL_NON_AKTIF", dtlocalsheet)
+	nonAktif				= DataTable.Value("NON_AKTIF", dtlocalsheet)
 
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -81,7 +89,7 @@ Sub AddSetupProfileBank
 		Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Checklist Box Non Aktif").Click
 	End If
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Isi Semua Field yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Isi Semua Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Call AddRekeningProfileBank()
 	objkey.SendKeys "{PGDN}"
@@ -95,7 +103,7 @@ Sub AddSetupProfileBank
 		wait 2
 		Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID "&bankID&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID : "&bankID&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -104,7 +112,7 @@ End Sub
 
 'Add Rekening Profile Bank
 Sub AddRekeningProfileBank
-	Dim kodeBuku, valuta, noRekening, pemilikRekening
+
 	valuta			= DataTable.Value("VALUTA", dtlocalsheet)
 	noRekening		= DataTable.Value("NO_REKENING", dtlocalsheet)
 	pemilikRekening	= DataTable.Value("PEMILIK_REKENING", dtlocalsheet)
@@ -123,7 +131,7 @@ Sub AddRekeningProfileBank
 	wait 1
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Pemilik Rekening").Set pemilikRekening
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Isi Semua Field yang Dibutuhkan Untuk Tambah Data Rekening, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Isi Semua Fields yang Dibutuhkan Untuk Tambah Data Rekening, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Simpan Edit").Click
 	wait 2
@@ -133,11 +141,13 @@ End Sub
 
 'Edit Rekening Profile Bank
 Sub EditRekeningProfileBank
-	Dim kodeBuku, valuta, noRekening, pemilikRekening
+	
 	valuta			= DataTable.Value("VALUTA", dtlocalsheet)
 	noRekening		= DataTable.Value("NO_REKENING", dtlocalsheet)
 	pemilikRekening	= DataTable.Value("PEMILIK_REKENING", dtlocalsheet)
 	
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn Edit"), "Klik Button Edit, Untuk Edit Data Rekening", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn Edit").Click
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field No Rekening").Set noRekening
@@ -146,13 +156,13 @@ Sub EditRekeningProfileBank
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Simpan Edit").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Rekening Berhasil DiUbah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Rekening Berhasil Diubah", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
 'View Setup Profile Bank
 Sub ViewSetupProfileBank
-	Dim bankID
+	
 	bankID	= DataTable.Value("BANK_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
@@ -163,13 +173,13 @@ Sub ViewSetupProfileBank
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Detail Data Pada Bank ID " &bankID, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Detail Data Pada Bank ID : " &bankID, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
 'Edit Setup Profile Bank
 Sub EditSetupProfileBank
-	Dim bankID
+	
 	bankID	= DataTable.Value("BANK_ID", dtlocalsheet)
 
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
@@ -180,8 +190,13 @@ Sub EditSetupProfileBank
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
 	Call EditRekeningProfileBank()
-	
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Simpan"), "Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
@@ -189,7 +204,7 @@ Sub EditSetupProfileBank
 		wait 2
 		Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Data Dengan Bank ID "&bankID&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Data Dengan Bank ID : "&bankID&" Setelah Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -198,7 +213,7 @@ End Sub
 
 'Delete Setup Profile Bank
 Sub DeleteSetupProfileBank
-	Dim bankID
+	
 	bankID	= DataTable.Value("BANK_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
@@ -209,44 +224,76 @@ Sub DeleteSetupProfileBank
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn Hapus").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Klik Button Ya, yakin!", "Berhubung Data Sudah Disetujui Verifikasinya dan Tidak Bisa Dihapus, Maka yang Dihapus Ambil Dari Data Lainnya", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
 	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID " &bankID& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID : " &bankID& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Data Dengan Bank ID "&bankID&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Data Dengan Bank ID : "&bankID&" Setelah Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID " &bankID& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID : " &bankID& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Batalkan Verifikasi Profile Bank
+Sub UnverifiedProfileBank
+	bankID		= DataTable.Value("BANK_ID", dtlocalsheet)
+	explain		= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn Unverified"), "Klik Button Batal Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Btn Unverified").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID " &bankID& " Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Set bankID
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Berikut Data Dengan Bank ID "&bankID&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Data Dengan Bank ID " &bankID& " Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
 
 REM -------------------------------- Pasar Uang -> Verifikasi -> Verifikasi Profile Bank -----------------------------------------
 
-'Verifikasi Profile Bank
-Sub VerifikasiProfileBank
-	Dim bankID, statusVerifikasi, keteranganVerifikasi
+' Approve Verifikasi Profile Bank
+Sub ApproveProfileBank
+	
 	bankID				= DataTable.Value("BANK_ID", dtlocalsheet)
 	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
 	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
 	
 	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebEdit("Field Search Data").Set bankID
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Search Data yang Akan Diverifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Search Data yang Akan " &explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebElement("Btn Checklist Verifikasi").Click
 	wait 2
-	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebElement("Dropdown Status Verifikasi").Click
-	wait 1
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	objkey.SendKeys "{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
@@ -254,22 +301,20 @@ Sub VerifikasiProfileBank
 	wait 1
 	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Isi Field Untuk Disetujui atau Dikembalikan Ke Data Entry, Kemudian Klik Button Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebButton("Btn Verifikasi").Click
 	wait 2
 	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebElement("×Data berhasil dikembalikan").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Data dengan Bank ID : "&bankID&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Data dengan Bank ID "&bankID&" Dikembalikan Ke Data Entry", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebEdit("Field Search Data").Set bankID
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Berikut Data dengan Bank ID "&bankID&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Data dengan Bank ID "&bankID&" Disetujui", " ", compatibilityMode.Desktop, ReportStatus.Passed)		
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Data dengan Bank ID "&bankID&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)	
 	End If
-	wait 2
-	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebEdit("Field Search Data").Set bankID
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank"), "Berikut Data dengan Bank ID "&bankID&" Setelah Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub
 
@@ -277,6 +322,7 @@ REM -------------------------------- Pasar Uang -> Entry Transaksi -> Deposito J
 
 'Cair Deposito Jatuh Tempo
 Sub CairDepositoJatuhTempo
+
 	ticketID		= DataTable.Value("TICKET_ID", dtlocalsheet)
 	tglTransaksi	= DataTable.Value("TGL_TRANSAKSI", dtlocalsheet)
 	noSurat			= DataTable.Value("NO_SURAT", dtlocalsheet)
@@ -312,6 +358,7 @@ End Sub
 
 'Search Deposito Jatuh Tempo
 Sub SearchDepositoJatuhTempo
+
 	ticketID		= DataTable.Value("TICKET_ID", dtlocalsheet)
 	
 	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Search Data").Set ticketID
@@ -324,6 +371,7 @@ REM -------------------------------- Pasar Uang -> Verifikasi -> Verifikasi Tick
 
 'Verifikasi Ticket Deposito
 Sub VerifikasiTicketDeposito
+
 	ticketInduk				= DataTable.Value("TICKET_INDUK",dtlocalsheet)
 	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
 	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
@@ -365,6 +413,7 @@ End Sub
 
 'Search Verifikasi Ticket Deposito
 Sub SearchVerifikasiTicketDeposito
+
 	ticketInduk	= DataTable.Value("TICKET_INDUK",dtlocalsheet)
 	
 	Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito").WebEdit("Field Search Data").Set ticketInduk

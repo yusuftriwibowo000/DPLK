@@ -1,4 +1,5 @@
-﻿Set objkey = CreateObject("WScript.Shell")
+﻿Set objkey		= CreateObject("WScript.Shell")
+Set devices 	= CreateObject("Mercury.DeviceReplay")
 
 'Tipe Transaksi
 Dim kodeTipeTransaksi, namaTipeTransaksi, statusRegister, keteranganRegister
@@ -20,7 +21,7 @@ Sub ConfirmOtorisasi
 	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
 		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorisasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
 		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
 		wait 2
@@ -54,16 +55,16 @@ Sub AddTipeTransaksi
 	wait 1
 	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Keterangan Register").Set keteranganRegister
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Tipe Transaksi").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Tipe Transaksi").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set kodeTipeTransaksi
+		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set namaTipeTransaksi
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Dengan Kode Tipe Transaksi "&kodeTipeTransaksi&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Dengan Nama Tipe Transaksi : "&namaTipeTransaksi&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -73,9 +74,9 @@ End Sub
 'View Tipe Transaksi
 Sub ViewTipeTransaksi
 
-	kodeTipeTransaksi = DataTable.Value("KODE_TIPE_TRANSAKSI", dtlocalsheet)
+	namaTipeTransaksi	= DataTable.Value("NAMA_TIPE_TRANSAKSI", dtlocalsheet)
 	
-	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set kodeTipeTransaksi
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set namaTipeTransaksi
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Search Data yang Akan Dilihat Detailnya", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -83,19 +84,20 @@ Sub ViewTipeTransaksi
 	wait 2
 	Browser("DPLK").Page("Tipe Transaksi").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Detail Data Pada Kode Tipe Transaksi " &kodeTipeTransaksi, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Detail Data Pada Nama Tipe Transaksi : " &namaTipeTransaksi, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
 'Edit Tipe Transaksi
 Sub EditTipeTransaksi
 
-	kodeTipeTransaksi	= DataTable.Value("KODE_TIPE_TRANSAKSI", dtlocalsheet)
-	namaTipeTransaksi	= DataTable.Value("NAMA_TIPE_TRANSAKSI", dtlocalsheet)
-	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
-	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	kodeTipeTransaksi		= DataTable.Value("KODE_TIPE_TRANSAKSI", dtlocalsheet)
+	namaTipeTransaksi		= DataTable.Value("NAMA_TIPE_TRANSAKSI", dtlocalsheet)
+	splitNamaTipeTransaksi	= Split(namaTipeTransaksi,";") 
+	statusRegister			= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 	
-	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set kodeTipeTransaksi
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set splitNamaTipeTransaksi(0)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Search Data yang Akan Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -103,7 +105,9 @@ Sub EditTipeTransaksi
 	wait 2
 	Browser("DPLK").Page("Tipe Transaksi").WebElement("Btn Edit").Click
 	wait 2
-	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Nama Tipe Transaksi").Set namaTipeTransaksi
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Nama Tipe Transaksi").Set splitNamaTipeTransaksi(1)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -112,9 +116,9 @@ Sub EditTipeTransaksi
 	If Browser("DPLK").Page("Tipe Transaksi").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set kodeTipeTransaksi
+		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set splitNamaTipeTransaksi(1)
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Data Dengan Kode Tipe Transaksi "&kodeTipeTransaksi&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Data Dengan Nama Tipe Transaksi : "&splitNamaTipeTransaksi(1)&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -123,9 +127,9 @@ End Sub
 'Delete Tipe Transaksi
 Sub DeleteTipeTransaksi
 	
-	kodeTipeTransaksi = DataTable.Value("KODE_TIPE_TRANSAKSI", dtlocalsheet)
+	namaTipeTransaksi	= DataTable.Value("NAMA_TIPE_TRANSAKSI", dtlocalsheet)
 	
-	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set kodeTipeTransaksi
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set namaTipeTransaksi
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Search Data yang Akan Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -140,18 +144,70 @@ Sub DeleteTipeTransaksi
 	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Tipe Transaksi").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Dengan Kode Tipe Transaksi " &kodeTipeTransaksi& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Dengan Nama Tipe Transaksi : " &namaTipeTransaksi& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set kodeTipeTransaksi
+		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set namaTipeTransaksi
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Data Dengan Kode Tipe Transaksi "&kodeTipeTransaksi&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Data Dengan Nama Tipe Transaksi : "&namaTipeTransaksi&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Dengan Kode Tipe Transaksi " &kodeTipeTransaksi& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Dengan Nama Tipe Transaksi : " &namaTipeTransaksi& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Approve Tipe Transaksi
+Sub ApproveTipeTransaksi
+	Dim namaTipeTransaksi
+	namaTipeTransaksi		= DataTable.Value("NAMA_TIPE_TRANSAKSI", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set namaTipeTransaksi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Tipe Transaksi").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Tipe Transaksi").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Tipe Transaksi").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Tipe Transaksi").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Set namaTipeTransaksi
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Berikut Data Dengan Nama Tipe Transaksi : "&namaTipeTransaksi&", Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Tipe Transaksi"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
 
 REM -------------------------------- Profile Fixed Income -----------------------------------------
+
+'Search Profile Fixed Income
+'Sub SearchProfileFixedIncome
+'	kodeFixedIncome	= DataTable.Value("KODE_FIXED_INCOME", dtlocalsheet)
+'	
+'End Sub
 
 'Add New Profile Fixed Income
 Sub AddProfileFixedIncome
@@ -208,18 +264,20 @@ Sub AddProfileFixedIncome
 	wait 1
 	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Persen Kupon").Set persenKupon
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Profile Fixed Income").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Profile Fixed Income").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
+		fieldKodeFixedIncome = Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Kode Fixed Income").GetROProperty("value")
+		wait 1
 		Browser("DPLK").Page("Profile Fixed Income").WebButton("Btn Kembali").Click
 		wait 2
-		Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
+		Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Set fieldKodeFixedIncome
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income "&kodeFixedIncome&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income : "&fieldKodeFixedIncome&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -239,7 +297,7 @@ Sub ViewProfileFixedIncome
 	wait 2
 	Browser("DPLK").Page("Profile Fixed Income").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Detail Data Pada Kode Fixed Income " &kodeFixedIncome, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Detail Data Pada Kode Fixed Income : " &kodeFixedIncome, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
@@ -267,6 +325,8 @@ Sub EditProfileFixedIncome
 	wait 2
 	Browser("DPLK").Page("Profile Fixed Income").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Nama Fixed Income").Set namaFixedIncome
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -280,7 +340,7 @@ Sub EditProfileFixedIncome
 		wait 2
 		Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Data Dengan Kode Fixed Income "&kodeFixedIncome&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Data Dengan Kode Fixed Income : "&kodeFixedIncome&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -306,13 +366,99 @@ Sub DeleteProfileFixedIncome
 	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Profile Fixed Income").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income " &kodeFixedIncome& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income : " &kodeFixedIncome& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Data Dengan Kode Fixed Income "&kodeFixedIncome&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Data Dengan Kode Fixed Income : "&kodeFixedIncome&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income " &kodeFixedIncome& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income : " &kodeFixedIncome& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Batalkan Verifikasi Profile Fixed Income
+Sub UnverifiedProfileFixedIncome
+	kodeFixedIncome		= DataTable.Value("KODE_FIXED_INCOME", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income").WebElement("Btn Unverified"), "Klik Button Batal Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Profile Fixed Income").WebElement("Btn Unverified").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Profile Fixed Income").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Profile Fixed Income").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income : " &kodeFixedIncome& " Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Data Dengan Kode Fixed Income : "&kodeFixedIncome&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Profile Fixed Income").WebElement("Tabel Data").GetROProperty("abs_x")
+ 		y = Browser("DPLK").Page("Profile Fixed Income").WebElement("Tabel Data").GetROProperty("abs_y")
+ 		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 10}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Berikut Data Dengan Kode Fixed Income : "&kodeFixedIncome&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Fixed Income"), "Data Dengan Kode Fixed Income : " &kodeFixedIncome& " Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+REM -------------------------------- Fixed Income -> Verifikasi -> Verifikasi Profile Fixed Income -----------------------------------------
+
+' Approve Verifikasi Profile Fixed Income
+Sub ApproveProfileFixedIncome
+	
+	kodeFixedIncome			= DataTable.Value("KODE_FIXED_INCOME", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income"), "Search Data yang Akan " &explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income"), "Data dengan Kode Fixed Income : "&kodeFixedIncome&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebEdit("Field Search Data").Set kodeFixedIncome
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income"), "Berikut Data dengan Kode Fixed Income : "&kodeFixedIncome&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Fixed Income"), "Data dengan Kode Fixed Income : "&kodeFixedIncome&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

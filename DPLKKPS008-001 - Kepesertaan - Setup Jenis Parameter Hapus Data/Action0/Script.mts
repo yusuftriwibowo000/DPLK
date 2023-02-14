@@ -1,1 +1,1 @@
-﻿RunAction "KPS008-001-Kepesertan-Hapus", allIterations
+﻿RunAction "KPS008-001-Kepesertaan-Hapus", allIterations

@@ -1,1 +1,1 @@
-﻿RunAction "DPLKKPS001-004-Kepesertan-Setup", allIterations
+﻿RunAction "KPS016-001-Kepesertaan-Hapus", allIterations

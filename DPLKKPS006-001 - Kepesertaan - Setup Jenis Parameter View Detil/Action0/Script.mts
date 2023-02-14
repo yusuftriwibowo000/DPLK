@@ -1,1 +1,1 @@
-﻿RunAction "KPS006-001-Kepesertan-View", allIterations
+﻿RunAction "KPS006-001-Kepesertaan-View", allIterations

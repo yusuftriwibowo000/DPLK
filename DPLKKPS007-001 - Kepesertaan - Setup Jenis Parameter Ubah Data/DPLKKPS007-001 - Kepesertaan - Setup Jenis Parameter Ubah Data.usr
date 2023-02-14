@@ -12,7 +12,7 @@ DevelopTool=AQT
 
 [Actions]
 Action0=Action0\Script.mts
-KPS007-001-Kepesertan-Ubah=Action1\Script.mts
+KPS007-001-Kepesertaan-Ubah=Action1\Script.mts
 
 [VuserProfiles]
 Profiles=Default Profile

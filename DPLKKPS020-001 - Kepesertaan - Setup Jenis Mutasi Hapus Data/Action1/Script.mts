@@ -1,9 +1,9 @@
-﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult @@ script infofile_;_ZIP::ssf7.xml_;_
+﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult
 Dim preparation ,iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS001-005 - Kepesertaan - Setup Jenis Mutasi Tambah, Ubah, View Detil & Hapus Data.xlsx", "DPLKKPS001")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS020-001-SetJenisMutasi.xlsx", "DPLKKPS020-001")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
@@ -14,22 +14,12 @@ iteration = Environment.Value("ActionIteration")
 
 REM ------- DPLK
 Call DA_Login()
-Call GoTo_SidebarMenu()
+Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu()
 
-If iteration = 1 Then
-	Call AddSetupJenisMutasi()
-ElseIf iteration = 2 Then
-	Call ViewSetupJenisMutasi()
-ElseIf iteration = 3 Then
-	Call EditSetupJenisMutasi()
-ElseIf iteration = 4 Then
-	Call DeleteSetupJenisMutasi()
-End If
+Call DeleteSetupJenisMutasi()
 
-Call ClickSidebar()
 Call DA_Logout("0")
-
 Call spReportSave()
 	
 Sub spLoadLibrary()

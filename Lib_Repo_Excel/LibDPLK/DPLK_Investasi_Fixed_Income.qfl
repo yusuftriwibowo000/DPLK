@@ -468,7 +468,6 @@ REM -------------------------------- Fixed Income -> Entry Transaksi -> Dealing 
 'Search Dealing Ticket Fixed Income
 Sub SearchDealingTicketFixedIncome
 	ticketID	= DataTable.Value("TICKET_ID",dtlocalsheet)
-	Set devices 	= CreateObject("Mercury.DeviceReplay")
 	
 	Browser("DPLK").Page("Dealing Ticket Fixed Income").WebEdit("Field Search Data").Set ticketID
 	wait 2

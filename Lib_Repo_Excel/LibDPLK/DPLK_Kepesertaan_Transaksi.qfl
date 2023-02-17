@@ -590,7 +590,7 @@ REM -------------------------------- Transaksi->Deposit->Register Deposit (Bulk)
 'Fungsi Tambah Register Deposit (Bulk)
 Sub TambahRegisterDepositBulk
 
-	'membuat path DPLK file upload
+	'Mendefinisikan path DPLK file upload
 	tempDPLKPath 	= Environment.Value("TestDir")
 	tempDPLKPath2 	= InStrRev(tempDPLKPath, "\")
 	pathDPLK		= Left(tempDPLKPath, tempDPLKPath2)
@@ -603,6 +603,8 @@ Sub TambahRegisterDepositBulk
 	tanggalTransaksi	= DataTable.Value("TANGGAL_TRANSAKSI", dtlocalsheet)
 	fileExcel			= DataTable.Value("FILE_EXCEL",dtlocalsheet)
 	fullPathFile		= uploadPathDPLK & fileExcel
+	dtSearch			= kodePerusahaan
+	dtExplain			= "No.Kolektif"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -640,7 +642,7 @@ Sub TambahRegisterDepositBulk
 		wait 2
 		Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kembali").Click
 		wait 2
-		Call SearchRegisterDepositBulk()
+		Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -652,9 +654,11 @@ Sub EditRegisterDepositBulk
 	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
 	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+	dtSearch			= kodePerusahaan
+	dtExplain			= "No.Kolektif"
 	
 	wait 2
-	Call SearchRegisterDepositBulk()
+	Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Edit"), "Klik Button Edit" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -686,13 +690,38 @@ Sub EditRegisterDepositBulk
 	wait 2
 End Sub
 
-'Fungsi Search Register Deposit (Bulk)
-Sub SearchRegisterDepositBulk
-	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
+'Fungsi Hapus Register Deposit (Bulk)
+Sub DeleteRegisterDepositBulk
+	noRegister	= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtSearch	= noRegister
+	dtExplain	= "No.Register"
+	Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	
-	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Data").Set kodePerusahaan
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan No. Kolektif "& kodePerusahaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Hapus"), "Klik Button Delete", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Hapus").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No.Register " &noRegister& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call SearchRegisterDepositBulk(dtSearch,dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No.Register " &noRegister& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+wait 2
+End Sub
+
+'Fungsi Search Register Deposit (Bulk)
+Sub SearchRegisterDepositBulk(dtSearch,dtExplain)
+	
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub
 

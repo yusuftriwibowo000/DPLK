@@ -425,16 +425,18 @@ Sub AddProfileReksa
 	wait 1
 	Browser("DPLK").Page("Profile Reksa").WebEdit("Field Keterangan").Set keterangan
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Isi Semua Field yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Isi Semua Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Profile Reksa").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Profile Reksa").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
+		dtKodeReksadana = Browser("DPLK").Page("Profile Reksa").WebTable("Tabel Data").GetCellData(2,2)
+
+		Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Set dtKodeReksadana
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana "&kodeReksadana&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana : "&dtKodeReksadana&", Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -454,7 +456,7 @@ Sub ViewProfileReksa
 	wait 2
 	Browser("DPLK").Page("Profile Reksa").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Detail Data Pada Kode Reksadana " &kodeReksadana, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Detail Data Pada Kode Reksadana : " &kodeReksadana, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
 End Sub
 
@@ -476,9 +478,15 @@ Sub EditProfileReksa
 	wait 2
 	Browser("DPLK").Page("Profile Reksa").WebElement("Btn Edit").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Detail Data Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Profile Reksa").WebEdit("Field Nama Reksadana").Set namaReksadana
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Ubah Field Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Ubah Field Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Profile Reksa").WebButton("Btn Simpan").Click
 	wait 2
@@ -487,7 +495,7 @@ Sub EditProfileReksa
 		wait 2
 		Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Data Dengan Kode Reksadana "&kodeReksadana&" Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Data Dengan Kode Reksadana : "&kodeReksadana&", Setelah Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -514,13 +522,99 @@ Sub DeleteProfileReksa
 	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Profile Reksa").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana " &kodeReksadana& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana : " &kodeReksadana& ", Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Data Dengan Kode Reksadana "&kodeReksadana&" Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Data Dengan Kode Reksadana : "&kodeReksadana&", Setelah Dihapus", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana " &kodeReksadana& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana : " &kodeReksadana& ", Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Batalkan Verifikasi Profile Reksa
+Sub UnverifiedProfileReksa
+	kodeReksadana	= DataTable.Value("KODE_REKSADANA", dtlocalsheet)
+	explain			= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa").WebElement("Btn Unverified"), "Klik Button Batal Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Profile Reksa").WebElement("Btn Unverified").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Klik Button Ya, yakin!", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Profile Reksa").WebButton("Btn Ya, yakin! Hapus").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Profile Reksa").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana : " &kodeReksadana& " Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Data Dengan Kode Reksadana : "&kodeReksadana&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		x = Browser("DPLK").Page("Profile Reksa").WebElement("Tabel Profile Reksa").GetROProperty("abs_x")
+ 		y = Browser("DPLK").Page("Profile Reksa").WebElement("Tabel Profile Reksa").GetROProperty("abs_y")
+ 		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 2
+		objkey.SendKeys "{RIGHT 11}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Berikut Data Dengan Kode Reksadana : "&kodeReksadana&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Profile Reksa"), "Data Dengan Kode Reksadana : " &kodeReksadana& " Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+REM -------------------------------- Reksadana -> Verifikasi -> Verifikasi Profile Reksa -----------------------------------------
+
+' Approve Verifikasi Profile Reksa
+Sub ApproveProfileReksa
+	
+	kodeReksadana			= DataTable.Value("KODE_REKSADANA", dtlocalsheet)
+	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	Browser("DPLK").Page("Verifikasi Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa"), "Search Data yang Akan " &explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Profile Reksa").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys "{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Profile Reksa").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Profile Reksa").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Profile Reksa").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Verifikasi Profile Reksa").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa"), "Data dengan Kode Reksadana : "&kodeReksadana&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Verifikasi Profile Reksa").WebEdit("Field Search Data").Set kodeReksadana
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa"), "Berikut Data dengan Kode Reksadana : "&kodeReksadana&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Profile Reksa"), "Data dengan Kode Reksadana : "&kodeReksadana&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

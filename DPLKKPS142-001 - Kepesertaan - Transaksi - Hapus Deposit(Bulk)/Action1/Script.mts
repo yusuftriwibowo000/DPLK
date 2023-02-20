@@ -3,7 +3,7 @@ Dim preparation, iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS142-001 - Kepesertaan - Transaksi - Hapus Deposit(Bulk).xlsx", "DPLKKPS142-001")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKPS142_HapusDep(Bulk).xlsx", "DPLKKPS142-001")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()

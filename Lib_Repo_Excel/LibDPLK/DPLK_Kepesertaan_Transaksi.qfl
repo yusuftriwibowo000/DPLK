@@ -707,11 +707,11 @@ Sub DeleteRegisterDepositBulk
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Ya, yakin! Hapus").Click
 	wait 2
 	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Popup ×Data berhasil dihapus").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No.Register " &noRegister& " Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan "&dtExplain&" : "&noRegister&" Berhasil Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No.Register " &noRegister& " Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan "&dtExplain&" : "&noRegister&" Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 wait 2
 End Sub

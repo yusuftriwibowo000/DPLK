@@ -1,4 +1,4 @@
-﻿﻿Set objkey = CreateObject("WScript.Shell")
+﻿Set objkey = CreateObject("WScript.Shell")
 
 'Entry Transaksi -> Deposito Jatuh Tempo
 Dim ticketID, tglTransaksi, noSurat, keterangan
@@ -320,6 +320,15 @@ End Sub
 
 REM -------------------------------- Pasar Uang -> Entry Transaksi -> Deposito Jatuh Tempo -----------------------------------------
 
+'Search Deposito Jatuh Tempo
+Sub SearchDepositoJatuhTempo(dtSearch, dtExplain)
+	
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
 'Cair Deposito Jatuh Tempo
 Sub CairDepositoJatuhTempo
 
@@ -327,61 +336,139 @@ Sub CairDepositoJatuhTempo
 	tglTransaksi	= DataTable.Value("TGL_TRANSAKSI", dtlocalsheet)
 	noSurat			= DataTable.Value("NO_SURAT", dtlocalsheet)
 	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	dtExplain		= "Ticket ID"
+	dtSearch		= ticketID
 	
 	wait 2
-	Call SearchDepositoJatuhTempo()
+	Call SearchDepositoJatuhTempo(dtSearch, dtExplain)
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("Btn Cair"), "Klik Button Cair Untuk Melakukan Pencairan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("Btn Cair").Click
 	wait 2
-	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Tgl Transaksi").Set tglTransaksi
-	wait 1
-	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Ticket ID").Click
-	wait 1
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Berikut Halaman DEPOSITO JATUH TEMPO - CAIR", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	If tglTransaksi <> "" Then
+		Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Tgl Transaksi").Set tglTransaksi
+		wait 1
+	End If
+
 	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field No Surat").Set noSurat
 	wait 1
 	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Keterangan").Set keterangan
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Isi Field Tgl.Transaksi,No.Surat, dan Keterangan Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Isi Semua Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Data Berhasil Disimpan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	Else
-		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
 
-'Search Deposito Jatuh Tempo
-Sub SearchDepositoJatuhTempo
+'Break Deposito Jatuh Tempo
+Sub BreakDepositoJatuhTempo
 
 	ticketID		= DataTable.Value("TICKET_ID", dtlocalsheet)
+	tglSurat		= DataTable.Value("TGL_SURAT", dtlocalsheet)
+	noSurat			= DataTable.Value("NO_SURAT", dtlocalsheet)
+	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	dtExplain		= "Ticket ID"
+	dtSearch		= ticketID
 	
-	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Search Data").Set ticketID
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Berikut Data dengan Ticket ID : "&ticketID, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call SearchDepositoJatuhTempo(dtSearch, dtExplain)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("Btn Break"), "Klik Button Break Untuk Melakukan Break Deposito", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("Btn Break").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Berikut Halaman DEPOSITO JATUH TEMPO - BREAK", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	If tglSurat <> "" Then
+		Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Tgl Surat").Set tglSurat
+		wait 1
+	End If
+
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field No Surat").Set noSurat
+	wait 1
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Keterangan").Set keterangan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Isi Semua Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Rollover Deposito Jatuh Tempo
+Sub RolloverDepositoJatuhTempo
+
+	ticketID		= DataTable.Value("TICKET_ID", dtlocalsheet)
+	tglJatuhTempo	= DataTable.Value("TGL_JATUH_TEMPO", dtlocalsheet)
+	noSurat			= DataTable.Value("NO_SURAT", dtlocalsheet)
+	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+	dtExplain		= "Ticket ID"
+	dtSearch		= ticketID
+	
+	wait 2
+	Call SearchDepositoJatuhTempo(dtSearch, dtExplain)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("Btn Rollover"), "Klik Button Rollover Untuk Melakukan Rollover Deposito", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("Btn Rollover").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Berikut Halaman DEPOSITO JATUH TEMPO - ROLLOVER", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	If tglJatuhTempo <> "" Then
+		Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Tgl Surat").Set tglJatuhTempo
+		wait 1
+	End If
+
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field No Surat").Set noSurat
+	wait 1
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebEdit("Field Keterangan").Set keterangan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Isi Semua Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Deposito Jatuh Tempo"), "Data Gagal Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
 	wait 2
 End Sub
 
 REM -------------------------------- Pasar Uang -> Verifikasi -> Verifikasi Ticket Deposito -----------------------------------------
 
 'Verifikasi Ticket Deposito
-Sub VerifikasiTicketDeposito
+Sub ApproveTicketDeposito
 
 	ticketInduk				= DataTable.Value("TICKET_INDUK",dtlocalsheet)
 	statusVerifikasi		= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
 	keteranganVerifikasi	= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
+	explain					= DataTable.Value("EXPLAIN",dtlocalsheet)
+	dtSearch				= ticketInduk
+	dtExplain				= "Ticket Induk"
 	
 	wait 2
-	Call SearchVerifikasiTicketDeposito()
+	Call SearchVerifikasiTicketDeposito(dtSearch, dtExplain)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys "{PGDN}"
 	wait 1
@@ -402,23 +489,20 @@ Sub VerifikasiTicketDeposito
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito"), "Berhasil Verifikasi Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
-		Call SearchVerifikasiTicketDeposito()
+		Call SearchVerifikasiTicketDeposito(dtSearch, dtExplain)
 	Else
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito"), "Gagal Verifikasi Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 	End If
-
 End Sub
 
 'Search Verifikasi Ticket Deposito
-Sub SearchVerifikasiTicketDeposito
-
-	ticketInduk	= DataTable.Value("TICKET_INDUK",dtlocalsheet)
+Sub SearchVerifikasiTicketDeposito(dtSearch, dtExplain)
 	
-	Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito").WebEdit("Field Search Data").Set ticketInduk
+	Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito"), "Berikut Data dengan Ticket Induk : "&ticketInduk, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi - Verifikasi Ticket Deposito"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub
 
@@ -705,6 +789,118 @@ Sub UpdateNoBilyet
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Update No.Bilyet"), "Data Dengan "&dtExplain&" : "&dtSearch&", Berhasil Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Update No.Bilyet"), "Data Dengan "&dtExplain&" : "&dtSearch&", Gagal Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+REM -------------------------- Pasar Uang -> Pembatalan -> Pembatalan Ticket Deposito -------------------------------
+
+'Search Pembatalan Ticket Deposito
+Sub SearchPembatalanTicketDeposito(dtSearch, dtExplain)
+
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	wait 2
+End Sub
+
+'Add Pembatalan Ticket Deposito
+Sub AddPembatalanTicketDeposito
+	ticket			= DataTable.Value("TICKET",dtlocalsheet)
+	tglPengajuan	= DataTable.Value("TGL_PENGAJUAN",dtlocalsheet)
+	keterangan		= DataTable.Value("KETERANGAN",dtlocalsheet)
+	dtExplain		= "Ticket ID"
+	dtSearch		= ticket
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebButton("Btn Tambah").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Berikut Halaman Tambah Pembatalan Ticket Deposito", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito").WebButton("Btn Search Ticket"), "Klik Button Search Ticket", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebButton("Btn Search Ticket").Click
+	wait 3
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebEdit("Field Search Ticket").Set ticket
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Cari dan Pilih Data Ticket yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebElement("Data Ticket").SetTOProperty "innertext", ticket
+	wait 1
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebElement("Data Ticket").Click
+	wait 3
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebEdit("Field Tgl Pengajuan").Set tglPengajuan
+	wait 1
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebEdit("Field Keterangan").Set keterangan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Isi Semua Fields Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Isi Semua Fields Sesuai Kebutuhan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Pembatalan Ticket Deposito").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Pembatalan Ticket Deposito").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Berhasil Tambah Pembatalan Ticket Deposito", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call SearchPembatalanTicketDeposito(dtSearch, dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Pembatalan Ticket Deposito"), "Gagal Tambah Pembatalan Ticket Deposito", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+REM -------------------------------- Pasar Uang -> Pembatalan -> Verifikasi Pembatalan Ticket ---------------------------
+
+'Approve Pembatalan Ticket
+Sub ApprovePembatalanTicket
+
+	ticketID			= DataTable.Value("TICKET_ID", dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebEdit("Field Search Data").Set ticketID
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	If Len(keteranganVerifikasi) > 30 Then
+		Call DA_Logout("1")
+	Else
+		Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebButton("Btn Simpan").Click
+		wait 2
+		Call ConfirmOtorisasi()
+		If Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+			Browser("DPLK").Page("Verifikasi Pembatalan Ticket").WebEdit("Field Search Data").Set ticketID
+			wait 2
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket"), "Berikut Data Dengan Ticket ID "&ticketID&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Ticket"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		End If
 	End If
 	wait 2
 End Sub

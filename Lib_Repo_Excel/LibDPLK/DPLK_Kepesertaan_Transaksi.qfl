@@ -587,8 +587,29 @@ End Sub
 
 REM -------------------------------- Transaksi->Deposit->Register Deposit (Bulk) -----------------------------------------
 
-'Fungsi Tambah Register Deposit (Bulk)
-Sub TambahRegisterDepositBulk
+'Fungsi Search Register Deposit (Bulk)
+Sub SearchRegisterDepositBulk(dtSearch,dtExplain)
+	
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 7}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+End Sub
+
+'Fungsi Add Register Deposit (Bulk)
+Sub AddRegisterDepositBulk
 
 	'Mendefinisikan path DPLK file upload
 	tempDPLKPath 	= Environment.Value("TestDir")
@@ -603,17 +624,26 @@ Sub TambahRegisterDepositBulk
 	tanggalTransaksi	= DataTable.Value("TANGGAL_TRANSAKSI", dtlocalsheet)
 	fileExcel			= DataTable.Value("FILE_EXCEL",dtlocalsheet)
 	fullPathFile		= uploadPathDPLK & fileExcel
-	dtSearch			= kodePerusahaan
-	dtExplain			= "No.Kolektif"
+	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+	dtExplain			= "No.Register"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Tambah").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Halaman Tambah REGISTER DEPOSIT (BULK)" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kode Perusahaan"), "Klik Button Search Kode Perusahaan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kode Perusahaan").Click
-	wait 1
+	wait 2
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Kode Perusahaan").Set kodePerusahaan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Cari dan Pilih Data Kode Perusahaan yang Dibutuhkan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Data Kode Perusahaan").SetTOProperty "innertext", kodePerusahaan
 	wait 1
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Data Kode Perusahaan").Click
 	wait 2
@@ -634,17 +664,41 @@ Sub TambahRegisterDepositBulk
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
+		dtSearch = Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field No.Register").GetROProperty("value")
+		wait 1
 		objkey.SendKeys"{PGDN}"
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
-		wait 2
-		Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kembali").Click
+		If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS126-002" Then
+			Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Dropdown Status Register").Click
+			wait 1
+			objkey.SendKeys(statusRegister)
+			wait 1
+			objkey.SendKeys"{ENTER}"
+			wait 1
+			Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Keterangan Register").Set keteranganRegister
+			wait 2
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Isi Field Status Register dan Keterangan Register, Kemudian Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Simpan").Click
+			wait 2
+			Call ConfirmOtorisasi()
+			wait 2
+			If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Berhasil Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			Else
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Gagal Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			End If
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+			Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kembali").Click
+		End If
 		wait 2
 		Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
@@ -714,15 +768,6 @@ Sub DeleteRegisterDepositBulk
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan "&dtExplain&" : "&noRegister&" Gagal Dihapus" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 wait 2
-End Sub
-
-'Fungsi Search Register Deposit (Bulk)
-Sub SearchRegisterDepositBulk(dtSearch,dtExplain)
-	
-	Browser("DPLK").Page("Register Deposit (Bulk)").WebEdit("Field Search Data").Set dtSearch
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
 End Sub
 
 REM -------------------------------- Transaksi->Penarikan Iuran 10% -----------------------------------------
@@ -1142,5 +1187,154 @@ Sub RegisterPerjanjianKerjaSamaTabKelengkapanDokumen
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Tab Menu").Click
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Kelengkapan Dokumen", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+REM -------------------------------- Transaksi->Perjanjian Kerjasama->Maintenance Perjanjian Kerja Sama -----------------------------------------
+
+'Search Maintenance Perjanjian Kerja Sama
+
+
+'Add Maintenance Perjanjian Kerja Sama
+Sub AddMaintenancePerjanjianKerjaSama
+	keteranganPerubahan		= DataTable.Value("KETERANGAN_PERUBAHAN",dtlocalsheet)
+	nomorPKS				= DataTable.Value("NO_PKS",dtlocalsheet)
+	adminFee				= DataTable.Value("ADMIN_FEE",dtlocalsheet)
+	mgmtFee					= DataTable.Value("MGMT_FEE",dtlocalsheet)
+	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
+	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Tambah").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Tampilan Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Tampilan Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGUP}"
+	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	wait 1
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Search Id PKS"), "Klik Button Search Id PKS", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Search Id PKS").Click
+	wait 3
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field Search Id PKS").Set nomorPKS
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Cari dan Pilih Nomor PKS yang Diperlukan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Data No.PKS").SetTOProperty "innertext", nomorPKS
+	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Data No.PKS").Click
+	wait 8
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Isi Fields Mandatory Sesuai yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field No.Register").Click
+	wait 1
+	objkey.SendKeys"{DOWN 16}"
+	wait 2
+	
+	Call MaintenancePerjanjianKerjaSamaTabManfaat()
+	Call MaintenancePerjanjianKerjaSamaTabParameter(adminFee,mgmtFee)
+	Call MaintenancePerjanjianKerjaSamaTabPaketInvestasi()
+	Call MaintenancePerjanjianKerjaSamaTabBiayaAdministrasi()
+	
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Isi Field Status Register dan Keterangan Register, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berhasil Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Aksi Tab Manfaat
+Sub MaintenancePerjanjianKerjaSamaTabManfaat
+	
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Manfaat", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+'	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebTable("Kolom Tabel Manfaat").Click
+	x = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Kolom Tabel Manfaat").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Kolom Tabel Manfaat").GetROProperty("abs_y")
+	devices.MouseMove x,y
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
+	objkey.SendKeys"{DOWN 4}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Manfaat", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Aksi Tab Parameter
+Sub MaintenancePerjanjianKerjaSamaTabParameter(adminFee,mgmtFee)
+	
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tab Menu").SetTOProperty "innertext", "Parameter"
+	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Parameter", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If adminFee <> "" or mgmtFee <> "" Then
+		Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field ADMIN_FEE").Set adminFee
+		wait 1
+		Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field MGMT_FEE").Set mgmtFee
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Isi Field ADMIN_FEE dan MGMT_FEE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	wait 2
+End Sub
+
+'Aksi Tab Paket Investasi
+Sub MaintenancePerjanjianKerjaSamaTabPaketInvestasi
+
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tab Menu").SetTOProperty "innertext", "Paket Investasi"
+	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Paket Investasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+'	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebTable("Kolom Tabel Paket Investasi").Click
+	x = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Kolom Tabel Paket Investasi").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Kolom Tabel Paket Investasi").GetROProperty("abs_y")
+	devices.MouseMove x,y
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
+	objkey.SendKeys"{DOWN 8}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Paket Investasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 3}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Paket Investasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Aksi Tab Biaya Administrasi
+Sub MaintenancePerjanjianKerjaSamaTabBiayaAdministrasi
+
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tab Menu").SetTOProperty "innertext", "Biaya Administrasi"
+	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Biaya Administrasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Biaya Administrasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub

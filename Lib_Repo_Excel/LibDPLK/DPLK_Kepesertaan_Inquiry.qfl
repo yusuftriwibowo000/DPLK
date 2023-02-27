@@ -1,4 +1,5 @@
 ﻿Set objkey = CreateObject("WScript.Shell")
+Set devices = CreateObject("Mercury.DeviceReplay")
 
 'Inquiry Deposit (Bulk)
 Dim uploadID
@@ -10,7 +11,7 @@ Sub ConfirmOtorisasi
 	If Browser("DPLK").Page("Global").WebElement("Form Otorisasi").Exist(5) Then
 		Browser("DPLK").Page("Global").WebEdit("Field Password Confirm").Set password
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Global"), "Muncul Form Otorisasi, Isi Password yang Anda Gunakan Saat Login Untuk Konfirmasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
 		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
 		wait 2
@@ -43,4 +44,100 @@ Sub ViewInquiryDepositBulk
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Detail dari Data dengan No Register : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+End Sub
+
+REM -------------------- Inquiry->Perjanjian Kerja Sama->Inquiry Maintenance Perjanjian Kerja Sama -------------------
+
+'Search Inquiry Maintenance Perjanjian Kerja Sama
+Sub SearchInquiryMaintenancePerjanjianKerjaSama(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	x = Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 23}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+		objkey.SendKeys"{RIGHT 5}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Inquiry Maintenance Perjanjian Kerja Sama
+Sub ViewInquiryMaintenancePerjanjianKerjaSama
+	noRegister	= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtSearch	= noRegister
+	dtExplain	= "No.Register"
+	
+	wait 2
+	Call SearchInquiryMaintenancePerjanjianKerjaSama(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 16}"
+	wait 2
+	Call MaintenancePerjanjianKerjaSamaTabManfaat()
+	Call MaintenancePerjanjianKerjaSamaTabParameter("","")
+	Call MaintenancePerjanjianKerjaSamaTabPaketInvestasi()
+	Call MaintenancePerjanjianKerjaSamaTabBiayaAdministrasi()
+	
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+REM -------------------- Inquiry->Perjanjian Kerja Sama->Inquiry Perjanjian Kerja Sama -------------------
+
+'Search Inquiry Perjanjian Kerja Sama
+Sub SearchInquiryPerjanjianKerjaSama(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	x = Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 15}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Inquiry Perjanjian Kerja Sama
+Sub ViewInquiryPerjanjianKerjaSama
+	noPKS		= DataTable.Value("NO_PKS",dtlocalsheet)
+	dtSearch	= noPKS
+	dtExplain	= "No.PKS"
+	
+	wait 2
+	Call SearchInquiryPerjanjianKerjaSama(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Perjanjian Kerja Sama"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 12}"
+	wait 2
+
+	Call RegisterPerjanjianKerjaSamaTabManfaat()
+	Call RegisterPerjanjianKerjaSamaTabParameter()
+	Call RegisterPerjanjianKerjaSamaTabPaketInvestasi()
+	Call RegisterPerjanjianKerjaSamaTabBiayaAdministrasi()
+	Call RegisterPerjanjianKerjaSamaTabKelengkapanDokumen()
+	
 End Sub

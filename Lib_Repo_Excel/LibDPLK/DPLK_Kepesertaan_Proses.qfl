@@ -208,13 +208,24 @@ End Sub
 REM -------------------------------- Proses->Peserta->Verifikasi Pemindahan Kepesertaan Kolektif -----------------------------------------
 
 'Search Verifikasi Pemindahan Kepesertaan Kolektif
-Sub SearchVerifikasiPemindahanKepesertaanKolektif
-	noRegister = DataTable.Value("NO_REGISTER",dtlocalsheet)
+Sub SearchVerifikasiPemindahanKepesertaanKolektif(dtSearch, dtExplain)
 	
-	Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebEdit("Field Search Data").Set noRegister
+	Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Data Dengan No.Register : "&noRegister, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+	
+	If Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 End Sub
 
 'Verifikasi Pemindahan Kepesertaan Kolektif
@@ -223,25 +234,27 @@ Sub VerifikasiPemindahanKepesertaanKolektif
 	explain				= DataTable.Value("EXPLAIN",dtlocalsheet)
 	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
 	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
+	dtSearch			= noRegister
+	dtExplain			= "No.Register"
 	
 	wait 2
-	Call SearchVerifikasiPemindahanKepesertaanKolektif()
+	Call SearchVerifikasiPemindahanKepesertaanKolektif(dtSearch, dtExplain)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Btn Checklist Verifikasi").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan No.Register : "&noRegister, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys "{PGDN}"
 	wait 1
-		If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS132-001" Then
+		If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS132-001" or DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS132-002" Then
 			Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Tab Menu").SetTOProperty "innertext", "Peserta dikeluarkan dari kolektif"
 			wait 1
 			Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Tab Menu").Click
 		End If
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan No.Register : "&noRegister, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys "{PGDN}"
 	wait 2
@@ -259,13 +272,13 @@ Sub VerifikasiPemindahanKepesertaanKolektif
 	Call ConfirmOtorisasi()
 	wait 2
 		If Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Berhasil "&explain&" Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 				wait 2
 					Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebButton("Btn Kembali").Click
 				wait 2
-			Call SearchVerifikasiPemindahanKepesertaanKolektif()
+			Call SearchVerifikasiPemindahanKepesertaanKolektif(dtSearch, dtExplain)
 		Else
-			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Gagal "&explain&" Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		End If
 	wait 2
 End Sub

@@ -695,6 +695,7 @@ Sub AddRegisterDepositBulk
 			wait 2
 			Browser("DPLK").Page("Register Deposit (Bulk)").WebButton("Btn Kembali").Click
 		End If
+		
 		wait 2
 		Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	Else
@@ -703,13 +704,37 @@ Sub AddRegisterDepositBulk
 	wait 2
 End Sub
 
+'Fungsi View Register Deposit (Bulk)
+Sub ViewRegisterDepositBulk
+	dtSearch	= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain	= "No.Register"
+	
+	wait 2
+	Call SearchRegisterDepositBulk(dtSearch,dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn View"), "Klik Button View" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
 'Fungsi Edit Register Deposit (Bulk)
 Sub EditRegisterDepositBulk
+	noRegister			= DataTable.Value("NO_REGISTER", dtlocalsheet)
 	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
+	keteranganUpload	= DataTable.Value("KETERANGAN_UPLOAD", dtlocalsheet)
+	kantor				= DataTable.Value("KANTOR", dtlocalsheet)
+	tanggalTransaksi	= DataTable.Value("TANGGAL_TRANSAKSI", dtlocalsheet)
 	keteranganRegister	= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
 	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
-	dtSearch			= kodePerusahaan
-	dtExplain			= "No.Kolektif"
+	dtSearch			= noRegister
+	dtExplain			= "No.Register"
 	
 	wait 2
 	Call SearchRegisterDepositBulk(dtSearch,dtExplain)
@@ -718,7 +743,7 @@ Sub EditRegisterDepositBulk
 	wait 2
 	Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("Btn Edit").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Detail Data Dengan No. Kolektif : "&kodePerusahaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys "{PGDN}"
 	wait 1
@@ -737,9 +762,11 @@ Sub EditRegisterDepositBulk
 	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Register Deposit (Bulk)").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Berhasil Diupdate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan "&dtExplain&" : "&dtSearch&" Berhasil Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call SearchRegisterDepositBulk(dtSearch,dtExplain)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan No. Kolektif "& kodePerusahaan &" Gagal Diupadate" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Deposit (Bulk)"), "Data Dengan "&dtExplain&" : "&dtSearch&" Gagal Diupdate", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub
@@ -861,7 +888,7 @@ REM -------------------------------- Transaksi->Peserta->Pemindahan Kepesertaan 
 Sub AddPemindahanKepesertaanKolektif
 	
 	keteranganPerubahan		= DataTable.Value("KETERANGAN_PERUBAHAN",dtlocalsheet)
-	pilihPerusahaan			= DataTable.Value("PILIH_PERUSAHAAN",dtlocalsheet)
+	pilihPerusahaan			= DataTable.Value("PERUSAHAAN",dtlocalsheet)
 	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
 	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
 	explain					= DataTable.Value("EXPLAIN",dtlocalsheet)
@@ -885,6 +912,8 @@ Sub AddPemindahanKepesertaanKolektif
 	wait 2
 	Browser("DPLK").Page("Pemindahan Kepesertaan Kolektif").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Pemindahan Kepesertaan Kolektif").WebButton("Btn Search Pilih Perusahaan"), "Klik Button Search Perusahaan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Pemindahan Kepesertaan Kolektif").WebButton("Btn Search Pilih Perusahaan").Click
 	wait 2
 	Browser("DPLK").Page("Pemindahan Kepesertaan Kolektif").WebEdit("Field Search Pilih Perusahaan").Set pilihPerusahaan
@@ -897,9 +926,9 @@ Sub AddPemindahanKepesertaanKolektif
 	wait 5
 	objkey.SendKeys "{PGDN}"
 	wait 2
-		If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS131-001" Then
+		If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS131-001" or DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS131-002" Then
 			Call KeluarkanPesertaKeKolektif()
-		ElseIf DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS133-001" Then
+		Else
 			Call TambahkanPesertaKeKolektif()
 		End If
 	objkey.SendKeys "{PGDN}"

@@ -21,28 +21,40 @@ End Sub
 
 REM -------------------------------- Inquiry->Deposit->Inquiry Deposit (Bulk) -----------------------------------------
 
-'Search Inquiry Deposit (Bulk) by No Register
-Sub SearchInquiryDepositBulkByNoRegister
-	uploadID	= DataTable.Value("UPLOAD_ID",dtlocalsheet)
+'Search Inquiry Deposit (Bulk)
+Sub SearchInquiryDepositBulk(dtSearch, dtExplain)
 	
+	Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebEdit("Field Search No Register").Set uploadID
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Data dengan No Register : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	x = Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebElement("Tabel Data").GetROProperty("abs_y")
+	devices.MouseMove x,y
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 21}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub
 
 'View Detail Inquiry Deposit (Bulk)
 Sub ViewInquiryDepositBulk
-	uploadID	= DataTable.Value("UPLOAD_ID",dtlocalsheet)
+	dtSearch	= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain	= "No.Register"
 	
-	Call SearchInquiryDepositBulkByNoRegister()
+	Call SearchInquiryDepositBulk(dtSearch, dtExplain)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Inquiry Deposit (Bulk)").WebElement("Btn View").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Detail dari Data dengan No Register : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Deposit (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub
 
@@ -140,4 +152,195 @@ Sub ViewInquiryPerjanjianKerjaSama
 	Call RegisterPerjanjianKerjaSamaTabBiayaAdministrasi()
 	Call RegisterPerjanjianKerjaSamaTabKelengkapanDokumen()
 	
+End Sub
+
+REM -------------------- Inquiry->Pemindahan Kepesertaan Kolektif->Inquiry Pemindahan Kepesertaan Kolektif -------------------
+
+'Search Inquiry Pemindahan Kepesertaan Kolektif
+Sub SearchInquiryPemindahanKepesertaanKolektif(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	x = Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 20}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Detail Inquiry Pemindahan Kepesertaan Kolektif
+Sub ViewInquiryPemindahanKepesertaanKolektif
+	dtSearch			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain			= "No.Register"
+	scenarioDesc		= DataTable.Value("SCENARIO_DESC",dtlocalsheet)
+	splitScenarioDesc	= Split(scenarioDesc," ")
+	
+	Call SearchInquiryPemindahanKepesertaanKolektif(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+		If splitScenarioDesc(1)&" "&splitScenarioDesc(2) = "Keluarkan Peserta" Then
+			wait 1
+			Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif").WebElement("Tab Menu").Click
+		End If
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pemindahan Kepesertaan Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+REM ------------------------------- Inquiry->Corporate->Inquiry Corporate ----------------------------------
+
+'Search Inquiry Corporate
+Sub SearchInquiryCorporate(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Corporate").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	x = Browser("DPLK").Page("Inquiry Corporate").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Corporate").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 10}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Detail Tab
+Sub DetailSemuaTab
+	'Tab Alamat
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Alamat", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+    'Tab Data Legalitas
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Data Legalitas"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Data Legalitas", " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    'Tab Beneficial Owner
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Beneficial Owner"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Beneficial Owner", " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    'Tab Contact Person
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Contact Person"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Contact Person", " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    'Tab Rekening Bank
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Rekening Bank"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Rekening Bank", " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    'Tab Struktur Manajemen
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Struktur Manajemen"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Struktur Manajemen", " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    'Tab Pemegang Saham
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Pemegang Saham"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Pemegang Saham", " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    'Tab Dokumen
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Dokumen"
+    wait 1
+    Browser("DPLK").Page("Inquiry Corporate").WebElement("Tab Menu").Click
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Pada Tab Dokumen", " ", compatibilityMode.Desktop, ReportStatus.Done)
+End Sub
+
+'View Detail Inquiry Corporate
+Sub ViewInquiryCorporate
+	dtSearch			= DataTable.Value("KODE_PERUSAHAAN",dtlocalsheet)
+	dtExplain			= "Kode Perusahaan"
+	
+	Call SearchInquiryCorporate(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Corporate").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+    Call DetailSemuaTab
+    wait 2
+    objkey.SendKeys"{PGDN}"
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+End Sub
+
+REM ------------------------------- Inquiry->Corporate->Inquiry Maintenance Corporate ----------------------------------
+
+'Search Inquiry Maintenance Corporate
+Sub SearchInquiryMaintenanceCorporate(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Maintenance Corporate").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Corporate"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	x = Browser("DPLK").Page("Inquiry Maintenance Corporate").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Maintenance Corporate").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 18}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Corporate"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Detail Inquiry Maintenance Corporate
+Sub ViewInquiryMaintenanceCorporate
+	dtSearch			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain			= "No.Register"
+	
+	Call SearchInquiryMaintenanceCorporate(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Corporate").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Maintenance Corporate").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+    Call DetailSemuaTab
+    wait 2
+    objkey.SendKeys"{PGDN}"
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
 End Sub

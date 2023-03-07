@@ -799,27 +799,88 @@ End Sub
 
 REM -------------------------------- Transaksi->Penarikan Iuran 10% -----------------------------------------
 
+'Search Penarikan Iuran 10%
+Sub SearchPenarikanIuran10Persen(dtSearch, dtExplain)
+
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys("RIGHT 8")
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+'	Dim jmlData, splitJmlData
+'	nomorPeserta	= DataTable.Value("NOMOR_PESERTA",dtlocalsheet)
+'	statusRegister	= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
+'	
+'	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Search Data").Set nomorPeserta
+'	wait 2
+'	
+'	jmlData			= Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Jumlah Data List Tabel").GetROProperty("innertext")
+'	splitJmlData	= Split(jmlData, " ")
+'	
+'	If statusRegister = "1 : Lanjutkan ke Verifikasi" and splitJmlData(1) = "0" Then
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Data Dengan Nomor Peserta : "&nomorPeserta&" Tidak Terdapat Di List Tabel Karena Status Registernya : "&statusRegister, " ", compatibilityMode.Desktop, ReportStatus.Done)
+'		wait 2
+'	ElseIf statusRegister <> "1 : Lanjutkan ke Verifikasi" and splitJmlData(1) <> "0" Then
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan Nomor Peserta : "&nomorPeserta, " ", compatibilityMode.Desktop, ReportStatus.Done)
+'		wait 2
+'	ElseIf statusRegister = "1 : Lanjutkan ke Verifikasi" or splitJmlData(1) <> "0" Then
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan Nomor Peserta : "&nomorPeserta, " ", compatibilityMode.Desktop, ReportStatus.Done)
+'		wait 2
+'	Else
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Data Tidak Ditemukan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+'		wait 2
+'	End If
+End Sub
+
 'Fungsi Add New Penarikan Iuran 10%
 Sub AddPenarikanIuran10Persen
 	keteranganPerubahan		= DataTable.Value("KETERANGAN_PERUBAHAN",dtlocalsheet)
 	nomorPeserta			= DataTable.Value("NOMOR_PESERTA",dtlocalsheet)
 	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
 	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+'	dtSearch				= nomorPeserta
+	dtExplain				= "Nomor Register"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Tambah").Click
 	wait 2
-	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Halaman Register PENARIKAN IURAN 10%", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Halaman Register PENARIKAN IURAN 10%", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Halaman Register PENARIKAN IURAN 10%", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGUP 2}"
 	wait 1
+	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Search Nomor Peserta"), "Klik Button Search Nomor Peserta", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Search Nomor Peserta").Click
 	wait 2
 	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Search Nomor Rekening").Set nomorPeserta
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Cari dan Pilih Data Nomor Peserta Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 3
 	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Data Nomor Peserta").Click
-	wait 2
-	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Data Nomor Peserta").Click
+'	wait 2
+'	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Data Nomor Peserta").Click
 	wait 5
 	Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Dropdown Status Register").Click
 	wait 1
@@ -846,38 +907,13 @@ Sub AddPenarikanIuran10Persen
 	If Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berhasil Tambah Data Penarikan Iuran 10%", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
+		dtSearch = Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field No Register").GetROProperty("value")
+		wait 1
 		Browser("DPLK").Page("Penarikan Iuran 10%").WebButton("Btn Kembali").Click
 		wait 2
-		Call SearchPenarikanIuran10Persen()
+		Call SearchPenarikanIuran10Persen(dtSearch, dtExplain)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Gagal Tambah Data Penarikan Iuran 10%", " ", compatibilityMode.Desktop, ReportStatus.Passed)
-		wait 2
-	End If
-End Sub
-
-'Search Penarikan Iuran 10%
-Sub SearchPenarikanIuran10Persen
-	Dim jmlData, splitJmlData
-	nomorPeserta	= DataTable.Value("NOMOR_PESERTA",dtlocalsheet)
-	statusRegister	= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
-	
-	Browser("DPLK").Page("Penarikan Iuran 10%").WebEdit("Field Search Data").Set nomorPeserta
-	wait 2
-	
-	jmlData			= Browser("DPLK").Page("Penarikan Iuran 10%").WebElement("Jumlah Data List Tabel").GetROProperty("innertext")
-	splitJmlData	= Split(jmlData, " ")
-	
-	If statusRegister = "1 : Lanjutkan ke Verifikasi" and splitJmlData(1) = "0" Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Data Dengan Nomor Peserta : "&nomorPeserta&" Tidak Terdapat Di List Tabel Karena Status Registernya : "&statusRegister, " ", compatibilityMode.Desktop, ReportStatus.Done)
-		wait 2
-	ElseIf statusRegister <> "1 : Lanjutkan ke Verifikasi" and splitJmlData(1) <> "0" Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan Nomor Peserta : "&nomorPeserta, " ", compatibilityMode.Desktop, ReportStatus.Done)
-		wait 2
-	ElseIf statusRegister = "1 : Lanjutkan ke Verifikasi" or splitJmlData(1) <> "0" Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Berikut Data Dengan Nomor Peserta : "&nomorPeserta, " ", compatibilityMode.Desktop, ReportStatus.Done)
-		wait 2
-	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Penarikan Iuran 10%"), "Data Tidak Ditemukan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
 	End If
 End Sub
@@ -1026,6 +1062,23 @@ End Sub
 REM -------------------------------- Transaksi->Peserta->Register Perjanjian Kerja Sama -----------------------------------------
 
 'Search Register Perjanjian Kerja Sama
+Sub SearchRegisterPerjanjianKerjaSama(dtSearch,dtExplain)
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Perjanjian Kerja Sama"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_y")
+			devices.MouseMove x,y
+			devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 5}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Perjanjian Kerja Sama"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+End Sub
 
 
 'Add Register Perjanjian Kerja Sama
@@ -1042,6 +1095,8 @@ Sub AddRegisterPerjanjianKerjaSama
 	tglBerakhir				= DataTable.Value("TGL_BERAKHIR",dtlocalsheet)
 	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
 	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+	dtSearch				= nomorPKS
+	dtExplain				= "Nomor PKS"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -1131,6 +1186,10 @@ Sub AddRegisterPerjanjianKerjaSama
 	wait 2
 	If Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Perjanjian Kerja Sama"), "Berhasil Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebButton("Btn Kembali").Click
+		wait 2
+		Call SearchRegisterPerjanjianKerjaSama(dtSearch, dtExplain)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Perjanjian Kerja Sama"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -1222,7 +1281,23 @@ End Sub
 REM -------------------------------- Transaksi->Perjanjian Kerjasama->Maintenance Perjanjian Kerja Sama -----------------------------------------
 
 'Search Maintenance Perjanjian Kerja Sama
-
+Sub SearchMaintenancePerjanjianKerjaSama(dtSearch,dtExplain)
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Tabel Data").GetROProperty("abs_y")
+			devices.MouseMove x,y
+			devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 18}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+End Sub
 
 'Add Maintenance Perjanjian Kerja Sama
 Sub AddMaintenancePerjanjianKerjaSama
@@ -1232,6 +1307,7 @@ Sub AddMaintenancePerjanjianKerjaSama
 	mgmtFee					= DataTable.Value("MGMT_FEE",dtlocalsheet)
 	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
 	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+	dtExplain				= "No.Register"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -1286,6 +1362,12 @@ Sub AddMaintenancePerjanjianKerjaSama
 	wait 2
 	If Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berhasil Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		dtSearch = Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field No.Register").GetROProperty("value")
+		wait 1
+		Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebButton("Btn Kembali").Click
+		wait 2
+		Call SearchMaintenancePerjanjianKerjaSama(dtSearch,dtExplain)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -1366,4 +1448,153 @@ Sub MaintenancePerjanjianKerjaSamaTabBiayaAdministrasi
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama"), "Berikut Detail Data Pada Tab Biaya Administrasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+End Sub
+
+REM -------------------------------- Transaksi->Split Balance->Split Balance -----------------------------------------
+
+'Search Split Balance
+Sub SearchSplitBalance(dtSearch,dtExplain)
+	Browser("DPLK").Page("Split Balance").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Add Split Balance
+Sub AddSplitBalance
+	keteranganPerubahan			= DataTable.Value("KETERANGAN_PERUBAHAN",dtlocalsheet)
+	noPeserta					= DataTable.Value("NO_PESERTA",dtlocalsheet)
+	statusRegister				= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
+	keteranganRegister			= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+	dtExplain					= "No.Register"
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebButton("Btn Tambah").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Halaman Register SPLIT BALANCE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Halaman Register SPLIT BALANCE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Halaman Register SPLIT BALANCE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGUP 2}"
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance").WebButton("Btn Search No.Peserta"), "Klik Button Search No.Peserta", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebButton("Btn Search No.Peserta").Click
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebEdit("Field Search Nomor Peserta").Set noPeserta
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Cari dan Pilih Data Nomor Peserta Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebElement("Data Nomor Peserta").SetTOProperty "innertext", noPeserta
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebElement("Data Nomor Peserta").Click
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebElement("Data Nomor Peserta").Click
+	wait 5
+	Browser("DPLK").Page("Split Balance").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field Keterangan Register").Set keteranganRegister
+	wait 1
+	objkey.SendKeys"{PGUP 2}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Isi Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Isi Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Isi Fields yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Split Balance").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berhasil Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		dtSearch = Browser("DPLK").Page("Split Balance").WebEdit("Field No.Register").GetROProperty("value")
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Split Balance").WebEdit("Field No.Register").Click
+		wait 1
+		objkey.SendKeys"{DOWN 8}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		objkey.SendKeys"{DOWN 16}"
+		wait 2
+		Call UpdateDetailSplitBalance(dtSearch, dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	End If
+End Sub
+
+'Ubah Detail Split Balance
+Sub UpdateDetailSplitBalance(dtSearch, dtExplain)
+	snfIuranPribadi				= DataTable.Value("SNF_IURAN_PRIBADI",dtlocalsheet)
+	snfIuranPerusahaan			= DataTable.Value("SNF_IURAN_PERUSAHAAN",dtlocalsheet)
+	snfIuranSukarela			= DataTable.Value("SNF_IURAN_SUKARELA",dtlocalsheet)
+	snfPengalihanIuranKaryawan	= DataTable.Value("SNF_PENGALIHAN_IURAN_KARYAWAN",dtlocalsheet)
+	snfPengalihanIuranPerusahaan= DataTable.Value("SNF_PENGALIHAN_IURAN_PERUSAHAAN",dtlocalsheet)
+	
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Split Balance Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Pribadi").Set snfIuranPribadi
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Perusahaan").Set snfIuranPerusahaan
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Sukarela").Set snfIuranSukarela
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Pengalihan Iuran Karyawan").Set snfPengalihanIuranKaryawan
+	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Pengalihan Iuran Perusahaan").Set snfPengalihanIuranPerusahaan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Ubah Field Pada Detail Split Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	totalSN		= Browser("DPLK").Page("Split Balance").WebEdit("Total SN").GetROProperty("value")
+	totalSNF	= Browser("DPLK").Page("Split Balance").WebEdit("Total SNF").GetROProperty("value")
+	
+	If totalSN = totalSNF Then
+	
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Sudah Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		objkey.SendKeys"{PGDN}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		Browser("DPLK").Page("Split Balance").WebButton("Btn Simpan").Click
+		wait 2
+		
+		If Browser("DPLK").Page("Split Balance").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berhasil Update Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+			Browser("DPLK").Page("Split Balance").WebButton("Btn Kembali").Click
+			wait 2
+			Call SearchSplitBalance(dtSearch,dtExplain)
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Gagal Update Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+		End If
+		
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Tidak Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 End Sub

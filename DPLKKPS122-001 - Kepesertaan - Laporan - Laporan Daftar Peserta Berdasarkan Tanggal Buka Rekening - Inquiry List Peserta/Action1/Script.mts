@@ -13,15 +13,15 @@ Call spAddScenario(dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedRes
 iteration		= Environment.Value("ActionIteration")
 
 REM ------- DPLK
-'Call DA_Login()
-'Call GoTo_SidebarMenu2()
-'Call GoTo_SidebarSubMenu()
-'
-'Call CetakLaporanSaldoPeserta()
-'
-'Call DA_Logout("0")
-'Call spReportSave()
-Call OpenPDFFile(namaFile)
+Call DA_Login()
+Call GoTo_SidebarMenu2()
+Call GoTo_SidebarSubMenu2()
+
+Call CetakLaporanDaftarPesertaBerdasarkanTanggalBukaRekening()
+
+Call DA_Logout("0")
+Call spReportSave()
+'Call OpenPDFFile(namaFile)
 
 Sub spLoadLibrary()
 	Dim LibPathDPLK, LibReport, LibRepo, objSysInfo

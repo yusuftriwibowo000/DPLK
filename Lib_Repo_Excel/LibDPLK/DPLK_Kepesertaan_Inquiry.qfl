@@ -344,3 +344,45 @@ Sub ViewInquiryMaintenanceCorporate
     Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Maintenance Corporate"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
     wait 2
 End Sub
+
+REM ------------------------------- Inquiry->Transaksi->Inquiry Penarikan Iuran 10% ----------------------------------
+
+'Search Inquiry Penarikan Iuran 10 Persen
+Sub SearchInquiryPenarikanIuran10Persen(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	x = Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen").WebElement("Tabel Data").GetROProperty("abs_x")
+	y = Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 2
+		objkey.SendKeys"{RIGHT 18}"
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Detail Inquiry Penarikan Iuran 10 Persen
+Sub ViewInquiryPenarikanIuran10Persen
+	dtSearch			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain			= "No.Register"
+	
+	Call SearchInquiryPenarikanIuran10Persen(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    objkey.SendKeys"{PGDN}"
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+End Sub

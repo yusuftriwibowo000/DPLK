@@ -286,12 +286,11 @@ End Sub
 REM -------------------------------- Proses->Perjanjian Kerja Sama->Verifikasi Perjanjian Kerja Sama -----------------------------------------
 
 'Search Verifikasi Perjanjian Kerja Sama
-Sub SearchVerifikasiPerjanjianKerjaSama
-	nomorPKS	= DataTable.Value("NO_PKS",dtlocalsheet)
+Sub SearchVerifikasiPerjanjianKerjaSama(dtSearch, dtExplain)
 	
-	Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebEdit("Field Search Data").Set nomorPKS
+	Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama"), "Berikut Data Dengan Nomor PKS : "&nomorPKS, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 End Sub
 
@@ -301,9 +300,11 @@ Sub VerifikasiPerjanjianKerjaSama
 	explain				= DataTable.Value("EXPLAIN",dtlocalsheet)
 	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
 	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
+	dtSearch			= nomorPKS
+	dtExplain			= "Nomor PKS"
 	
 	wait 2
-	Call SearchVerifikasiPerjanjianKerjaSama()
+	Call SearchVerifikasiPerjanjianKerjaSama(dtSearch, dtExplain)
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebElement("Btn Checklist Verifikasi").Click
@@ -335,13 +336,13 @@ Sub VerifikasiPerjanjianKerjaSama
 	Call ConfirmOtorisasi()
 	wait 2
 	If Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama"), "Data Dengan Nomor PKS : "&nomorPKS&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama"), "Data Dengan "&dtExplain&" : "&dtSearch&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebButton("Btn Kembali").Click
 		wait 2
-		Call SearchVerifikasiPerjanjianKerjaSama()
+		Call SearchVerifikasiPerjanjianKerjaSama(dtSearch, dtExplain)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama"), "Data Dengan Nomor PKS : "&nomorPKS&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama"), "Data Dengan "&dtExplain&" : "&dtSearch&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

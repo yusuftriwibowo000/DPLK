@@ -934,7 +934,7 @@ Sub SearchVerifikasiTicketFixedIncome(dtSearch, dtExplain)
 	devices.MouseMove x,y
 	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 	wait 1
-	objkey.SendKeys"{RIGHT 14}"
+	objkey.SendKeys"{RIGHT 20}"
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Ticket Fixed Income"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2

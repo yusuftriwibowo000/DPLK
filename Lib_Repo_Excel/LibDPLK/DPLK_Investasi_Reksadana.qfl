@@ -1231,6 +1231,54 @@ Sub AddPembatalanSwitching
 	wait 2
 End Sub
 
+REM -------------------------------- Reksadana -> Pembatalan -> Verifikasi Pembatalan Switching -----------------------------------------
+
+'Approve Pembatalan Switching
+Sub ApprovePembatalanSwitching
+
+	switchingID			= DataTable.Value("SWITCHING_ID", dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI", dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
+	
+	wait 2
+	Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebEdit("Field Search Data").Set switchingID
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching"), "Search Data yang Akan "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	If Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Verifikasi Pembatalan Switching").WebEdit("Field Search Data").Set switchingID
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching"), "Berikut Data Dengan Switching ID : "&switchingID&" Setelah "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Pembatalan Switching"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
 REM -------------------------------- Reksadana->Entry Transaksi->Deviden Reksadana -----------------------------------------
 
 'Search Deviden Reksadana

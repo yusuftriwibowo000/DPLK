@@ -56,7 +56,6 @@ Sub ConfirmOtorisasi
 		Browser("DPLK").Page("Global").WebButton("Btn Submit Delete").Click
 		wait 2
 	End If
-
 End Sub
 
 REM -------------------------------- Transaksi->Produk->Register Produk -----------------------------------------
@@ -170,9 +169,18 @@ End Sub
 
 REM -------------------------------- Transaksi->Corporate->Register Corporate -----------------------------------------
 
+'Search Register Corporate
+Sub SearchRegisterCorporate(dtSearch,dtExplain)
+
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
 'Add New Register Corporate
 Sub AddRegisterCorporate
-	kodePerusahaan			= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
+'	kodePerusahaan			= DataTable.Value("KODE_PERUSAHAAN", dtlocalsheet)
 	namaPerusahaan			= DataTable.Value("NAMA_PERUSAHAAN", dtlocalsheet)
 	namaAlias				= DataTable.Value("NAMA_ALIAS", dtlocalsheet)
 	badanHukum				= DataTable.Value("BADAN_HUKUM", dtlocalsheet)
@@ -180,6 +188,7 @@ Sub AddRegisterCorporate
 	noFaxUtama				= DataTable.Value("NO_FAX_UTAMA", dtlocalsheet)
 	website					= DataTable.Value("WEBSITE", dtlocalsheet)
 	emailUtama				= DataTable.Value("EMAIL_UTAMA", dtlocalsheet)
+	tipePerusahaan			= DataTable.Value("TIPE_PERUSAHAAN", dtlocalsheet)
 	sektorUsaha				= DataTable.Value("SEKTOR_USAHA", dtlocalsheet)
 	grupUsaha				= DataTable.Value("GRUP_USAHA", dtlocalsheet)
 	negaraGrupUsaha			= DataTable.Value("NEGARA_GRUP_USAHA", dtlocalsheet)
@@ -195,13 +204,14 @@ Sub AddRegisterCorporate
 	iuranPerBulan			= DataTable.Value("IURAN_PER_BULAN", dtlocalsheet)
 	statusRegister			= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
 	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	dtExplain				= "Kode Perusahaan"
 	
 	'Parameter Tab yang akan diisi
-	alamat					= DataTable.Value("ALAMAT",dtlocalsheet)
-	noAktePengesahan		= DataTable.Value("NO_AKTE_PENGESAHAN",dtlocalsheet)
-	namaSesuaiID			= DataTable.Value("NAMA_SESUAI_ID",dtlocalsheet)
-	noUrut					= DataTable.Value("NO_URUT",dtlocalsheet)
-	kodeBank				= DataTable.Value("KODE_BANK",dtlocalsheet)
+'	alamat					= DataTable.Value("ALAMAT",dtlocalsheet)
+'	noAktePengesahan		= DataTable.Value("NO_AKTE_PENGESAHAN",dtlocalsheet)
+'	namaSesuaiID			= DataTable.Value("NAMA_SESUAI_ID",dtlocalsheet)
+'	noUrut					= DataTable.Value("NO_URUT",dtlocalsheet)
+'	kodeBank				= DataTable.Value("KODE_BANK",dtlocalsheet)
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -226,6 +236,12 @@ Sub AddRegisterCorporate
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Email").Set emailUtama
 	wait 1
+	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Tipe Perusahaan").Click
+	wait 1
+	objkey.SendKeys(tipePerusahaan)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Sektor Usaha").Click
 	wait 1
 	objkey.SendKeys(sektorUsaha)
@@ -249,10 +265,14 @@ Sub AddRegisterCorporate
 	objkey.SendKeys(tipeKantor)
 	wait 1
 	objkey.SendKeys"{ENTER}"
-	wait 1
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Search Kantor Induk(Grup Holding)"), "Klik Button Search Kantor Induk (Grup Holding)", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Register Corporate").WebButton("Btn Search Kantor Induk(Grup Holding)").Click
 	wait 2
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Kantor Induk(Grup Holding)").Set kantorInduk
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Cari dan Pilih Kantor Induk (Grup Holding) yang Dibutuhkan ", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Register Corporate").WebElement("Data Kantor Induk(Grup Holding)").Click
 	wait 2
@@ -276,10 +296,34 @@ Sub AddRegisterCorporate
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Iuran/Bulan").Set iuranPerBulan
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Isi Semua Field yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Isi Semua Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	objkey.SendKeys"{PGDN}"
 	wait 1
+	
+'	If alamat <> "" Then
+		Call RegisterCorporateAlamat()
+'	End If
+	
+'	If noAktePengesahan <> "" Then
+		Call RegisterCorporateDataLegalitas()
+'	End If
+	
+'	If namaSesuaiID <> "" Then
+		Call RegisterCorporateBeneficialOwner()
+'	End If
+	
+'	If noUrut <> "" Then
+		Call RegisterCorporateContactPerson()
+'	End If
+	
+'	If kodeBank <> "" Then
+		Call RegisterCorporateRekeningBank()
+		Call RegisterCorporateStrukturManajemen()
+		Call RegisterCorporatePemegangSaham()
+		Call RegisterCorporateDokumen()
+'	End If
+	
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Status Register").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
@@ -287,44 +331,23 @@ Sub AddRegisterCorporate
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Keterangan Register").Set keteranganRegister
-	wait 1
-	If alamat <> "" Then
-		Call RegisterCorporateAlamat()
-	End If
-	
-	If noAktePengesahan <> "" Then
-		Call RegisterCorporateDataLegalitas()
-	End If
-	
-	If namaSesuaiID <> "" Then
-		Call RegisterCorporateBeneficialOwner()
-	End If
-	
-	If noUrut <> "" Then
-		Call RegisterCorporateContactPerson()
-	End If
-	
-	If kodeBank <> "" Then
-		Call RegisterCorporateRekeningBank()
-	End If
-	
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Simpan"), "Klik Button Simpan Untuk Menambahkan Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Isi Field Status Register dan Keterangan Register, Kemudian Klik Button Simpan Untuk Menambahkan Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Register Corporate").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Register Corporate").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
+		dtSearch = Browser("DPLK").Page("Register Corporate").WebEdit("Field Kode Perusahaan").GetROProperty("value")
+		wait 1
 		objkey.SendKeys"{PGDN 2}"
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Berikut Riwayat Transaksi Setelah Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 		Browser("DPLK").Page("Register Corporate").WebButton("Btn Kembali").Click
 		wait 2
-		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Data").Set kodePerusahaan
-		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Data Dengan Kode Perusahaan "&kodePerusahaan&" Telah Tersedia" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Call SearchRegisterCorporate(dtSearch,dtExplain)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
@@ -333,7 +356,8 @@ End Sub
 
 'Fill Register Corporate - Alamat
 Sub RegisterCorporateAlamat
-
+	
+	'Alamat Sesuai AD
 	alamat			= DataTable.Value("ALAMAT",dtlocalsheet)
 	provinsi		= DataTable.Value("PROVINSI",dtlocalsheet)
 	kotaKabupaten	= DataTable.Value("KOTA_KABUPATEN",dtlocalsheet)
@@ -343,40 +367,95 @@ Sub RegisterCorporateAlamat
 	RT				= DataTable.Value("RT",dtlocalsheet)
 	RW				= DataTable.Value("RW",dtlocalsheet)
 	
-	wait 2
-	Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field Alamat 1").Set alamat
+	'Alamat Kantor
+	alamatKantor		= DataTable.Value("ALAMAT_KANTOR",dtlocalsheet)
+	provinsiKantor		= DataTable.Value("PROVINSI_KANTOR",dtlocalsheet)
+	kotaKabupatenKantor	= DataTable.Value("KOTA_KABUPATEN_KANTOR",dtlocalsheet)
+	kecamatanKantor		= DataTable.Value("KECAMATAN_KANTOR",dtlocalsheet)
+	kelurahanKantor		= DataTable.Value("KELURAHAN_KANTOR",dtlocalsheet)
+	kodePosKantor		= DataTable.Value("KODE_POS_KANTOR",dtlocalsheet)
+	RTKantor			= DataTable.Value("RT_KANTOR",dtlocalsheet)
+	RWKantor			= DataTable.Value("RW_KANTOR",dtlocalsheet)
+	
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Alamat"
 	wait 1
-	Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Provinsi 1").Click
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
 	wait 2
-	objkey.SendKeys(provinsi)
-	wait 2
-	objkey.SendKeys"{ENTER}"
-	wait 3
-	Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kota/Kabupaten 1").Click
-	wait 2
-	objkey.SendKeys(kotaKabupaten)
-	wait 2
-	objkey.SendKeys"{ENTER}"
-	wait 3
-	Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kecamatan 1").Click
-	wait 2
-	objkey.SendKeys(kecamatan)
-	wait 2
-	objkey.SendKeys"{ENTER}"
-	wait 3
-	Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kelurahan 1").Click
-	wait 2
-	objkey.SendKeys(kelurahan)
-	wait 2
-	objkey.SendKeys"{ENTER}"
-	wait 2
-	Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field Kode Pos 1").Set kodePos
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field RT 1").Set RT
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field RW 1").Set RW
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Alamat"), "Isi Semua Field yang Dibutuhkan pada Tab Alamat" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	
+	If alamat = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Alamat"), "Berikut Detail Pada Tab Alamat" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		'Isi Alamat Sesuai AD
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field Alamat 1").Set alamat
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Provinsi 1").Click
+		wait 2
+		objkey.SendKeys(provinsi)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kota/Kabupaten 1").Click
+		wait 2
+		objkey.SendKeys(kotaKabupaten)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kecamatan 1").Click
+		wait 2
+		objkey.SendKeys(kecamatan)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kelurahan 1").Click
+		wait 2
+		objkey.SendKeys(kelurahan)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 2
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field Kode Pos 1").Set kodePos
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field RT 1").Set RT
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field RW 1").Set RW
+		wait 1
+		
+		'Isi Alamat Kantor
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field Alamat 2").Set alamatKantor
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Provinsi 2").Click
+		wait 2
+		objkey.SendKeys(provinsiKantor)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kota/Kabupaten 2").Click
+		wait 2
+		objkey.SendKeys(kotaKabupatenKantor)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kecamatan 2").Click
+		wait 2
+		objkey.SendKeys(kecamatanKantor)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 3
+		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kelurahan 2").Click
+		wait 2
+		objkey.SendKeys(kelurahanKantor)
+		wait 2
+		objkey.SendKeys"{ENTER}"
+		wait 2
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field Kode Pos 2").Set kodePosKantor
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field RT 2").Set RTKantor
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Alamat").WebEdit("Field RW 2").Set RWKantor
+		
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Alamat"), "Isi Semua Fields yang Dibutuhkan pada Tab Alamat" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	
 	wait 2
 End Sub
 
@@ -401,33 +480,39 @@ Sub RegisterCorporateDataLegalitas
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
 	wait 2
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Akte Pengesahan").Set noAktePengesahan
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 1").Set tanggal1
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Akte Pendirian").Set noAktePendirian
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 2").Set tanggal2
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Notaris 1").Set notaris1
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tempat Akte Dibuat").Set tempatAkteDibuat
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Akte Perubahan").Set noAktePerubahan
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 3").Set tanggal3
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Notaris 2").Set notaris2
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Izin Berusaha").Set noIzinBerusaha
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 4").Set tanggal4
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Perizinan Lainnya").Set perizinanLainnya
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 5").Set tanggal5
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Data Legalitas"), "Isi Semua Field yang Dibutuhkan pada Tab Data Legalitas" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	
+	If noAktePengesahan = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Data Legalitas"), "Berikut Detail Pada Tab Data Legalitas" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Akte Pengesahan").Set noAktePengesahan
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 1").Set tanggal1
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Akte Pendirian").Set noAktePendirian
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 2").Set tanggal2
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Notaris 1").Set notaris1
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tempat Akte Dibuat").Set tempatAkteDibuat
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Akte Perubahan").Set noAktePerubahan
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 3").Set tanggal3
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Notaris 2").Set notaris2
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field No Izin Berusaha").Set noIzinBerusaha
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 4").Set tanggal4
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Perizinan Lainnya").Set perizinanLainnya
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Data Legalitas").WebEdit("Field Tanggal 5").Set tanggal5
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Data Legalitas"), "Isi Semua Fields yang Dibutuhkan pada Tab Data Legalitas" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	
 	wait 2
 End Sub
 
@@ -454,134 +539,489 @@ Sub RegisterCorporateBeneficialOwner
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
 	wait 2
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Nama Sesuai ID").Set namaSesuaiID
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Nomor Identitas").Set nomorIdentitas
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Alamat Sesuai ID").Set alamatSesuaiID
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Tempat Lahir").Set tempatLahir
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Kewarganegaraan").Click
-	wait 1
-	objkey.SendKeys(kewarganegaraan)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Jenis Kelamin").Click
-	wait 1
-	objkey.SendKeys(jenisKelamin)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Status Perkawinan").Click
-	wait 1
-	objkey.SendKeys(statusPerkawinan)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Pekerjaan").Click
-	wait 1
-	objkey.SendKeys(pekerjaan)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Alamat Tempat Kerja").Set alamatTempatKerja
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field No Area Telepon").Set noAreaTelepon
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field No Telepon").Set noTelepon1
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Sumber Dana").Click
-	wait 1
-	objkey.SendKeys(sumberDana)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Pendapatan/Tahun").Click
-	wait 1
-	objkey.SendKeys(pendapatanPerTahun)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Tujuan Dana").Click
-	wait 1
-	objkey.SendKeys(tujuanDana)
-	wait 1
-	objkey.SendKeys"{ENTER}"
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Hub Hukum").Set hubHukum
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Beneficial Owner"), "Isi Semua Field yang Dibutuhkan pada Tab Beneficial Owner" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	
+	If namaSesuaiID = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Beneficial Owner"), "Berikut Detail Pada Tab Beneficial Owner" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Nama Sesuai ID").Set namaSesuaiID
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Nomor Identitas").Set nomorIdentitas
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Alamat Sesuai ID").Set alamatSesuaiID
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Tempat Lahir").Set tempatLahir
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Kewarganegaraan").Click
+		wait 1
+		objkey.SendKeys(kewarganegaraan)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Jenis Kelamin").Click
+		wait 1
+		objkey.SendKeys(jenisKelamin)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Status Perkawinan").Click
+		wait 1
+		objkey.SendKeys(statusPerkawinan)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Pekerjaan").Click
+		wait 1
+		objkey.SendKeys(pekerjaan)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Alamat Tempat Kerja").Set alamatTempatKerja
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field No Area Telepon").Set noAreaTelepon
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field No Telepon").Set noTelepon1
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Sumber Dana").Click
+		wait 1
+		objkey.SendKeys(sumberDana)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Pendapatan/Tahun").Click
+		wait 1
+		objkey.SendKeys(pendapatanPerTahun)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Tujuan Dana").Click
+		wait 1
+		objkey.SendKeys(tujuanDana)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebEdit("Field Hub Hukum").Set hubHukum
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Beneficial Owner"), "Isi Semua Fields yang Dibutuhkan pada Tab Beneficial Owner" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	
 	wait 2
 End Sub
 
 'Fill Register Corporate - Contact Person
 Sub RegisterCorporateContactPerson
 	
-	noUrut		= DataTable.Value("NO_URUT",dtlocalsheet)
-	nama		= DataTable.Value("NAMA",dtlocalsheet)
-	jabatan		= DataTable.Value("JABATAN",dtlocalsheet)
-	email		= DataTable.Value("EMAIL",dtlocalsheet)
-	noTelepon	= DataTable.Value("NO_TELEPON",dtlocalsheet)
-	noHP		= DataTable.Value("NO_HP",dtlocalsheet)
+	noUrut		= DataTable.Value("NO_URUT_CP",dtlocalsheet)
+	nama		= DataTable.Value("NAMA_CP",dtlocalsheet)
+	jabatan		= DataTable.Value("JABATAN_CP",dtlocalsheet)
+	email		= DataTable.Value("EMAIL_CP",dtlocalsheet)
+	noTelepon	= DataTable.Value("NO_TELEPON_CP",dtlocalsheet)
+	noHP		= DataTable.Value("NO_HP_CP",dtlocalsheet)
 	
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Contact Person"
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
-	wait 2
-	Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
-	wait 2
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No Urut").Set noUrut
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Nama").Set nama
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Jabatan").Set jabatan
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Email").Set email
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No Telepon").Set noTelepon
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No HP").Set noHP
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Isi Semua Field yang Dibutuhkan pada Tab Contact Person, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
-	Browser("DPLK").Page("Register Corporate - Contact Person").WebButton("Btn Simpan Modal").Click
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Data Contact Person Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	
+	If noUrut = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Berikut Detail Pada Tab Contact Person" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		If InStr(noUrut, ";") > 0 Then
+			noUrut		= Split(noUrut,";")
+			nama		= Split(nama,";")
+			jabatan		= Split(jabatan,";")
+			email		= Split(email,";")
+			noTelepon	= Split(noTelepon,";")
+			noHP		= Split(noHP,";")
+			
+			For i = 0 To UBound(noUrut) Step 1
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+				wait 2
+				Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
+				wait 2
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No Urut").Set noUrut(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Nama").Set nama(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Jabatan").Set jabatan(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Email").Set email(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No Telepon").Set noTelepon(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No HP").Set noHP(i)
+				wait 2
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Isi Semua Fields yang Dibutuhkan pada Tab Contact Person, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+				wait 2
+				Browser("DPLK").Page("Register Corporate - Contact Person").WebButton("Btn Simpan Modal").Click
+				wait 2
+			Next
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
+			wait 2
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No Urut").Set noUrut
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Nama").Set nama
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Jabatan").Set jabatan
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field Email").Set email
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No Telepon").Set noTelepon
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebEdit("Field No HP").Set noHP
+			wait 2
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Isi Semua Fields yang Dibutuhkan pada Tab Contact Person, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Corporate - Contact Person").WebButton("Btn Simpan Modal").Click
+			wait 2
+		End If
+		
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Data Contact Person Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	
 	wait 2
 End Sub
 
 'Fill Register Corporate - Rekening Bank
 Sub RegisterCorporateRekeningBank
 	
-	kodeBank			= DataTable.Value("KODE_BANK",dtlocalsheet)
-	nomorRekening		= DataTable.Value("NOMOR_REKENING",dtlocalsheet)
-	namaPemegangRekening= DataTable.Value("NAMA_PEMEGANG_REKENING",dtlocalsheet)
-	cabangBank			= DataTable.Value("CABANG_BANK",dtlocalsheet)
-	kotaBank			= DataTable.Value("KOTA_BANK",dtlocalsheet)
+	kodeBank			= DataTable.Value("KODE_BANK_RB",dtlocalsheet)
+	nomorRekening		= DataTable.Value("NOMOR_REKENING_RB",dtlocalsheet)
+	namaPemegangRekening= DataTable.Value("NAMA_PEMEGANG_REKENING_RB",dtlocalsheet)
+	cabangBank			= DataTable.Value("CABANG_BANK_RB",dtlocalsheet)
+	kotaBank			= DataTable.Value("KOTA_BANK_RB",dtlocalsheet)
 	
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Rekening Bank"
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
 	wait 2
-	Browser("DPLK").Page("Register Corporate - Rekening Bank").WebElement("Dropdown Kode Bank").Click
+	
+	If kodeBank = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Rekening Bank"), "Berikut Detail Pada Tab Rekening Bank" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Browser("DPLK").Page("Register Corporate - Rekening Bank").WebElement("Dropdown Kode Bank").Click
+		wait 1
+		objkey.SendKeys(kodeBank)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Nomor Rekening").Set nomorRekening
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Nama Pemegang Rekening").Set namaPemegangRekening
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Cabang Bank").Set cabangBank
+		wait 1
+		Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Kota Bank").Set kotaBank
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Rekening Bank"), "Isi Semua Fields yang Dibutuhkan pada Tab Rekening Bank" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	
+	wait 2
+End Sub
+
+'Fill Register Corporate - Struktur Manajemen
+Sub RegisterCorporateStrukturManajemen
+	
+	noUrut			= DataTable.Value("NO_URUT_SM",dtlocalsheet)
+	nama			= DataTable.Value("NAMA_SM",dtlocalsheet)
+	jabatan			= DataTable.Value("JABATAN_SM",dtlocalsheet)
+	wargaNegara		= DataTable.Value("WARGA_NEGARA_SM",dtlocalsheet)
+	
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Struktur Manajemen"
 	wait 1
-	objkey.SendKeys(kodeBank)
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
+	wait 2
+	
+	If noUrut = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Struktur Manajemen"), "Berikut Detail Pada Tab Struktur Manajemen" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		If InStr(noUrut, ";") > 0 Then
+			noUrut		= Split(noUrut,";")
+			nama		= Split(nama,";")
+			jabatan		= Split(jabatan,";")
+			wargaNegara	= Split(wargaNegara,";")
+			
+			For i = 0 To UBound(noUrut) Step 1
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+				wait 2
+				Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
+				wait 2
+				Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field No Urut").Set noUrut(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field Nama").Set nama(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field Jabatan").Set jabatan(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebElement("Dropdown Warga Negara").Click
+				wait 1
+				objkey.SendKeys(wargaNegara(i))
+				wait 1
+				objkey.SendKeys"{ENTER}"
+				wait 2
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Struktur Manajemen"), "Isi Semua Fields yang Dibutuhkan pada Tab Struktur Manajemen, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+				wait 2
+				Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebButton("Btn Simpan Modal").Click
+				wait 1
+			Next
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
+			wait 2
+			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field No Urut").Set noUrut
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field Nama").Set nama
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field Jabatan").Set jabatan
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebElement("Dropdown Warga Negara").Click
+			wait 1
+			objkey.SendKeys(wargaNegara)
+			wait 1
+			objkey.SendKeys"{ENTER}"
+			wait 2
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Struktur Manajemen"), "Isi Semua Fields yang Dibutuhkan pada Tab Struktur Manajemen, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebButton("Btn Simpan Modal").Click
+			wait 1
+		End If
+		
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Struktur Manajemen"), "Data Struktur Manajemen Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)	
+	End If
+	
+	wait 2
+End Sub
+
+'Fill Register Corporate Pemegang Saham
+Sub RegisterCorporatePemegangSaham
+	
+	noUrut			= DataTable.Value("NO_URUT_PS",dtlocalsheet)
+	nama			= DataTable.Value("NAMA_PS",dtlocalsheet)
+	alamat			= DataTable.Value("ALAMAT_PS",dtlocalsheet)
+	kepemilikan		= DataTable.Value("KEPEMILIKAN_PS",dtlocalsheet)
+	jabatan			= DataTable.Value("JABATAN_PS",dtlocalsheet)
+	wargaNegara		= DataTable.Value("WARGA_NEGARA_PS",dtlocalsheet)
+	
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Pemegang Saham"
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
+	wait 2
+	
+	If noUrut = "" Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Pemegang Saham"), "Berikut Detail Pada Tab Pemegang Saham" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		If InStr(noUrut, ";") > 0 Then
+			noUrut		= Split(noUrut,";")
+			nama		= Split(nama,";")
+			alamat		= Split(alamat,";")
+			kepemilikan	= Split(kepemilikan,";")
+			jabatan		= Split(jabatan,";")
+			wargaNegara	= Split(wargaNegara,";")
+			
+			For i = 0 To UBound(noUrut) Step 1
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+				wait 2
+				Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
+				wait 2
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field No Urut").Set noUrut(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Nama").Set nama(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Alamat").Set alamat(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Persen Kepemilikan").Set kepemilikan(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Jabatan").Set jabatan(i)
+				wait 1
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebElement("Dropdown Warga Negara").Click
+				wait 1
+				objkey.SendKeys(wargaNegara(i))
+				wait 1
+				objkey.SendKeys"{ENTER}"
+				wait 2
+				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Pemegang Saham"), "Isi Semua Fields yang Dibutuhkan pada Tab Pemegang Saham, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+				wait 2
+				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebButton("Btn Simpan Modal").Click
+				wait 1
+			Next
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah").Click
+			wait 2
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field No Urut").Set noUrut
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Nama").Set nama
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Alamat").Set alamat
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Persen Kepemilikan").Set kepemilikan
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Jabatan").Set jabatan
+			wait 1
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebElement("Dropdown Warga Negara").Click
+			wait 1
+			objkey.SendKeys(wargaNegara)
+			wait 1
+			objkey.SendKeys"{ENTER}"
+			wait 2
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Pemegang Saham"), "Isi Semua Fields yang Dibutuhkan pada Tab Pemegang Saham, Lalu Klik Button Simpan" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebButton("Btn Simpan Modal").Click
+			wait 1
+		End If
+		
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Pemegang Saham"), "Data Pemegang Saham Berhasil Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	
+	wait 2
+End Sub
+
+'Fill Register Corporate Dokumen
+Sub RegisterCorporateDokumen
+
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Dokumen"
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Dokumen"), "Berikut Detail Pada Tab Dokumen" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+REM -------------------------------- Transaksi->Corporate->Maintenance Corporate -----------------------------------------
+
+'Search Maintenance Corporate
+Sub SearchMaintenanceCorporate(dtSearch,dtExplain)
+
+	Browser("DPLK").Page("Maintenance Corporate").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	If Browser("DPLK").Page("Maintenance Corporate").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Maintenance Corporate").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Maintenance Corporate").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y,LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 10}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+End Sub
+
+'Add New Maintenance Corporate
+Sub AddMaintenanceCorporate
+
+	keteranganPerubahan		= DataTable.Value("KETERANGAN_PERUBAHAN", dtlocalsheet)
+	pilihPerusahaan			= DataTable.Value("PILIH_PERUSAHAAN", dtlocalsheet)
+	namaPerusahaan			= DataTable.Value("NAMA_PERUSAHAAN", dtlocalsheet)
+	namaAlias				= DataTable.Value("NAMA_ALIAS", dtlocalsheet)
+	badanHukum				= DataTable.Value("BADAN_HUKUM", dtlocalsheet)
+	noTeleponUtama			= DataTable.Value("NO_TELEPON_UTAMA", dtlocalsheet)
+	noFaxUtama				= DataTable.Value("NO_FAX_UTAMA", dtlocalsheet)
+	website					= DataTable.Value("WEBSITE", dtlocalsheet)
+	emailUtama				= DataTable.Value("EMAIL_UTAMA", dtlocalsheet)
+	tipePerusahaan			= DataTable.Value("TIPE_PERUSAHAAN", dtlocalsheet)
+	sektorUsaha				= DataTable.Value("SEKTOR_USAHA", dtlocalsheet)
+	grupUsaha				= DataTable.Value("GRUP_USAHA", dtlocalsheet)
+	negaraGrupUsaha			= DataTable.Value("NEGARA_GRUP_USAHA", dtlocalsheet)
+	lamaBerusaha			= DataTable.Value("LAMA_BERUSAHA", dtlocalsheet)
+	jmlKaryawan				= DataTable.Value("JUMLAH_KARYAWAN", dtlocalsheet)
+	tipeKantor				= DataTable.Value("TIPE_KANTOR", dtlocalsheet)
+	kantorInduk				= DataTable.Value("KANTOR_INDUK_GRUP_HOLDING", dtlocalsheet)
+	npwp					= DataTable.Value("NPWP", dtlocalsheet)
+	pendapatanPerTahunUtama	= DataTable.Value("PENDAPATAN_PER_TAHUN_UTAMA", dtlocalsheet)
+	sumberDanaUtama			= DataTable.Value("SUMBER_DANA_UTAMA", dtlocalsheet)
+	tujuanPenggunaanDana	= DataTable.Value("TUJUAN_PENGGUNAAN_DANA", dtlocalsheet)
+	usiaPensiun				= DataTable.Value("USIA_PENSIUN", dtlocalsheet)
+	iuranPerBulan			= DataTable.Value("IURAN_PER_BULAN", dtlocalsheet)
+	statusRegister			= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
+	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER", dtlocalsheet)
+	dtExplain				= "No.Register"
+	
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Corporate").WebButton("Btn Tambah").Click
+	wait 3
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Berikut Halaman Register MAINTENANCE CORPORATE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Berikut Halaman Register MAINTENANCE CORPORATE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Berikut Halaman Register MAINTENANCE CORPORATE", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGUP 2}"
+	wait 2
+	Browser("DPLK").Page("Maintenance Corporate").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate").WebButton("Btn Search Pilih Perusahaan"), "Klik Button Search Pilih Perusahaan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Corporate").WebButton("Btn Search Pilih Perusahaan").Click
+	wait 2
+	Browser("DPLK").Page("Maintenance Corporate").WebEdit("Field Search Pilih Perusahaan").Set pilihPerusahaan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Cari dan Pilih Data Perusahaan Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Corporate").WebElement("Data Pilih Perusahaan").SetTOProperty "innertext", pilihPerusahaan
+	wait 1
+	Browser("DPLK").Page("Maintenance Corporate").WebElement("Data Pilih Perusahaan").Click
+	wait 15
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Isi Semua Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 8}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Isi Semua Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 15}"
+	wait 2
+	
+	Call RegisterCorporateAlamat()
+	Call RegisterCorporateDataLegalitas()
+	Call RegisterCorporateBeneficialOwner()
+	Call RegisterCorporateContactPerson()
+	Call RegisterCorporateRekeningBank()
+	Call RegisterCorporateStrukturManajemen()
+	Call RegisterCorporatePemegangSaham()
+	Call RegisterCorporateDokumen()
+	
+	Browser("DPLK").Page("Maintenance Corporate").WebElement("Dropdown Status Register").Click
+	wait 1
+	objkey.SendKeys(statusRegister)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
-	Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Nomor Rekening").Set nomorRekening
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Nama Pemegang Rekening").Set namaPemegangRekening
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Cabang Bank").Set cabangBank
-	wait 1
-	Browser("DPLK").Page("Register Corporate - Rekening Bank").WebEdit("Field Kota Bank").Set kotaBank
+	Browser("DPLK").Page("Maintenance Corporate").WebEdit("Field Keterangan Register").Set keteranganRegister
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Rekening Bank"), "Isi Semua Field yang Dibutuhkan pada Tab Rekening Bank" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Isi Field Status Register dan Keterangan Register, Kemudian Klik Button Simpan Untuk Menambahkan Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Maintenance Corporate").WebButton("Btn Simpan").Click
+	wait 2
+	If Browser("DPLK").Page("Maintenance Corporate").WebElement("PopUp ×Data berhasil ditambah").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Data Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		dtSearch = Browser("DPLK").Page("Maintenance Corporate").WebEdit("Field No Register").GetROProperty("value")
+		wait 1
+		objkey.SendKeys"{PGDN 2}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Berikut Riwayat Transaksi Setelah Berhasil Ditambahkan", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Maintenance Corporate").WebButton("Btn Kembali").Click
+		wait 2
+		Call SearchMaintenanceCorporate(dtSearch,dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Maintenance Corporate"), "Data Gagal Ditambahkan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
 	wait 2
 End Sub
 
@@ -1538,46 +1978,103 @@ Sub AddSplitBalance
 		wait 2
 		objkey.SendKeys"{DOWN 16}"
 		wait 2
-		Call UpdateDetailSplitBalance(dtSearch, dtExplain)
+		Call UpdateDetailSplitBalance(dtSearch, dtExplain, statusRegister, keteranganRegister)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 	End If
 End Sub
 
+'Edit Split Balance
+Sub EditSplitBalance
+	noRegister				= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	keteranganPerubahan		= DataTable.Value("KETERANGAN_PERUBAHAN",dtlocalsheet)
+	statusRegister			= DataTable.Value("STATUS_REGISTER",dtlocalsheet)
+	keteranganRegister		= DataTable.Value("KETERANGAN_REGISTER",dtlocalsheet)
+	dtSearch				= noRegister
+	dtExplain				= "No.Register"
+	
+	wait 2
+	Call SearchSplitBalance(dtSearch,dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebElement("Btn Edit").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebEdit("Field No.Register").Click
+	wait 1
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch&" Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGUP 2}"
+	wait 2
+	Browser("DPLK").Page("Split Balance").WebEdit("Field Keterangan Perubahan").Set keteranganPerubahan
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Ubah Fields Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 8}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Ubah Fields Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 16}"
+	wait 2
+	Call UpdateDetailSplitBalance(dtSearch, dtExplain, statusRegister, keteranganRegister)
+End Sub
+
 'Ubah Detail Split Balance
-Sub UpdateDetailSplitBalance(dtSearch, dtExplain)
+Sub UpdateDetailSplitBalance(dtSearch, dtExplain, statusRegister, keteranganRegister)
 	snfIuranPribadi				= DataTable.Value("SNF_IURAN_PRIBADI",dtlocalsheet)
 	snfIuranPerusahaan			= DataTable.Value("SNF_IURAN_PERUSAHAAN",dtlocalsheet)
 	snfIuranSukarela			= DataTable.Value("SNF_IURAN_SUKARELA",dtlocalsheet)
 	snfPengalihanIuranKaryawan	= DataTable.Value("SNF_PENGALIHAN_IURAN_KARYAWAN",dtlocalsheet)
 	snfPengalihanIuranPerusahaan= DataTable.Value("SNF_PENGALIHAN_IURAN_PERUSAHAAN",dtlocalsheet)
 	
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Split Balance Sebelum Diubah", " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
-	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Pribadi").Set snfIuranPribadi
-	wait 1
-	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Perusahaan").Set snfIuranPerusahaan
-	wait 1
-	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Sukarela").Set snfIuranSukarela
-	wait 1
-	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Pengalihan Iuran Karyawan").Set snfPengalihanIuranKaryawan
-	wait 1
-	Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Pengalihan Iuran Perusahaan").Set snfPengalihanIuranPerusahaan
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Ubah Field Pada Detail Split Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Berikut Detail Split Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	
-	totalSN		= Browser("DPLK").Page("Split Balance").WebEdit("Total SN").GetROProperty("value")
-	totalSNF	= Browser("DPLK").Page("Split Balance").WebEdit("Total SNF").GetROProperty("value")
-	
-	If totalSN = totalSNF Then
-	
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Sudah Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	If Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Pribadi").GetROProperty("readonly") = "0" Then
+		Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Pribadi").Set snfIuranPribadi
+		wait 1
+		Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Perusahaan").Set snfIuranPerusahaan
+		wait 1
+		Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Iuran Sukarela").Set snfIuranSukarela
+		wait 1
+		Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Pengalihan Iuran Karyawan").Set snfPengalihanIuranKaryawan
+		wait 1
+		Browser("DPLK").Page("Split Balance").WebEdit("Field SNF_Pengalihan Iuran Perusahaan").Set snfPengalihanIuranPerusahaan
 		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Ubah Field Pada Detail Split Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		
+		totalSN		= Browser("DPLK").Page("Split Balance").WebEdit("Total SN").GetROProperty("value")
+		totalSNF	= Browser("DPLK").Page("Split Balance").WebEdit("Total SNF").GetROProperty("value")
+		
+		If totalSN = totalSNF Then
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Sudah Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Tidak Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
+		End If
+		
 		objkey.SendKeys"{PGDN}"
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Browser("DPLK").Page("Split Balance").WebElement("Dropdown Status Register").Click
+		wait 1
+		objkey.SendKeys(statusRegister)
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 1
+		Browser("DPLK").Page("Split Balance").WebEdit("Field Keterangan Register").Set keteranganRegister
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Isi Field Status Register dan Keterangan Register yang Dibutuhkan, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
 		Browser("DPLK").Page("Split Balance").WebButton("Btn Simpan").Click
 		wait 2
@@ -1588,13 +2085,16 @@ Sub UpdateDetailSplitBalance(dtSearch, dtExplain)
 			Browser("DPLK").Page("Split Balance").WebButton("Btn Kembali").Click
 			wait 2
 			Call SearchSplitBalance(dtSearch,dtExplain)
+		ElseIf Browser("DPLK").Page("Split Balance").WebElement("Alert SN dan SNF Tidak Balance").Exist(5) Then
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Gagal Update Data, Karena Total SN dan SNF Tidak Balance", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
 		Else
 			Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "Gagal Update Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 			wait 2
 		End If
-		
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Tidak Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		Browser("DPLK").Page("Split Balance").WebButton("Btn Kembali").Click
 		wait 2
+		Call SearchSplitBalance(dtSearch,dtExplain)
 	End If
 End Sub

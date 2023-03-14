@@ -134,12 +134,12 @@ Sub ViewEntryPenerimaanTellerPerorangan
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Perorangan"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKEU007-001" Then
-		Call ClickCetakSlip()
+		Call ClickCetakSlipTellerPerorangan()
 	End If
 End Sub
 
 'Klik Button Cetak Slip Entry Penerimaan Teller Perorangan
-Sub ClickCetakSlip
+Sub ClickCetakSlipTellerPerorangan
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Perorangan").WebButton("Btn Cetak Slip"), "Klik Button Cetak Slip", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Perorangan").WebButton("Btn Cetak Slip").Click
@@ -147,48 +147,56 @@ End Sub
 
 REM -------------------------------- Transaksi->Keuangan Kepesertaan->Entry Penerimaan Teller Kolektif -----------------------------------------
 
-'Search Entry Penerimaan Teller Kolektif by Keterangan
-Sub SearchEntryPenerimaanTellerKolektifByKeterangan
-	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
+'Search Entry Penerimaan Teller Kolektif
+Sub SearchEntryPenerimaanTellerKolektif(dtSearch, dtExplain)
 	
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Search Data").Set keterangan
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
-	x = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").GetROProperty("abs_x")
-	y = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").GetROProperty("abs_y")
-	devices.MouseMove x,y
-	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
-	wait 1
-	objkey.SendKeys"{RIGHT 23}"
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
-	objkey.SendKeys"{RIGHT 9}"
-	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan Keterangan : "&keterangan, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
+	
+	If Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 End Sub
 
 'Add New Entry Penerimaan Teller Kolektif
 Sub AddEntryPenerimaanTellerKolektif
 
-	uploadID		= DataTable.Value("UPLOAD_ID", dtlocalsheet)
-	keterangan		= DataTable.Value("KETERANGAN", dtlocalsheet)
-	sumberDana		= DataTable.Value("SUMBER_DANA", dtlocalsheet)
-	tujuanTransaksi	= DataTable.Value("TUJUAN_TRANSAKSI", dtlocalsheet)
+	uploadID			= DataTable.Value("UPLOAD_ID", dtlocalsheet)
+	nominalPenerimaan	= DataTable.Value("NOMINAL_PENERIMAAN", dtlocalsheet)
+	keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
+	sumberDana			= DataTable.Value("SUMBER_DANA", dtlocalsheet)
+	tujuanTransaksi		= DataTable.Value("TUJUAN_TRANSAKSI", dtlocalsheet)
+	dtSearch			= uploadID
+	dtExplain			= "Upload ID"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Tambah").Click
 	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Halaman Tambah ENTRY PENERIMAAN TELLER KOLEKTIF", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Upload ID"), "Klik Button Search Upload ID", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Upload ID").Click
-	wait 1
+	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Search Upload ID").Set uploadID
-	wait 1
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Cari dan Pilih Data Upload ID Sesuai Kebutuhan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Data Upload ID").Click
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Nominal Penerimaan").Set nominalPenerimaan
 	wait 1
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebEdit("Field Keterangan").Set keterangan
 	wait 1
@@ -200,22 +208,40 @@ Sub AddEntryPenerimaanTellerKolektif
 	wait 2
 	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Simpan").Click
 	wait 2
-	If Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("PopUp ×Data berhasil proses").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berhasil Tambah Entry Penerimaan Teller Kolektif dengan Upload ID : "&uploadID, " ", compatibilityMode.Desktop, ReportStatus.Passed)
-		Call SearchEntryPenerimaanTellerKolektifByKeterangan()
-		Browser("DPLK").Page("Dashboard").WebElement("Dropdown Cari Menu").Click
-		wait 1
-		objkey.SendKeys("Inquiry Penerimaan Kepesertaan")
-		wait 1
-		objkey.SendKeys"{ENTER}"
-		wait 3
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Pilih Menu Inquiry Penerimaan Kepesertaan" , " ", compatibilityMode.Desktop, ReportStatus.Passed)
-		wait 2
-		Call ViewInquiryPenerimaanKepesertaan()
-	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Gagal Tambah Entry Penerimaan Teller Kolektif", " ", compatibilityMode.Desktop, ReportStatus.Passed)
-	End If
 	
+	If Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("PopUp ×Data berhasil proses").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berhasil Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call SearchEntryPenerimaanTellerKolektif(dtSearch, dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+End Sub
+
+'View Entry Penerimaan Teller Kolektif
+Sub ViewEntryPenerimaanTellerKolektif
+	dtSearch	= DataTable.Value("KODE_PENERIMAAN",dtlocalsheet)
+	dtExplain	= "Kode Penerimaan"
+	
+	wait 2
+	Call SearchEntryPenerimaanTellerKolektif(dtSearch, dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKEU027-001" Then
+		Call ClickCetakSlipTellerKolektif()
+	End If
+End Sub
+
+'Klik Button Cetak Slip Entry Penerimaan Teller Kolektif
+Sub ClickCetakSlipTellerKolektif
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Cetak Slip"), "Klik Button Cetak Slip", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Cetak Slip").Click
 End Sub
 
 REM -------------------------------- Transaksi->Keuangan Kepesertaan->Inquiry Penerimaan Kepesertaan -----------------------------------------
@@ -233,7 +259,7 @@ Sub SearchInquiryPenerimaanKepesertaan(dtSearch, dtExplain)
 		devices.MouseMove x,y
 		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 		wait 1
-		objkey.SendKeys "{RIGHT 9}"
+		objkey.SendKeys "{RIGHT 15}"
 		wait 2
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penerimaan Kepesertaan"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 		wait 2
@@ -407,27 +433,41 @@ End Sub
 REM -------------------------------- Transaksi->Keuangan Kepesertaan->Entry Penerimaan Virtual Account Kolektif -----------------------------------------
 
 'Search Entry Penerimaan Virtual Account Kolektif
-Sub SearchEntryPenerimaanVAKolektif
-	kodePenerimaan		= DataTable.Value("KODE_PENERIMAAN", dtlocalsheet)
+Sub SearchEntryPenerimaanVAKolektif(dtSearch, dtExplain)
 	
-	Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebEdit("Field Search Data").Set kodePenerimaan
+	Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Berikut Data Dengan Kode Penerimaan : "&kodePenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+	
+	If Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y,LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 15}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 End Sub
 
 'Edit Entry Penerimaan Virtual Account Kolektif
 Sub EditEntryPenerimaanVAKolektif
-	Dim fieldNominalPenerimaan
+'	Dim fieldNominalPenerimaan
 
 	kodePenerimaan		= DataTable.Value("KODE_PENERIMAAN", dtlocalsheet)
-	nominalPenerimaan	= DataTable.Value("NOMINAL_PENERIMAAN", dtlocalsheet)& ",00"
+'	nominalPenerimaan	= DataTable.Value("NOMINAL_PENERIMAAN", dtlocalsheet)& ",00"
+	keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
 	uploadID			= DataTable.Value("UPLOAD_ID", dtlocalsheet)
-	statusRegister		= DataTable.Value("STATUS_REGISTRASI", dtlocalsheet)
+	statusRegister		= DataTable.Value("STATUS_REGISTER", dtlocalsheet)
 	keteranganSubmit	= DataTable.Value("KETERANGAN_SUBMIT", dtlocalsheet)
+	dtSearch			= kodePenerimaan
+	dtExplain			= "Kode Penerimaan"
 	
 	wait 2
-	Call SearchEntryPenerimaanVAKolektif()
+	Call SearchEntryPenerimaanVAKolektif(dtSearch, dtExplain)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -435,14 +475,15 @@ Sub EditEntryPenerimaanVAKolektif
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Berikut Detail Data Sebelum Diedit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 3
-	fieldNominalPenerimaan = Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebEdit("Field Nominal Penerimaan").GetROProperty("value")
-	If fieldNominalPenerimaan = nominalPenerimaan Then
-		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Detail Nominal Penerimaan"), "Nominal Penerimaan yang Tertera, Sudah Sesuai Dengan Test Case Yaitu : "&nominalPenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	Else
-		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Detail Nominal Penerimaan"), "Nominal Penerimaan yang Tertera, Tidak Sesuai Dengan Test Case Yaitu : "&nominalPenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
-	End If
+	Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebEdit("Field keterangan").Set keterangan
+'	fieldNominalPenerimaan = Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebEdit("Field Nominal Penerimaan").GetROProperty("value")
+'	If fieldNominalPenerimaan = nominalPenerimaan Then
+'		wait 2
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Detail Nominal Penerimaan"), "Nominal Penerimaan yang Tertera, Sudah Sesuai Dengan Test Case Yaitu : "&nominalPenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+'	Else
+'		wait 2
+'		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Detail Nominal Penerimaan"), "Nominal Penerimaan yang Tertera, Tidak Sesuai Dengan Test Case Yaitu : "&nominalPenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+'	End If
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebButton("Btn Search Upload ID"), "Klik Button Search Upload ID", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -450,7 +491,7 @@ Sub EditEntryPenerimaanVAKolektif
 	wait 2
 	Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebEdit("Field Search Upload ID").Set uploadID
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Pilih Data Upload ID Yang Diperlukan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Cari dan Pilih Data Upload ID Yang Diperlukan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("Data Upload ID").Click
 	wait 2
@@ -471,10 +512,11 @@ Sub EditEntryPenerimaanVAKolektif
 	Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebButton("Btn Simpan").Click
 	wait 2
 	If Browser("DPLK").Page("Entry Penerimaan VA Kolektif").WebElement("PopUp ×Data berhasil proses").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Berhasil Proses Data Dengan Kode Pengiriman : "&kodePenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Berhasil Proses Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
+		Call SearchEntryPenerimaanVAKolektif(dtSearch, dtExplain)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Gagal Proses Data Dengan Kode Pengiriman : "&kodePenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan VA Kolektif"), "Gagal Proses Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 		wait 2
 	End If
 End Sub
@@ -482,37 +524,71 @@ End Sub
 REM -------------------------------- Transaksi->Keuangan Kepesertaan->Approval Penerimaan Kepesertaan -----------------------------------------
 
 'Search Approval Penerimaan Kepesertaan
-Sub SearchApprovalPenerimaanKepesertaan
-	kodePenerimaan		= DataTable.Value("KODE_PENERIMAAN", dtlocalsheet)
+Sub SearchApprovalPenerimaanKepesertaan(dtSearch,dtExplain)
 	
-	Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebEdit("Field Search Data").Set kodePenerimaan
+	Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebEdit("Field Search Data").Set dtSearch
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Berikut Data Dengan Kode Penerimaan : "&kodePenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+	
+	If Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("Tabel Data").GetROProperty("abs_y")
+		devices.MouseMove x,y
+		devices.MouseClick x,y,LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 22}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		objkey.SendKeys"{RIGHT 5}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 End Sub
 
 'Fungsi Edit Approval Penerimaan Kepesertaan
 Sub EditApprovalPenerimaanKepesertaan
 	kodePenerimaan		= DataTable.Value("KODE_PENERIMAAN", dtlocalsheet)
+	statusApprove		= DataTable.Value("STATUS_APPROVE", dtlocalsheet)
+	keteranganApprove	= DataTable.Value("KETERANGAN_APPROVE", dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN", dtlocalsheet)
+	dtExplain			= "Kode Penerimaan"
+	dtSearch			= kodePenerimaan
 	
 	wait 2
-	Call SearchApprovalPenerimaanKepesertaan()
+	Call SearchApprovalPenerimaanKepesertaan(dtSearch,dtExplain)
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("Btn Edit"), "Klik Button Edit", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("Btn Edit").Click
 	wait 2
-	Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Klik Button Simpan Untuk Approve Data", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("Dropdown Status Approve").Click
+	wait 1
+	objkey.SendKeys(statusApprove)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebEdit("Field Keterangan Approve").Set keteranganApprove
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Isi Field Status Approve dan Keterangan Approve, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebButton("Btn Simpan").Click
 	wait 2
 	Call ConfirmOtorisasi()
 	If Browser("DPLK").Page("Approval Penerimaan Kepesertaan").WebElement("PopUp ×Data berhasil diupdate").Exist(5) Then
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Berhasil Approve Data Dengan Kode Penerimaan : "&kodePenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Data Dengan "&dtExplain&" : "&dtSearch&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call SearchApprovalPenerimaanKepesertaan(dtSearch,dtExplain)
 	Else
 		wait 2
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Gagal Approve Data Dengan Kode Penerimaan : "&kodePenerimaan, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Penerimaan Kepesertaan"), "Data Dengan "&dtExplain&" : "&dtSearch&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

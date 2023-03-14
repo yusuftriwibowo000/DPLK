@@ -408,3 +408,223 @@ Sub VerifikasiMaintenancePerjanjianKerjaSama
 	End If
 	wait 2
 End Sub
+
+REM ------------------------- Proses->Split Balance->Verifikasi Split Balance -------------------------
+
+'Search Verifikasi Split Balance
+Sub SearchVerifikasiSplitBalance(dtSearch,dtExplain)
+	Browser("DPLK").Page("Verifikasi Split Balance").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Approve Split Balance
+Sub ApproveSplitBalance
+	noRegister			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN",dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
+	dtExplain			= "No.Register"
+	dtSearch			= noRegister
+	
+	wait 2
+	Call SearchVerifikasiSplitBalance(dtSearch,dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Split Balance").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 9}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 16}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Berikut Detail Split Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	totalSN		= Browser("DPLK").Page("Verifikasi Split Balance").WebEdit("Total SN").GetROProperty("value")
+	totalSNF	= Browser("DPLK").Page("Verifikasi Split Balance").WebEdit("Total SNF").GetROProperty("value")
+	
+	If totalSN = totalSNF Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Sudah Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "SALDO NOMINAL dan SALDO NOMINAL FINAL Tidak Balance", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	
+	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Split Balance").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Split Balance").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Split Balance").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	
+	If Browser("DPLK").Page("Verifikasi Split Balance").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Data Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Call SearchVerifikasiSplitBalance(dtSearch,dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance"), "Data Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	End If
+End Sub
+
+REM -------------------------------- Proses->Corporate->Verifikasi Corporate -----------------------------------------
+
+'Search Verifikasi Corporate
+Sub SearchVerifikasiCorporate(dtSearch, dtExplain)
+	
+	Browser("DPLK").Page("Verifikasi Corporate").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate
+Sub VerifikasiCorporate
+	kodePerusahaan		= DataTable.Value("KODE_PERUSAHAAN",dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN",dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
+	dtSearch			= kodePerusahaan
+	dtExplain			= "Kode Perusahaan"
+	
+	wait 2
+	Call SearchVerifikasiCorporate(dtSearch, dtExplain)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 14}"
+	wait 2
+	Call VerifikasiCorporateTabAlamat()
+	Call VerifikasiCorporateTabDataLegalitas()
+	Call VerifikasiCorporateTabBeneficialOwner()
+	Call VerifikasiCorporateTabContactPerson()
+	Call VerifikasiCorporateTabRekeningBank()
+	Call VerifikasiCorporateTabStrukturManajemen()
+	Call VerifikasiCorporateTabPemegangSaham()
+	Call VerifikasiCorporateTabDokumen()
+	
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Corporate").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	wait 2
+	If Browser("DPLK").Page("Verifikasi Corporate").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Data Dengan "&dtExplain&" : "&dtSearch&" Berhasil "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+		Browser("DPLK").Page("Verifikasi Corporate").WebButton("Btn Kembali").Click
+		wait 2
+		Call SearchVerifikasiCorporate(dtSearch, dtExplain)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Data Dengan "&dtExplain&" : "&dtSearch&" Gagal "&explain, " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	End If
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Alamat
+Sub VerifikasiCorporateTabAlamat
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Alamat"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Alamat", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Data Legalitas
+Sub VerifikasiCorporateTabDataLegalitas
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Data Legalitas"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Data Legalitas", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Beneficial Owner
+Sub VerifikasiCorporateTabBeneficialOwner
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Beneficial Owner"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Beneficial Owner", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Contact Person
+Sub VerifikasiCorporateTabContactPerson
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Contact Person"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Contact Person", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Rekening Bank
+Sub VerifikasiCorporateTabRekeningBank
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Rekening Bank"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Rekening Bank", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Struktur Manajemen
+Sub VerifikasiCorporateTabStrukturManajemen
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Struktur Manajemen"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Struktur Manajemen", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Pemegang Saham
+Sub VerifikasiCorporateTabPemegangSaham
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Pemegang Saham"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Pemegang Saham", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Verifikasi Corporate Tab Dokumen
+Sub VerifikasiCorporateTabDokumen
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").SetTOProperty "innertext", "Dokumen"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Tab Menu").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Corporate"), "Berikut Detail Data Pada Tab Dokumen", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub

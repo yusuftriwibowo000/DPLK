@@ -1,5 +1,5 @@
 ﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult
-Dim preparation ,iteration
+Dim preparation ,iteration, namaFile
 
 REM -------------- Call Function
 Call spLoadLibrary()
@@ -47,6 +47,7 @@ Sub spLoadLibrary()
 	Call RepositoriesCollection.Add(LibRepo & "RP_Login.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Administration_Dashboard.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Keuangan_Transaksi.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Function.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
 	
 End Sub

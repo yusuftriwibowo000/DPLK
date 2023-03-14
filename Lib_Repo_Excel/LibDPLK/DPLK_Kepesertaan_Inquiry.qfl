@@ -386,3 +386,40 @@ Sub ViewInquiryPenarikanIuran10Persen
     Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Penarikan Iuran 10 Persen"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
     wait 2
 End Sub
+
+REM ------------------------------- Inquiry->Split Balance->Inquiry Split Balance ----------------------------------
+
+'Search Inquiry Split Balance
+Sub SearchInquirySplitBalance(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Split Balance").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'View Detail Inquiry Split Balance
+Sub ViewInquirySplitBalance
+	dtSearch			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain			= "No.Register"
+	
+	wait 2
+	Call SearchInquirySplitBalance(dtSearch, dtExplain)
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Split Balance").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 8}"
+	wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    objkey.SendKeys"{DOWN 15}"
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+	objkey.SendKeys"{PGDN}"
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+End Sub

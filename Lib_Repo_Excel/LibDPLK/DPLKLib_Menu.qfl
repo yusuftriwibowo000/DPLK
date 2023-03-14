@@ -1,7 +1,9 @@
 ﻿Public GlobalRowIndex
 Dim testCaseName
 testCaseName = Environment("TestName")
+Set objkey		= CreateObject("WScript.Shell")
 Set objclip		= CreateObject("Mercury.Clipboard")
+Set devices		= CreateObject("Mercury.DeviceReplay")
 
 
 'REM ------ Untuk ambil file excel untuk membaca datatable
@@ -147,8 +149,14 @@ Function DA_Login()
 	Call spOpenBrowser(Openbrowser, url)
 	Call spLoadingScreenLogin()
 	
+	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKEU026-001" Then
+		Call OpenIcons()
+		Call LoginIcons
+	End If
+	
 	Call RefreshPage()
 	Call Da_LoginDetail()
+	
 End Function
 
 REM ---------------------------- USER DPLK LOGIN GENERAL ------------------------------------
@@ -183,11 +191,107 @@ Function DA_LoginDetail()
 	End If
 End Function
 
+REM -------------------------------- Fungsi Open Icons ----------------------------------------
+
+'Open Web Icons in Chrome
+Sub OpenIcons
+	urlIcons	= DataTable.Value("URL_ICONS",dtGlobalSheet)
+	
+	wait 1
+	objkey.SendKeys"^t"
+	wait 2
+	y = 384
+	x = 683
+	devices.MouseMove x,y
+	wait 1
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
+	objkey.SendKeys "+{F10}"
+	wait 1
+	objkey.SendKeys"{DOWN 5}"
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 1
+	objkey.SendKeys"{DOWN}"
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 3
+	objkey.SendKeys"{TAB 2}"
+	wait 2
+	objkey.SendKeys(urlIcons)
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 2
+	devices.MouseMove x,y
+	wait 1
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
+	objkey.SendKeys"{TAB 12}"
+	wait 4
+End Sub
+
+'Login Icons
+Sub LoginIcons
+	userID			= DataTable.Value("USERID",dtlocalsheet)
+	password		= DataTable.Value("PASSWORD_ICONS",dtGlobalSheet)
+	kodeCabang		= DataTable.Value("KODE_CABANG",dtGlobalSheet)
+	nomorTerminal	= DataTable.Value("NOMOR_TERMINAL",dtGlobalSheet)
+	
+	objkey.SendKeys(userID)
+	wait 1
+	objkey.SendKeys"{TAB}"
+	wait 1
+	objkey.SendKeys(password)
+	wait 1
+	objkey.SendKeys"{TAB 2}"
+	wait 1
+	objkey.SendKeys(kodeCabang)
+	wait 1
+	objkey.SendKeys"{TAB}"
+	wait 1
+	objkey.SendKeys(nomorTerminal)
+	wait 2
+	Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Input Data Login Icons", "UserID : "&userID, compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	y = 384
+	x = 683
+	devices.MouseMove x,y
+	wait 1
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
+	objkey.SendKeys"{TAB 17}"
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 2
+	objkey.SendKeys"{ENTER}"
+	wait 3
+	Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berhasil Login Ke Icons", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+End Sub
+
+'Logout Icons
+Sub LogoutIcons
+
+	objkey.SendKeys"^{TAB}"
+	wait 1
+	y = 384
+	x = 683
+	devices.MouseMove x,y
+	wait 1
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
+	objkey.SendKeys"{TAB 10}"
+	wait 1
+	objkey.SendKeys"{ENTER}"
+	wait 2
+	objkey.SendKeys"{ENTER}"
+End Sub
+
 REM -------------------------------- Fungsi Cetak PDF -----------------------------------------
 
 'Open Pdf Download
 Sub OpenPDFFile(namaFile)
-	wait 10
+	wait 12
 	objkey.SendKeys"^j"
 	wait 2
 	objkey.SendKeys "^f"
@@ -212,9 +316,13 @@ Sub OpenPDFFile(namaFile)
 	wait 1
 	objkey.SendKeys"{TAB 1}"
 	wait 1
-	objkey.SendKeys"{TAB 2}"
-	wait 1
 	objkey.SendKeys"{TAB 1}"
+	
+	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS122-001" Then
+		wait 1
+		objkey.SendKeys"{TAB 1}"
+	End If
+	
 	wait 3
 	objkey.SendKeys"^c"
 	wait 1
@@ -232,23 +340,22 @@ Sub OpenPDFFile(namaFile)
 	wait 2
 	pasteData = objclip.GetText
 	wait 2
-	Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berikut Detail Dari File "&namaFile, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berikut Detail Dari File : "&namaFile, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS122-001" Then
-		If pasteData > 1 Then
-			y = 384
-			x = 683
+	
+	If pasteData > 1 Then
+		y = 384
+		x = 683
+		wait 1
+		For i = 1 To pasteData-1 Step 1
+			devices.MouseMove x,y
+			devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 			wait 1
-			For i = 1 To pasteData-1 Step 1
-				devices.MouseMove x,y
-				devices.MouseClick x,y, LEFT_MOUSE_BUTTON
-				wait 1
-				objkey.SendKeys"{RIGHT}"
-				wait 1
-					Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berikut Detail Dari File : "&namaFile&", Halaman Ke-"&i, " ", compatibilityMode.Desktop, ReportStatus.Done)
-				wait 1
-			Next
-		End If
+			objkey.SendKeys"{RIGHT}"
+			wait 1
+				Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berikut Detail Dari File : "&namaFile&", Halaman Ke-"&i+1, " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 1
+		Next
 	End If
 End Sub
 
@@ -500,6 +607,10 @@ Function DA_Logout(ByVal isError)
 
 		If Browser("DPLK").Page("Login").WebElement("Login").Exist(10) Then
 			Call CaptureImageUFTV2(Browser("DPLK").Page("Login"),"Berhasil Logout", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			
+			If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKEU026-001" Then
+				Call LogoutIcons()
+			End If
 			Call CloseBrowser()
 			Call spReportSave()
 	

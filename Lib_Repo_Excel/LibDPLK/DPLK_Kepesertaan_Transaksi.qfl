@@ -622,6 +622,7 @@ Sub RegisterCorporateContactPerson
 	Browser("DPLK").Page("Register Corporate").WebElement("Tab Menu").Click
 	wait 2
 	
+	
 	If noUrut = "" Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Berikut Detail Pada Tab Contact Person" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 	Else
@@ -633,6 +634,8 @@ Sub RegisterCorporateContactPerson
 			noTelepon	= Split(noTelepon,";")
 			noHP		= Split(noHP,";")
 			
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Contact Person"), "Masuk Ke Tab Contact Person" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
 			For i = 0 To UBound(noUrut) Step 1
 				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 				wait 2
@@ -744,6 +747,8 @@ Sub RegisterCorporateStrukturManajemen
 			jabatan		= Split(jabatan,";")
 			wargaNegara	= Split(wargaNegara,";")
 			
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Struktur Manajemen"), "Masuk Ke Tab Struktur Manajemen" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
 			For i = 0 To UBound(noUrut) Step 1
 				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 				wait 2
@@ -822,6 +827,8 @@ Sub RegisterCorporatePemegangSaham
 			jabatan		= Split(jabatan,";")
 			wargaNegara	= Split(wargaNegara,";")
 			
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate - Pemegang Saham"), "Masuk Ke Tab Pemegang Saham" , " ", compatibilityMode.Desktop, ReportStatus.Done)
+			wait 2
 			For i = 0 To UBound(noUrut) Step 1
 				Call CaptureImageUFTV2(Browser("DPLK").Page("Register Corporate").WebButton("Btn Tambah"), "Klik Button Tambah" , " ", compatibilityMode.Desktop, ReportStatus.Done)
 				wait 2

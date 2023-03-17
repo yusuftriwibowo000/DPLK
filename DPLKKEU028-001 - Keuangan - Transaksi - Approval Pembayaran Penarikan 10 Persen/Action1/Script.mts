@@ -3,7 +3,7 @@ Dim preparation ,iteration
 
 REM -------------- Call Function
 Call spLoadLibrary()
-Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKEU028-001_AppKepBayar10%.xlsx", "DPLKKEU028-001")
+Call spInitiateData("DPLKLib_Report.xlsx", "DPLKKEU028-001 - Keuangan - Transaksi - Approval Kepesertaan Pembayaran 10%.xlsx", "DPLKKEU028-001")
 Call spGetDatatable()
 Call fnRunningIterator()
 Call spReportInitiate()
@@ -13,6 +13,7 @@ Call spAddScenario(dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedRes
 iteration		= Environment.Value("ActionIteration")
 
 REM ------- DPLK
+wait 1
 Call DA_Login()
 Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu2()
@@ -46,6 +47,8 @@ Sub spLoadLibrary()
 	Call RepositoriesCollection.Add(LibRepo & "RP_Login.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Administration_Dashboard.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Keuangan_Transaksi.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Function.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Icons.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
 	
 End Sub

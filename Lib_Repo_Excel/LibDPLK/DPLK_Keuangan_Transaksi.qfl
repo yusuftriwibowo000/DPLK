@@ -176,8 +176,7 @@ Sub AddEntryPenerimaanTellerKolektif
 	keterangan			= DataTable.Value("KETERANGAN", dtlocalsheet)
 	sumberDana			= DataTable.Value("SUMBER_DANA", dtlocalsheet)
 	tujuanTransaksi		= DataTable.Value("TUJUAN_TRANSAKSI", dtlocalsheet)
-	dtSearch			= uploadID
-	dtExplain			= "Upload ID"
+	dtExplain			= "Kode Penerimaan"
 	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebButton("Btn Tambah"), "Klik Button Tambah", " ", compatibilityMode.Desktop, ReportStatus.Done)
@@ -211,7 +210,9 @@ Sub AddEntryPenerimaanTellerKolektif
 	
 	If Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebElement("PopUp ×Data berhasil proses").Exist(5) Then
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Berhasil Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
-		wait 2
+		wait 3
+		dtSearch = Browser("DPLK").Page("Entry Penerimaan Teller Kolektif").WebTable("Tabel List View").GetCellData(2,2)
+		wait 1
 		Call SearchEntryPenerimaanTellerKolektif(dtSearch, dtExplain)
 	Else
 		Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Penerimaan Teller Kolektif"), "Gagal Tambah Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
@@ -381,10 +382,19 @@ Sub ApprovePembayaranPenarikan10Persen
 	wait 2
 	Call ConfirmOtorisasi()
 	wait 2
-	If Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen").WebElement("PopUp ×Data berhasil proses").Exist(5) Then
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen"), "Data Berhasil DiApprove", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+	Do
+		y = 384
+		x = 683
+		devices.MouseMove x,y
+		wait 1
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+	Loop Until Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen").WebElement("PopUp ×Data berhasil proses").Exist(2)
+	
+	If Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen").WebElement("PopUp ×Data berhasil proses").Exist(1) Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen"), "Data Berhasil Di Approve", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	Else
-		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen"), "Data Gagal DiApprove", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Approval Pembayaran Penarikan 10 Persen"), "Data Gagal Di Approve", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	End If
 	wait 2
 End Sub

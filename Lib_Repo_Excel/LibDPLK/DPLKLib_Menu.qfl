@@ -142,14 +142,15 @@ End Function
 
 REM ------------------- LOGIN FOR OPEN WEB DPLK BROWSER GENERAL
 Function DA_Login()
-	Dim Openbrowser, url
+	Dim Openbrowser, url, tcID
 	Openbrowser	= DataTable.Value ("BROWSER", dtGlobalSheet)
 	url			= DataTable.Value ("URL", dtGlobalSheet)
+	tcID		= DataTable.Value("TC_ID",dtlocalsheet)
 	
 	Call spOpenBrowser(Openbrowser, url)
 	Call spLoadingScreenLogin()
 	
-	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKEU026-001" Then
+	If tcID = "DPLKKEU026-001" or tcID = "DPLKKEU028-001" Then
 		Call OpenIcons()
 		Call LoginIcons
 	End If
@@ -226,16 +227,21 @@ Sub OpenIcons
 	wait 1
 	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 	wait 1
-	objkey.SendKeys"{TAB 12}"
+'	If Window("Google Chrome").InsightObject("Refresh Page").Exist(5) Then
+		objkey.SendKeys"{TAB 12}"
+'	Else
+'		objkey.SendKeys"{TAB 11}"
+'	End If
 	wait 4
 End Sub
 
 'Login Icons
 Sub LoginIcons
 	userID			= DataTable.Value("USERID",dtlocalsheet)
-	password		= DataTable.Value("PASSWORD_ICONS",dtGlobalSheet)
-	kodeCabang		= DataTable.Value("KODE_CABANG",dtGlobalSheet)
-	nomorTerminal	= DataTable.Value("NOMOR_TERMINAL",dtGlobalSheet)
+	password		= DataTable.Value("PASSWORD_ICONS",dtlocalsheet)
+	kodeCabang		= DataTable.Value("KODE_CABANG_ICONS",dtlocalsheet)
+'	nomorTerminal	= DataTable.Value("NOMOR_TERMINAL_ICONS",dtlocalsheet)
+	nomorTerminal	= "899"
 	
 	objkey.SendKeys(userID)
 	wait 1
@@ -259,14 +265,62 @@ Sub LoginIcons
 	wait 1
 	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 	wait 1
-	objkey.SendKeys"{TAB 17}"
+'	If Window("Google Chrome").InsightObject("Refresh Page").Exist(5) Then
+		objkey.SendKeys"{TAB 17}"
+'	Else
+'		objkey.SendKeys"{TAB 16}"
+'	End If
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 2
-	objkey.SendKeys"{ENTER}"
-	wait 3
-	Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berhasil Login Ke Icons", " ", compatibilityMode.Desktop, ReportStatus.Done)
-	wait 2
+	
+	If Dialog("Message from webpage").WinButton("Btn OK").Exist(5) Then
+		Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Klik Button OK, Untuk Lanjut Login", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+		devices.MouseMove x,y
+		wait 1
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{ENTER}"
+		wait 4
+	End If
+	
+	If Window("Google Chrome").InsightObject("Berhasil Sign In").Exist(5) Then
+		Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berhasil Login Ke Icons", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		wait 2
+	Else
+		Do 
+			nomorTerminal = nomorTerminal+1
+			
+			devices.MouseMove x,y
+			wait 1
+			devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+			wait 1
+'			If Window("Google Chrome").InsightObject("Refresh Page").Exist(5) Then
+				objkey.SendKeys"{TAB 13}"
+'			Else
+'				objkey.SendKeys"{TAB 12}"
+'			End If
+			wait 1
+			objkey.SendKeys(password)
+			wait 1
+			objkey.SendKeys"{TAB 3}"
+			wait 1
+			objkey.SendKeys(nomorTerminal)
+			wait 1
+			objkey.SendKeys"{TAB}"
+			wait 1
+			objkey.SendKeys"{ENTER}"
+			wait 1
+			objkey.SendKeys"{ENTER}"
+			wait 3
+		Loop Until Window("Google Chrome").InsightObject("Berhasil Sign In").Exist(5)
+		
+		If Window("Google Chrome").InsightObject("Berhasil Sign In").Exist(5) Then
+			Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berhasil Login Ke Icons", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+			wait 2
+		End If
+	End If
 End Sub
 
 'Logout Icons
@@ -280,10 +334,22 @@ Sub LogoutIcons
 	wait 1
 	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
 	wait 1
-	objkey.SendKeys"{TAB 10}"
+'	If Window("Google Chrome").InsightObject("Refresh Page").Exist(5) Then
+		objkey.SendKeys"{TAB 10}"
+'	Else
+'		objkey.SendKeys"{TAB 9}"
+'	End If
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 2
+	If Dialog("Message from webpage").WinButton("Btn OK").Exist(5) Then
+		Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Klik Button OK, Untuk Lanjut Logout", " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+	devices.MouseMove x,y
+	wait 1
+	devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+	wait 1
 	objkey.SendKeys"{ENTER}"
 End Sub
 
@@ -593,6 +659,9 @@ Sub captureError()
 End Sub
 
 Function DA_Logout(ByVal isError)
+	Dim tcID
+	tcID = DataTable.Value("TC_ID",dtlocalsheet)
+	
 	If isError = "1" Then
 		Call captureError()
 	End If
@@ -607,8 +676,8 @@ Function DA_Logout(ByVal isError)
 
 		If Browser("DPLK").Page("Login").WebElement("Login").Exist(10) Then
 			Call CaptureImageUFTV2(Browser("DPLK").Page("Login"),"Berhasil Logout", " ", compatibilityMode.Desktop, ReportStatus.Passed)
-			
-			If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKEU026-001" Then
+			wait 1
+			If tcID = "DPLKKEU026-001" or tcID = "DPLKKEU028-001" Then
 				Call LogoutIcons()
 			End If
 			Call CloseBrowser()

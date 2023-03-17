@@ -18,10 +18,14 @@ Call DA_Login()
 Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu2()
 
-'Call AddEntryPenerimaanTellerKolektif()
+Call AddEntryPenerimaanTellerKolektif()
 
 Call DA_Logout("0")
 Call spReportSave()
+
+'Call OpenIcons()
+'Call LoginIcons()
+'Call LogoutIcons()
 	
 Sub spLoadLibrary()
 	Dim LibPathDPLK, LibReport, LibRepo, objSysInfo
@@ -48,6 +52,7 @@ Sub spLoadLibrary()
 	Call RepositoriesCollection.Add(LibRepo & "RP_Administration_Dashboard.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Keuangan_Transaksi.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Function.tsr")
+	Call RepositoriesCollection.Add(LibRepo & "RP_Icons.tsr")
 	Call RepositoriesCollection.Add(LibRepo & "RP_Sidebar.tsr")
 	
 End Sub

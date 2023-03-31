@@ -86,7 +86,6 @@ Function spOpenProgram()
 
 	InvokeApplication(program_path & "/" & openprogram & ".exe")
 	
-
 End Function
 
 Sub spLoadingScreenLogin()
@@ -187,7 +186,7 @@ Function DA_LoginDetail()
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Login"), "Login Berhasil", " ", compatibilityMode.Desktop, ReportStatus.Passed)
 	wait 2
-	If Browser("DPLK").Page("Dashboard").WebElement("Alert Notifikasi").Exist(5) Then
+	If Browser("DPLK").Page("Dashboard").WebElement("Alert Notifikasi").Exist(3) Then
 		Browser("DPLK").Page("Dashboard").WebButton("Btn OK").Click
 	End If
 End Function
@@ -408,6 +407,17 @@ Sub OpenPDFFile(namaFile)
 	wait 2
 	Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berikut Detail Dari File : "&namaFile, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+	If DataTable.Value("TC_ID",dtlocalsheet) = "DPLKKPS128-001" Then
+		y = 384
+		x = 683
+		devices.MouseMove x,y
+		devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{DOWN 12}"
+		wait 2
+		Call CaptureImageUFTV2(Window("SS_Full_Screen"), "Berikut Detail Dari File : "&namaFile, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
 	
 	If pasteData > 1 Then
 		y = 384
@@ -424,218 +434,6 @@ Sub OpenPDFFile(namaFile)
 		Next
 	End If
 End Sub
-
-REM -------- Open Last Download File Without Closing The Browser
-Sub OpenLastDownloadFileNoClose(FileName, AppName)
-	Dim InitialFileName
-	Dim Openbrowser, url
-	Dim TC_ID
-	TC_ID = DataTable.Value("TC_ID",dtlocalsheet)
-	Set objkey = CreateObject("WScript.Shell")
-	Openbrowser	= DataTable.Value ("BROWSER", dtGlobalSheet)
-	url			= DataTable.Value ("URL", dtGlobalSheet)
-	Browser("Google_Chrome").OpenNewTab
-
-
-	InitialFileName = left(FileName,3)
-
-	
-	wait 2
-	objkey.SendKeys "^j"
-	wait 2
-	objkey.SendKeys "^f"
-	wait 2
-	objkey.SendKeys (InitialFileName)
-	wait 2
-	objkey.SendKeys	"{TAB 3}"
-	wait 2
-	objkey.SendKeys	"{ENTER}"
-	wait 2
-	
-	AppName	= Ucase(AppName)
-	Select Case AppName
-		Case "CHROME"
-			Call spOpenBrowser("CHROME", PathName)
-			wait 2
-			Call CaptureImageUFTV2(Browser("SS_OpenFile"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)	
-			wait 2
-		Case "EXCEL"
-			wait 5
-			If Dialog("Dialog_Trust_Microsoft Excel").Exist(5) Then
-				objkey.SendKeys "{LEFT}"
-				objkey.SendKeys "{ENTER}"
-			End If
-			
-			'Maximize File Excel
-				If Window("SS_Excel").Exist(5) Then
-					Window("SS_Excel").Click
-					If not Window("SS_Excel").GetROProperty("maximized") Then
-						Window("SS_Excel").Maximize
-      				End If
-				End If
-			
-			wait 2
-			Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-			wait 2
-			
-			For dgs = 37 To 40 Step 1
-				If TC_ID = "SCD0011-0" & dgs Then
-					If Window("SS_Excel").Exist Then
-						Window("SS_Excel").Click
-					End If
-				objkey.SendKeys "{DOWN 7}"
-				objkey.SendKeys "{RIGHT 24}"
-				wait 2
-				Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-				wait 2
-					If Window("SS_Excel").Exist Then
-						Window("SS_Excel").Click
-					End If
-				objkey.SendKeys "{RIGHT 13}"
-				wait 2
-				Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-				wait 2
-					If Window("SS_Excel").Exist Then
-						Window("SS_Excel").Click
-					End If
-				objkey.SendKeys "^{UP}"
-				objkey.SendKeys "^{RIGHT}"
-				wait 2
-				Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-				wait 2
-				End If	
-			Next
-			
-				For dgs = 9 To 34 Step 1
-					If Len(dgs) = 1 Then
-						If TC_ID = "SCD0011-00" & dgs Then
-							If Window("SS_Excel").Exist Then
-								Window("SS_Excel").Click
-							End If
-							wait 2
-								objkey.SendKeys "^{RIGHT}"
-								wait 1
-								Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-								wait 2
-							Exit for 
-						End If
-					ElseIf Len(dgs) = 2 Then
-						If TC_ID = "SCD0011-0" & dgs Then
-							If Window("SS_Excel").Exist Then
-								Window("SS_Excel").Click
-							End If
-							wait 2
-								objkey.SendKeys "^{RIGHT}"
-								wait 1
-								Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-								wait 2
-							Exit for 
-						End If
-					End If
-				Next
-			
-		Case "WINRAR"
-			wait 2
-			Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)	
-			wait 2
-	End Select
-End Sub
-REM -------- Open file
-Function OpenFile(Path , FileName, AppName)
-	Set objkey = CreateObject("WScript.Shell")
-	Dim TC_ID
-	TC_ID = DataTable.Value("TC_ID",dtlocalsheet)
-	
-	AppName	= Ucase(AppName)
-	PathName = Path & "\" & FileName
-	Select Case AppName
-		Case "CHROME"
-			Call spOpenBrowser("CHROME", PathName)
-			wait 2
-			Call CaptureImageUFTV2(Browser("SS_OpenFile"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)	
-			wait 2
-		Case "EXCEL"
-			SystemUtil.Run PathName
-			wait 5
-			
-			If Dialog("Dialog_Trust_Microsoft Excel").Exist(5) Then
-				objkey.SendKeys "{LEFT}"
-				objkey.SendKeys "{ENTER}"
-			End If
-			
-			'Maximize File Excel
-				If Window("SS_Excel").Exist(5) Then
-					Window("SS_Excel").Click
-					If not Window("SS_Excel").GetROProperty("maximized") Then
-						Window("SS_Excel").Maximize
-      				End If
-				End If
-			
-			wait 2
-			Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-			wait 2
-			
-			For dgs = 37 To 40 Step 1
-				If TC_ID = "SCD0011-0" & dgs Then
-					If Window("SS_Excel").Exist Then
-						Window("SS_Excel").Click
-					End If
-				objkey.SendKeys "{DOWN 7}"
-				objkey.SendKeys "{RIGHT 24}"
-				wait 2
-				Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-				wait 2
-					If Window("SS_Excel").Exist Then
-						Window("SS_Excel").Click
-					End If
-				objkey.SendKeys "{RIGHT 13}"
-				wait 2
-				Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-				wait 2
-					If Window("SS_Excel").Exist Then
-						Window("SS_Excel").Click
-					End If
-				objkey.SendKeys "^{END}"
-				wait 2
-				Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-				wait 2
-				End If	
-			Next
-			
-				For dgs = 9 To 34 Step 1
-					If Len(dgs) = 1 Then
-						If TC_ID = "SCD0011-00" & dgs Then
-							If Window("SS_Excel").Exist Then
-								Window("SS_Excel").Click
-							End If
-								objkey.SendKeys "^{END}"
-								wait 1
-								Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-								wait 2
-							Exit for 
-						End If
-					ElseIf Len(dgs) = 2 Then
-						If TC_ID = "SCD0011-0" & dgs Then
-							If Window("SS_Excel").Exist Then
-								Window("SS_Excel").Click
-							End If
-								objkey.SendKeys "^{END}"
-								wait 1
-								Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)
-								wait 2
-							Exit for 
-						End If
-					End If
-					
-				Next
-			
-		Case "WINRAR"
-			SystemUtil.Run "explorer.exe", PathName, , ,3
-			wait 2
-			Call CaptureImageUFTV2(Window("SS_Full_Screen"),"Berikut File Yang Digunakan", " ",  compatibilityMode.Desktop, ReportStatus.Done)	
-			wait 2
-	End Select
-End Function
 
 REM ------------------- LOGIN FOR OPEN WEB BROWSER SUPER DPLK
 Function DA_OpenBrowserSuperDPLK()
@@ -713,18 +511,7 @@ Sub GoTo_SidebarMenu()
 	dtMainSidebar 	= DataTable.Value("MAIN_SIDEBAR",dtlocalsheet)
 	dtSidebarMenu 	= DataTable.Value("SIDEBAR_MENU",dtlocalsheet)
 	
-	wait 2
-'	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar"), "Klik Button Pilih Role", " ", compatibilityMode.Desktop, ReportStatus.Done)
-'	wait 2
-'	Browser("DPLK").Page("Sidebar").WebButton("Btn Main Sidebar").Click
-'	wait 2
-'	Call CaptureImageUFTV2(Browser("DPLK").Page("Sidebar"), "Pilih Role " &dtMainSidebar, " ", compatibilityMode.Desktop, ReportStatus.Done)
-'	wait 2
-'	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").SetTOProperty "text", dtMainSidebar
-'	wait 1
-'	Browser("DPLK").Page("Sidebar").Link("Choose Main Sidebar").Click
-'	wait 2
-	
+	wait 2	
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).SetTOProperty "text", dtSidebarMenu
 	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Exist(5) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar).Click
@@ -735,7 +522,6 @@ Sub GoTo_SidebarMenu()
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")
 	End If
-	
 End Sub
 
 Sub GoTo_SidebarMenu2()
@@ -745,7 +531,6 @@ Sub GoTo_SidebarMenu2()
 	role			= DataTable.Value("ROLE",dtlocalsheet)
 	
 	wait 2
-	
 	Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "&dtSidebarMenu&" "&dtMainSidebar&" "& role).SetTOProperty "text", dtSidebarMenu
 	If Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& role).Exist(5) Then
 		Browser("DPLK").Page("Sidebar").Link("Sidebar Menu "& dtSidebarMenu&" "& dtMainSidebar&" "& role).Click
@@ -756,7 +541,6 @@ Sub GoTo_SidebarMenu2()
 		Reporter.ReportEvent micFail,  "Pilihan Tidak ada", "Transaksi Gagal"
 		Call DA_Logout("1")
 	End If
-	
 End Sub
 
 REM ---------------------------- SIDEBAR SUBMENU DPLK------------------------------------

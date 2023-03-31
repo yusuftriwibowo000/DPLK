@@ -54,11 +54,15 @@ Sub AddSetupProfileBank
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Dropdown Emiten").Click
 	wait 1
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(emiten)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Dropdown Kode BI").Click
+	wait 1
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(kodeBI)
 	wait 1
@@ -76,18 +80,24 @@ Sub AddSetupProfileBank
 	wait 1
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Dropdown Jenis Perhitungan Bunga").Click
 	wait 1
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(jenisPerhitunganBunga)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
+	
 	If syariah = "Checked" Then
 		Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Checklist Box Syariah").Click
 	End If
+	
 	wait 1
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Tgl Non Aktif").Set tglNonAktif
+	
 	If nonAktif = "Checked" Then
 		Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Checklist Box Non Aktif").Click
 	End If
+	
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Setup - Setup Profile Bank"), "Isi Semua Fields yang Dibutuhkan", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
@@ -122,6 +132,8 @@ Sub AddRekeningProfileBank
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebButton("Btn Tambah").Click
 	wait 2
 	Browser("DPLK").Page("Setup - Setup Profile Bank").WebElement("Dropdown Valuta").Click
+	wait 1
+	Browser("DPLK").Page("Setup - Setup Profile Bank").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(valuta)
 	wait 1
@@ -294,6 +306,8 @@ Sub ApproveProfileBank
 	objkey.SendKeys "{PGDN}"
 	wait 1
 	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Verifikasi - Verifikasi Profile Bank").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
@@ -671,6 +685,10 @@ Sub ViewDealingTicketDeposito
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Dealing Ticket Deposito").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
 	Browser("DPLK").Page("Entry Transaksi - Dealing Ticket Deposito").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Dealing Ticket Deposito"), "Berikut Detail Data Pada "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{PGDN}"
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Entry Transaksi - Dealing Ticket Deposito"), "Berikut Detail Data Pada "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2

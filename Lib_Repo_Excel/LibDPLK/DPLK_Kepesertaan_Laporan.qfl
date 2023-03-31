@@ -31,6 +31,8 @@ Sub CetakLaporanSaldoPeserta
 	wait 2
 	Browser("DPLK").Page("Laporan Saldo Peserta").WebElement("Dropdown Nama Laporan").Click
 	wait 1
+	Browser("DPLK").Page("Laporan Saldo Peserta").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(namaLaporan)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -52,6 +54,8 @@ Sub CetakLaporanSaldoPeserta
 	Browser("DPLK").Page("Laporan Saldo Peserta").WebEdit("Field Tgl Transaksi Akhir").Set tglTransaksiAkhir
 	wait 1
 	Browser("DPLK").Page("Laporan Saldo Peserta").WebElement("Dropdown Format Laporan").Click
+	wait 1
+	Browser("DPLK").Page("Laporan Saldo Peserta").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(formatLaporan)
 	wait 1
@@ -78,6 +82,8 @@ Sub CetakLaporanDaftarPesertaBerdasarkanTanggalBukaRekening
 	wait 2
 	Browser("DPLK").Page("Laporan Daftar Peserta Berdasarkan Tanggal Buka Rekening").WebElement("Dropdown Nama Laporan").Click
 	wait 1
+	Browser("DPLK").Page("Laporan Daftar Peserta Berdasarkan Tanggal Buka Rekening").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(namaLaporan)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -87,6 +93,8 @@ Sub CetakLaporanDaftarPesertaBerdasarkanTanggalBukaRekening
 	Browser("DPLK").Page("Laporan Daftar Peserta Berdasarkan Tanggal Buka Rekening").WebEdit("Field Tgl Buka Rekening Akhir").Set tglBukaRekeningAkhir
 	wait 1
 	Browser("DPLK").Page("Laporan Daftar Peserta Berdasarkan Tanggal Buka Rekening").WebElement("Dropdown Format Laporan").Click
+	wait 1
+	Browser("DPLK").Page("Laporan Daftar Peserta Berdasarkan Tanggal Buka Rekening").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(formatLaporan)
 	wait 1

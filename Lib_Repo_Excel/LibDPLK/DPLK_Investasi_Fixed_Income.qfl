@@ -49,6 +49,8 @@ Sub AddTipeTransaksi
 	wait 1
 	Browser("DPLK").Page("Tipe Transaksi").WebElement("Dropdown Status Register").Click
 	wait 1
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -178,6 +180,8 @@ Sub ApproveTipeTransaksi
 	wait 1
 	Browser("DPLK").Page("Tipe Transaksi").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -232,17 +236,23 @@ Sub AddProfileFixedIncome
 	wait 2
 	Browser("DPLK").Page("Profile Fixed Income").WebElement("Dropdown Portofolio").Click
 	wait 1
+	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(portofolio)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Profile Fixed Income").WebElement("Dropdown Emiten").Click
 	wait 1
+	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(emiten)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Profile Fixed Income").WebElement("Dropdown Tipe Kupon").Click
+	wait 1
+	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(tipeKupon)
 	wait 1
@@ -439,6 +449,8 @@ Sub ApproveProfileFixedIncome
 	objkey.SendKeys "{PGDN}"
 	wait 1
 	Browser("DPLK").Page("Verifikasi Profile Fixed Income").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Profile Fixed Income").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1

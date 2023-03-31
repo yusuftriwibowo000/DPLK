@@ -1,5 +1,5 @@
 ﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult
-Dim preparation, iteration
+Dim preparation, iteration, namaFile
 
 REM -------------- Call Function
 Call spLoadLibrary()
@@ -18,6 +18,7 @@ Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu()
 
 Call CetakLaporanSaldoPeserta()
+Call OpenPDFFile(namaFile)
 
 Call DA_Logout("0")
 Call spReportSave()
@@ -54,6 +55,7 @@ End Sub
 Sub spGetDatatable()
 	REM --------- Data
 	preparation		 		= DataTable.Value("PREPARATION",dtlocalsheet)
+	namaFile				= DataTable.Value("NAMA_FILE",dtlocalsheet)
 	
 	REM --------- Reporting
 	dt_TCID					= DataTable.Value("TC_ID", dtLocalSheet)

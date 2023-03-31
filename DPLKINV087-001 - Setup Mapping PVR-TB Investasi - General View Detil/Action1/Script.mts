@@ -14,8 +14,8 @@ iteration = Environment.Value("ActionIteration")
 
 REM ------- DPLK
 Call DA_Login()
-Call GoTo_SidebarMenu()
-Call GoTo_SidebarSubMenu2()
+Call GoTo_SidebarMenu2()
+Call GoTo_SidebarSubMenu()
 
 Call ViewSetupMappingPVRTB()
 

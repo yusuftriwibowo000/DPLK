@@ -438,6 +438,10 @@ Sub ViewInquiryPembayaranKepesertaan
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pembayaran Kepesertaan"), "Berikut Detail dari Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
+	objkey.SendKeys"{PGDN}"
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Pembayaran Kepesertaan"), "Berikut Detail dari Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
 End Sub
 
 REM -------------------------------- Transaksi->Keuangan Kepesertaan->Entry Penerimaan Virtual Account Kolektif -----------------------------------------

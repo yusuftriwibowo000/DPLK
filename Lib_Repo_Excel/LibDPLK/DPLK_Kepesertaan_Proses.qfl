@@ -70,6 +70,8 @@ Sub VerifikasiDepositBulk
 	wait 1
 	Browser("DPLK").Page("Verifikasi Deposit (Bulk)").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Verifikasi Deposit (Bulk)").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -182,6 +184,8 @@ Sub VerifikasiPenarikanIuran10Persen
 	wait 2
 	Browser("DPLK").Page("Verifikasi Penarikan Iuran 10 Persen").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Verifikasi Penarikan Iuran 10 Persen").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -260,6 +264,8 @@ Sub VerifikasiPemindahanKepesertaanKolektif
 	wait 2
 	Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Verifikasi Pemindahan Kepesertaan Kolektif").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -323,6 +329,8 @@ Sub VerifikasiPerjanjianKerjaSama
 	wait 2
 	Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Verifikasi Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -384,6 +392,8 @@ Sub VerifikasiMaintenancePerjanjianKerjaSama
 	Call MaintenancePerjanjianKerjaSamaTabBiayaAdministrasi()
 	
 	Browser("DPLK").Page("Verifikasi Maintenance Perjanjian Kerja Sama").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Verifikasi Maintenance Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
@@ -460,6 +470,8 @@ Sub ApproveSplitBalance
 	wait 1
 	Browser("DPLK").Page("Verifikasi Split Balance").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Verifikasi Split Balance").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -524,6 +536,8 @@ Sub VerifikasiCorporate
 	objkey.SendKeys"{PGDN}"
 	wait 2
 	Browser("DPLK").Page("Verifikasi Corporate").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Verifikasi Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
@@ -670,7 +684,7 @@ Sub VerifikasiMaintenanceCorporate
 	wait 2
 	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Maintenance Corporate"), "Berikut Detail Data Sebelum "&explain, " ", compatibilityMode.Desktop, ReportStatus.Done)
 	wait 2
-	objkey.SendKeys"{DOWN 14}"
+	objkey.SendKeys"{DOWN 16}"
 	wait 2
 	Call VerifikasiCorporateTabAlamat()
 	Call VerifikasiCorporateTabDataLegalitas()
@@ -684,6 +698,8 @@ Sub VerifikasiMaintenanceCorporate
 	objkey.SendKeys"{PGDN}"
 	wait 2
 	Browser("DPLK").Page("Verifikasi Maintenance Corporate").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Verifikasi Maintenance Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1

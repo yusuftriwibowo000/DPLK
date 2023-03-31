@@ -17,7 +17,7 @@ Call DA_Login()
 Call GoTo_SidebarMenu2()
 Call GoTo_SidebarSubMenu()
 
-Call AddSetupSubSektor()	
+Call AddSetupSubSektor()
 
 Call DA_Logout("0")
 Call spReportSave()

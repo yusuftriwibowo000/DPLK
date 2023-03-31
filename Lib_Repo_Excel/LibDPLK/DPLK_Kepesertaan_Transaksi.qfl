@@ -224,6 +224,8 @@ Sub AddRegisterCorporate
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Badan Hukum").Click
 	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(badanHukum)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -238,11 +240,15 @@ Sub AddRegisterCorporate
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Tipe Perusahaan").Click
 	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(tipePerusahaan)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Sektor Usaha").Click
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(sektorUsaha)
 	wait 1
@@ -251,6 +257,8 @@ Sub AddRegisterCorporate
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Group Usaha").Set grupUsaha
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Negara Grup Usaha").Click
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(negaraGrupUsaha)
 	wait 1
@@ -261,6 +269,8 @@ Sub AddRegisterCorporate
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Jumlah Karyawan").Set jmlKaryawan
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Tipe Kantor").Click
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(tipeKantor)
 	wait 1
@@ -280,6 +290,8 @@ Sub AddRegisterCorporate
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Pendapatan Per Tahun").Click
 	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(pendapatanPerTahunUtama)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -287,6 +299,8 @@ Sub AddRegisterCorporate
 	Browser("DPLK").Page("Register Corporate").WebEdit("Field Sumber Dana").Set sumberDanaUtama
 	wait 1
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Tujuan Penggunaan Dana").Click
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(tujuanPenggunaanDana)
 	wait 1
@@ -325,6 +339,8 @@ Sub AddRegisterCorporate
 '	End If
 	
 	Browser("DPLK").Page("Register Corporate").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -390,24 +406,32 @@ Sub RegisterCorporateAlamat
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Provinsi 1").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(provinsi)
 		wait 2
 		objkey.SendKeys"{ENTER}"
 		wait 3
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kota/Kabupaten 1").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kotaKabupaten)
 		wait 2
 		objkey.SendKeys"{ENTER}"
 		wait 3
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kecamatan 1").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kecamatan)
 		wait 2
 		objkey.SendKeys"{ENTER}"
 		wait 3
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kelurahan 1").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kelurahan)
 		wait 2
 		objkey.SendKeys"{ENTER}"
@@ -424,24 +448,32 @@ Sub RegisterCorporateAlamat
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Provinsi 2").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(provinsiKantor)
 		wait 2
 		objkey.SendKeys"{ENTER}"
 		wait 3
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kota/Kabupaten 2").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kotaKabupatenKantor)
 		wait 2
 		objkey.SendKeys"{ENTER}"
 		wait 3
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kecamatan 2").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kecamatanKantor)
 		wait 2
 		objkey.SendKeys"{ENTER}"
 		wait 3
 		Browser("DPLK").Page("Register Corporate - Alamat").WebElement("Dropdown Kelurahan 2").Click
 		wait 2
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kelurahanKantor)
 		wait 2
 		objkey.SendKeys"{ENTER}"
@@ -553,11 +585,15 @@ Sub RegisterCorporateBeneficialOwner
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Kewarganegaraan").Click
 		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kewarganegaraan)
 		wait 1
 		objkey.SendKeys"{ENTER}"
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Jenis Kelamin").Click
+		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 		wait 1
 		objkey.SendKeys(jenisKelamin)
 		wait 1
@@ -565,11 +601,15 @@ Sub RegisterCorporateBeneficialOwner
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Status Perkawinan").Click
 		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(statusPerkawinan)
 		wait 1
 		objkey.SendKeys"{ENTER}"
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Pekerjaan").Click
+		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 		wait 1
 		objkey.SendKeys(pekerjaan)
 		wait 1
@@ -583,17 +623,23 @@ Sub RegisterCorporateBeneficialOwner
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Sumber Dana").Click
 		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(sumberDana)
 		wait 1
 		objkey.SendKeys"{ENTER}"
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Pendapatan/Tahun").Click
 		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(pendapatanPerTahun)
 		wait 1
 		objkey.SendKeys"{ENTER}"
 		wait 1
 		Browser("DPLK").Page("Register Corporate - Beneficial Owner").WebElement("Dropdown Tujuan Dana").Click
+		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 		wait 1
 		objkey.SendKeys(tujuanDana)
 		wait 1
@@ -707,6 +753,8 @@ Sub RegisterCorporateRekeningBank
 	Else
 		Browser("DPLK").Page("Register Corporate - Rekening Bank").WebElement("Dropdown Kode Bank").Click
 		wait 1
+		Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+		wait 1
 		objkey.SendKeys(kodeBank)
 		wait 1
 		objkey.SendKeys"{ENTER}"
@@ -762,6 +810,8 @@ Sub RegisterCorporateStrukturManajemen
 				wait 1
 				Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebElement("Dropdown Warga Negara").Click
 				wait 1
+				Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+				wait 1
 				objkey.SendKeys(wargaNegara(i))
 				wait 1
 				objkey.SendKeys"{ENTER}"
@@ -783,6 +833,8 @@ Sub RegisterCorporateStrukturManajemen
 			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebEdit("Field Jabatan").Set jabatan
 			wait 1
 			Browser("DPLK").Page("Register Corporate - Struktur Manajemen").WebElement("Dropdown Warga Negara").Click
+			wait 1
+			Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 			wait 1
 			objkey.SendKeys(wargaNegara)
 			wait 1
@@ -846,6 +898,8 @@ Sub RegisterCorporatePemegangSaham
 				wait 1
 				Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebElement("Dropdown Warga Negara").Click
 				wait 1
+				Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
+				wait 1
 				objkey.SendKeys(wargaNegara(i))
 				wait 1
 				objkey.SendKeys"{ENTER}"
@@ -871,6 +925,8 @@ Sub RegisterCorporatePemegangSaham
 			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebEdit("Field Jabatan").Set jabatan
 			wait 1
 			Browser("DPLK").Page("Register Corporate - Pemegang Saham").WebElement("Dropdown Warga Negara").Click
+			wait 1
+			Browser("DPLK").Page("Register Corporate").WebEdit("Field Search Dropdown").Click
 			wait 1
 			objkey.SendKeys(wargaNegara)
 			wait 1
@@ -1003,6 +1059,8 @@ Sub AddMaintenanceCorporate
 	Call RegisterCorporateDokumen()
 	
 	Browser("DPLK").Page("Maintenance Corporate").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Maintenance Corporate").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -1418,6 +1476,8 @@ Sub AddPemindahanKepesertaanKolektif
 	wait 1
 	Browser("DPLK").Page("Pemindahan Kepesertaan Kolektif").WebElement("Dropdown Status Register").Click
 	wait 1
+	Browser("DPLK").Page("Pemindahan Kepesertaan Kolektif").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -1562,11 +1622,15 @@ Sub AddRegisterPerjanjianKerjaSama
 	wait 1
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Dropdown Jenis Dokumen Perjanjian").Click
 	wait 1
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(jenisDokumenPerjanjian)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Dropdown Jenis Perjanjian").Click
+	wait 1
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(jenisPerjanjian)
 	wait 1
@@ -1586,11 +1650,15 @@ Sub AddRegisterPerjanjianKerjaSama
 	wait 2
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Dropdown Kepesertaan").Click
 	wait 1
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(kepesertaan)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 3
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Dropdown Jenis Program Pensiun").Click
+	wait 1
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(jenisProgramPensiun)
 	wait 1
@@ -1599,6 +1667,8 @@ Sub AddRegisterPerjanjianKerjaSama
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Dropdown Valuta").Click
+	wait 1
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(valuta)
 	wait 1
@@ -1620,6 +1690,8 @@ Sub AddRegisterPerjanjianKerjaSama
 	Call RegisterPerjanjianKerjaSamaTabKelengkapanDokumen()
 	
 	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Register Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -1797,6 +1869,8 @@ Sub AddMaintenancePerjanjianKerjaSama
 	
 	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebElement("Dropdown Status Register").Click
 	wait 1
+	Browser("DPLK").Page("Maintenance Perjanjian Kerja Sama").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -1950,6 +2024,8 @@ Sub AddSplitBalance
 	wait 5
 	Browser("DPLK").Page("Split Balance").WebElement("Dropdown Status Register").Click
 	wait 1
+	Browser("DPLK").Page("Split Balance").WebEdit("Field Search Dropdown").Click
+	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -2074,6 +2150,8 @@ Sub UpdateDetailSplitBalance(dtSearch, dtExplain, statusRegister, keteranganRegi
 		objkey.SendKeys"{PGDN}"
 		wait 2
 		Browser("DPLK").Page("Split Balance").WebElement("Dropdown Status Register").Click
+		wait 1
+		Browser("DPLK").Page("Split Balance").WebEdit("Field Search Dropdown").Click
 		wait 1
 		objkey.SendKeys(statusRegister)
 		wait 1

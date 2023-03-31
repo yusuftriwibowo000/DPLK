@@ -206,12 +206,16 @@ Sub AddSetupJenisParameter
 	If grupParameter <> "" Then
 		Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Dropdown Grup Parameter").Click
 		wait 1
-		objkey.SendKeys(statusInternal)
+		Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Click
+		wait 1
+		objkey.SendKeys(grupParameter)
 		wait 1
 		objkey.SendKeys "{ENTER}"
 		wait 1
 	End If
 	Browser("DPLK").Page("Setup Jenis Parameter").WebElement("Dropdown Status Internal").Click
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Parameter").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusInternal)
 	wait 1
@@ -557,11 +561,15 @@ Sub AddSetupJenisMutasi
 		wait 2
 		Browser("DPLK").Page("Setup Jenis Mutasi").WebElement("Dropdown Kode Dokumen").Click
 		wait 1
+		Browser("DPLK").Page("Setup Jenis Mutasi").WebEdit("Field Search Data").Click
+		wait 1
 		objkey.SendKeys(kodeDokumen)
 		wait 1
 		objkey.SendKeys "{ENTER}"
 		wait 1
 		Browser("DPLK").Page("Setup Jenis Mutasi").WebElement("Dropdown Status Mandatori").Click
+		wait 1
+		Browser("DPLK").Page("Setup Jenis Mutasi").WebEdit("Field Search Data").Click
 		wait 1
 		objkey.SendKeys(statusMandatori)
 		wait 1
@@ -800,11 +808,15 @@ Sub AddSetupJenisTransaksi
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Transaksi").WebElement("Dropdown Group Transaksi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Jenis Transaksi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(groupTransaksi)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Transaksi").WebElement("Dropdown Kontributor").Click
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Transaksi").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(kontributor)
 	wait 1
@@ -818,11 +830,15 @@ Sub AddSetupJenisTransaksi
 		wait 2
 		Browser("DPLK").Page("Setup Jenis Transaksi").WebElement("Dropdown Kode Dokumen").Click
 		wait 1
+		Browser("DPLK").Page("Setup Jenis Transaksi").WebEdit("Field Search Data").Click
+		wait 1
 		objkey.SendKeys(kodeDokumen)
 		wait 1
 		objkey.SendKeys "{ENTER}"
 		wait 1
 		Browser("DPLK").Page("Setup Jenis Transaksi").WebElement("Dropdown Status Mandatori").Click
+		wait 1
+		Browser("DPLK").Page("Setup Jenis Transaksi").WebEdit("Field Search Data").Click
 		wait 1
 		objkey.SendKeys(statusMandatori)
 		wait 1

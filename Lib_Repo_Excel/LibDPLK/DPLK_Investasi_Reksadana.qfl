@@ -64,6 +64,8 @@ Sub AddTipeTransaksi
 	wait 1
 	Browser("DPLK").Page("Tipe Transaksi").WebElement("Dropdown Status Register").Click
 	wait 1
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -194,6 +196,8 @@ Sub ApproveTipeTransaksi
 	wait 1
 	Browser("DPLK").Page("Tipe Transaksi").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Tipe Transaksi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -237,6 +241,8 @@ Sub AddJenisPorto
 	Browser("DPLK").Page("Jenis Porto").WebEdit("Field Nama Jenis Porto").Set namaJenisPorto
 	wait 1
 	Browser("DPLK").Page("Jenis Porto").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Jenis Porto").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -367,6 +373,8 @@ Sub ApproveJenisPorto
 	wait 1
 	Browser("DPLK").Page("Jenis Porto").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Jenis Porto").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -409,11 +417,15 @@ Sub AddProfileReksa
 	wait 2
 	Browser("DPLK").Page("Profile Reksa").WebElement("Dropdown Nama MI").Click
 	wait 1
+	Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(namaMI)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Profile Reksa").WebElement("Dropdown Jenis Reksadana").Click
+	wait 1
+	Browser("DPLK").Page("Profile Reksa").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(jenisReksadana)
 	wait 1
@@ -595,6 +607,8 @@ Sub ApproveProfileReksa
 	objkey.SendKeys "{PGDN}"
 	wait 1
 	Browser("DPLK").Page("Verifikasi Profile Reksa").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Verifikasi Profile Reksa").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1

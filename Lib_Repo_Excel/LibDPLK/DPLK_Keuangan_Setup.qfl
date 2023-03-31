@@ -55,6 +55,8 @@ Sub AddSetupMappingBankPembayaran
 	wait 2
 	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebElement("Dropdown Produk/Cluster").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebEdit("Search").Click
+	wait 1
 	objkey.SendKeys(produkCluster)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -70,6 +72,8 @@ Sub AddSetupMappingBankPembayaran
 	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebElement("Data Kode Buku").Click
 	wait 2
 	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebElement("Dropdown Mata Uang").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebEdit("Search").Click
 	wait 1
 	objkey.SendKeys(mataUang)
 	wait 1
@@ -94,6 +98,8 @@ Sub AddSetupMappingBankPembayaran
 	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebEdit("Field Tgl Akhir").Set tglAkhir
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebEdit("Search").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -233,6 +239,8 @@ Sub ApproveSetupMappingBankPembayaran
 	objkey.SendKeys"{PGDN}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Bank Pembayaran").WebEdit("Search").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1

@@ -49,6 +49,8 @@ Sub AddSetupPortofolio
 	wait 1
 	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Inv Id").Click
 	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(invId)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -64,6 +66,8 @@ Sub AddSetupPortofolio
 	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -197,6 +201,8 @@ Sub ApproveSetupPortofolio
 	wait 1
 	Browser("DPLK").Page("Setup Portofolio").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Portofolio").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -261,6 +267,8 @@ Sub AddSetupKegiatan
 	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Kegiatan").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -393,6 +401,8 @@ Sub ApproveSetupKegiatan
 	wait 1
 	Browser("DPLK").Page("Setup Kegiatan").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Kegiatan").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -451,6 +461,8 @@ Sub AddSetupKlasifikasi
 	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Jumlah Bulan Min Kepemilikan").Set jmlBulanMinKepemilikan
 	wait 1
 	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -581,6 +593,8 @@ Sub ApproveSetupKlasifikasi
 	wait 1
 	Browser("DPLK").Page("Setup Klasifikasi").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Klasifikasi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -663,6 +677,8 @@ Sub AddSetupFundManager
 	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Fund Manager").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -815,6 +831,8 @@ Sub ApproveSetupFundManager
 	wait 1
 	Browser("DPLK").Page("Setup Fund Manager").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Fund Manager").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -895,6 +913,8 @@ Sub AddSetupCustodian
 	wait 1
 	Browser("DPLK").Page("Setup Custodian").WebElement("Dropdown Kode BI").Click
 	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(kodeBI)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -910,6 +930,8 @@ Sub AddSetupCustodian
 	Browser("DPLK").Page("Setup Custodian").WebEdit("Field No Giro").Set noGiro
 	wait 1
 	Browser("DPLK").Page("Setup Custodian").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -1071,6 +1093,8 @@ Sub ApproveSetupCustodian
 	wait 1
 	Browser("DPLK").Page("Setup Custodian").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Custodian").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -1123,6 +1147,8 @@ Sub AddSetupJenisBroker
 	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Nama Jenis Broker").Set namaJenisBroker
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Broker").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -1251,6 +1277,8 @@ Sub ApproveSetupJenisBroker
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Broker").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Jenis Broker").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -1309,6 +1337,8 @@ Sub AddSetupBroker
 	wait 2
 	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Jenis Broker").Click
 	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Click
+	wait 1
 	objkey.SendKeys(jenisBroker)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -1333,6 +1363,8 @@ Sub AddSetupBroker
 	wait 1
 	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Non Aktif").Click
 	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Click
+	wait 1
 	objkey.SendKeys(nonAktif)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -1346,6 +1378,8 @@ Sub AddSetupBroker
 	Call AddSetupBrokerRekening()
 	wait 2
 	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -1385,6 +1419,8 @@ Sub AddSetupBrokerRekening
 	Browser("DPLK").Page("Setup Broker").WebEdit("Field No").Set no
 	wait 1
 	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Bank").Click
+	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Click
 	wait 1
 	objkey.SendKeys(bank)
 	wait 1
@@ -1557,6 +1593,8 @@ Sub ApproveSetupBroker
 	wait 1
 	Browser("DPLK").Page("Setup Broker").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Broker").WebEdit("Field Search Kode Broker").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -1615,6 +1653,8 @@ Sub AddSetupPICBroker
 	wait 2
 	Browser("DPLK").Page("Setup PIC Broker").WebElement("Dropdown Kode Broker").Click
 	wait 1
+	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(kodeBroker)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -1633,6 +1673,8 @@ Sub AddSetupPICBroker
 	wait 1
 	Browser("DPLK").Page("Setup PIC Broker").WebElement("Dropdown Non-Aktif").Click
 	wait 1
+	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(nonAktif)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -1646,6 +1688,8 @@ Sub AddSetupPICBroker
 	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field No Urut").Set noUrut
 	wait 1
 	Browser("DPLK").Page("Setup PIC Broker").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -1808,6 +1852,8 @@ Sub ApproveSetupPICBroker
 	wait 1
 	Browser("DPLK").Page("Setup PIC Broker").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup PIC Broker").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -1875,6 +1921,8 @@ Sub AddSetupSektor
 	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Nama Index Sektor").Set namaIndexSektor
 	wait 1
 	Browser("DPLK").Page("Setup Sektor").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -2009,6 +2057,8 @@ Sub ApproveSetupSektor
 	wait 1
 	Browser("DPLK").Page("Setup Sektor").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Sektor").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -2061,6 +2111,8 @@ Sub AddSetupSubSektor
 	wait 1
 	Browser("DPLK").Page("Setup Subsektor").WebElement("Dropdown Kode Sektor").Click
 	wait 1
+	Browser("DPLK").Page("Setup Subsektor").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(kodeSektor)
 	wait 1
 	objkey.SendKeys "{ENTER}"
@@ -2068,6 +2120,8 @@ Sub AddSetupSubSektor
 	Browser("DPLK").Page("Setup Subsektor").WebEdit("Field Nama Subsektor").Set namaSubSektor
 	wait 1
 	Browser("DPLK").Page("Setup Subsektor").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Subsektor").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -2198,6 +2252,8 @@ Sub ApproveSetupSubSektor
 	wait 1
 	Browser("DPLK").Page("Setup Subsektor").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Subsektor").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -2255,6 +2311,8 @@ Sub AddSetupJenisEmiten
 		wait 1
 	End If
 	Browser("DPLK").Page("Setup Jenis Emiten").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Emiten").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -2385,6 +2443,8 @@ Sub ApproveSetupJenisEmiten
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Emiten").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Jenis Emiten").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -2440,6 +2500,8 @@ Sub AddSetupGroupEmiten
 	Browser("DPLK").Page("Setup Group Emiten").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Group Emiten").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Group Emiten").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -2570,6 +2632,8 @@ Sub ApproveSetupGroupEmiten
 	wait 1
 	Browser("DPLK").Page("Setup Group Emiten").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Group Emiten").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -2634,11 +2698,15 @@ Sub AddSetupEmiten
 	wait 2
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Group Emiten").Click
 	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
+	wait 1
 	objkey.SendKeys(groupEmiten)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Jenis Emiten").Click
+	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
 	wait 1
 	objkey.SendKeys(jenisEmiten)
 	wait 1
@@ -2652,17 +2720,23 @@ Sub AddSetupEmiten
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Sektor").Click
 	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
+	wait 1
 	objkey.SendKeys(sektor)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Sub Sektor").Click
 	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
+	wait 1
 	objkey.SendKeys(subSektor)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Kode BI").Click
+	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
 	wait 1
 	objkey.SendKeys(kodeBI)
 	wait 1
@@ -2685,6 +2759,8 @@ Sub AddSetupEmiten
 	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Email").Set email
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -2734,6 +2810,8 @@ Sub AddSetupEmitenRekening
 	Browser("DPLK").Page("Setup Emiten").WebEdit("Field No").Set no
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Bank").Click
+	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
 	wait 1
 	objkey.SendKeys(bank)
 	wait 1
@@ -2924,6 +3002,8 @@ Sub ApproveSetupEmiten
 	wait 1
 	Browser("DPLK").Page("Setup Emiten").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Emiten").WebEdit("Field Search Nama Emiten").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -2967,6 +3047,8 @@ Sub AddSetupTipeDeviden
 	Browser("DPLK").Page("Setup Tipe Deviden").WebEdit("Field Nama Tipe Deviden").Set namaTipeDeviden
 	wait 1
 	Browser("DPLK").Page("Setup Tipe Deviden").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Tipe Deviden").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -3096,6 +3178,8 @@ Sub ApproveSetupTipeDeviden
 	wait 1
 	Browser("DPLK").Page("Setup Tipe Deviden").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Tipe Deviden").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -3142,6 +3226,8 @@ Sub AddSetupJenisBeban
 	Browser("DPLK").Page("Setup Jenis Beban").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Beban").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Jenis Beban").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -3272,6 +3358,8 @@ Sub ApproveSetupJenisBeban
 	wait 1
 	Browser("DPLK").Page("Setup Jenis Beban").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Jenis Beban").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -3337,6 +3425,8 @@ Sub AddSetupParameterInvestasi
 	End If
 	wait 1
 	Browser("DPLK").Page("Setup Parameter Investasi").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Parameter Investasi").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -3469,6 +3559,8 @@ Sub ApproveSetupParameterInvestasi
 	wait 1
 	Browser("DPLK").Page("Setup Parameter Investasi").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Parameter Investasi").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -3531,11 +3623,15 @@ Sub AddSetupMappingJurnalInvestasi
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Porto ID").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(portoID)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kegiatan").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(kegiatan)
 	wait 1
@@ -3545,11 +3641,15 @@ Sub AddSetupMappingJurnalInvestasi
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Produk").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(produk)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kode Klasifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(kodeKlasifikasi)
 	wait 1
@@ -3557,11 +3657,15 @@ Sub AddSetupMappingJurnalInvestasi
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Fund Id").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(fundId)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kode Porto Reksadana").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(kodePortoReksadana)
 	wait 1
@@ -3572,6 +3676,8 @@ Sub AddSetupMappingJurnalInvestasi
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -3641,17 +3747,23 @@ Sub EditSetupMappingJurnalInvestasi
 	wait 2
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Porto ID").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(portoID)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Kegiatan").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(kegiatan)
 	wait 1
 	objkey.SendKeys"{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Produk").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(produk)
 	wait 1
@@ -3734,6 +3846,8 @@ Sub ApproveSetupMappingJurnalInvestasi
 	wait 1
 	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebElement("Dropdown Status Verifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping Jurnal Inv").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1
 	objkey.SendKeys"{ENTER}"
@@ -3790,11 +3904,15 @@ Sub AddSetupMappingPVRTB
 	wait 2
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Entitas").Click
 	wait 2
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(entitas)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Produk").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(produk)
 	wait 1
@@ -3802,11 +3920,15 @@ Sub AddSetupMappingPVRTB
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Fund Id").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(fundId)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Portofolio").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(portofolio)
 	wait 1
@@ -3814,11 +3936,15 @@ Sub AddSetupMappingPVRTB
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Klasifikasi").Click
 	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
+	wait 1
 	objkey.SendKeys(klasifikasi)
 	wait 1
 	objkey.SendKeys "{ENTER}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Kode Porto Reksa").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(kodePortoReksa)
 	wait 1
@@ -3831,6 +3957,8 @@ Sub AddSetupMappingPVRTB
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Keterangan").Set keterangan
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Status Register").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusRegister)
 	wait 1
@@ -3970,6 +4098,8 @@ Sub ApproveSetupMappingPVRTB
 	objkey.SendKeys"{PGDN}"
 	wait 1
 	Browser("DPLK").Page("Setup Mapping PVR-TB").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Setup Mapping PVR-TB").WebEdit("Field Search Data").Click
 	wait 1
 	objkey.SendKeys(statusVerifikasi)
 	wait 1

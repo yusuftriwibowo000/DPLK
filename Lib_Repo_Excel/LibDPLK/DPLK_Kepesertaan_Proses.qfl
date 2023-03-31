@@ -494,6 +494,108 @@ Sub ApproveSplitBalance
 	End If
 End Sub
 
+REM -------------------------------- Proses->Split Balance (Bulk)->Verifikasi Split Balance(Bulk) -----------------------------------------
+
+'Fungsi Search Verifikasi Split Balance(Bulk)
+Sub SearchVerifikasiSplitBalanceBulk(dtSearch, dtExplain)
+	
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	If Browser("DPLK").Page("Verifikasi Split Balance (Bulk)").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Verifikasi Split Balance (Bulk)").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Verifikasi Split Balance (Bulk)").WebElement("Tabel Data").GetROProperty("abs_y")
+			devices.MouseMove x,y
+			devices.MouseClick x,y,LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 5}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+
+End Sub
+
+REM -------------------------------- Proses->Split Balance (Bulk)->Verifikasi Split Balance(Bulk) -----------------------------------------
+
+'Search Verifikasi Split Balance (Bulk)
+Sub SearchVerifikasiSplitBalanceBulk(dtSearch,dtExplain)
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("Tabel Data").GetROProperty("abs_y")
+			devices.MouseMove x,y
+			devices.MouseClick x,y, LEFT_MOUSE_BUTTON
+		wait 1
+		objkey.SendKeys"{RIGHT 5}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Berikut Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+End Sub
+
+'Fungsi Verifikasi Split Balance(Bulk)
+Sub VerifikasiSplitBalanceBulk
+	noRegister			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	statusVerifikasi	= DataTable.Value("STATUS_VERIFIKASI",dtlocalsheet)
+	keteranganVerifikasi= DataTable.Value("KETERANGAN_VERIFIKASI",dtlocalsheet)
+	explain				= DataTable.Value("EXPLAIN",dtlocalsheet)
+	dtSearch			= noRegister
+	dtExplain			= "No.Register"
+	
+	wait 2
+	Call SearchVerifikasiSplitBalanceBulk(dtSearch,dtExplain)
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("Btn Checklist Verifikasi"), "Klik Button Checklist Verifikasi", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("Btn Checklist Verifikasi").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	
+	totalDataInvalid = Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebTable("Tabel Data Ringkasan Upload").GetCellData(3,8)
+	If totalDataInvalid = 0 Then
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebTable("Tabel Data Ringkasan Upload"), "Total Data Valid Pada Tabel RINGKASAN UPLOAD adalah 0 (VALID)", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	Else
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebTable("Tabel Data Ringkasan Upload"), "Total Data Valid Pada Tabel RINGKASAN UPLOAD adalah "&totalDataInvalid&" (TIDAK VALID)", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	End If
+	
+	wait 2
+	objkey.SendKeys "{PGDN 2}"
+	wait 2
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("Dropdown Status Verifikasi").Click
+	wait 1
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebEdit("Field Search Dropdown").Click
+	wait 1
+	objkey.SendKeys(statusVerifikasi)
+	wait 1
+	objkey.SendKeys "{ENTER}"
+	wait 1
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebEdit("Field Keterangan Verifikasi").Set keteranganVerifikasi
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Isi Field Status Verifikasi dan Keterangan Verifikasi, Kemudian Klik Button Simpan", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebButton("Btn Simpan").Click
+	wait 2
+	Call ConfirmOtorisasi()
+	wait 2
+		If Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebElement("PopUp ×Data berhasil diverifikasi").Exist(5) Then
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Berhasil Verifikasi Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+				wait 2
+					Browser("DPLK").Page("Verifikasi Split Balance(Bulk)").WebButton("Btn Kembali").Click
+				wait 2
+			Call SearchVerifikasiSplitBalanceBulk(dtSearch,dtExplain)
+		Else
+			Call CaptureImageUFTV2(Browser("DPLK").Page("Verifikasi Split Balance(Bulk)"), "Gagal Verifikasi Data", " ", compatibilityMode.Desktop, ReportStatus.Passed)
+		End If
+	wait 2
+End Sub
+
 REM -------------------------------- Proses->Corporate->Verifikasi Corporate -----------------------------------------
 
 'Search Verifikasi Corporate

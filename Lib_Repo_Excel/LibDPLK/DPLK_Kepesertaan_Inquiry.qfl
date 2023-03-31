@@ -427,3 +427,48 @@ Sub ViewInquirySplitBalance
     Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
     wait 2
 End Sub
+
+REM ------------------------------- Inquiry->Split Balance Bulk->Inquiry Split Balance Bulk ----------------------------------
+
+'Search Inquiry Split Balance Bulk
+Sub SearchInquirySplitBalanceBulk(dtSearch, dtExplain)
+	Browser("DPLK").Page("Inquiry Split Balance (Bulk)").WebEdit("Field Search Data").Set dtSearch
+	wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance (Bulk)"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	If Browser("DPLK").Page("Inquiry Split Balance (Bulk)").WebElement("Tabel Data").Exist(5) Then
+		x = Browser("DPLK").Page("Inquiry Split Balance (Bulk)").WebElement("Tabel Data").GetROProperty("abs_x")
+		y = Browser("DPLK").Page("Inquiry Split Balance (Bulk)").WebElement("Tabel Data").GetROProperty("abs_y")
+			devices.MouseMove x,y
+			devices.MouseClick x,y,LEFT_MOUSE_BUTTON
+		wait 1
+			objkey.SendKeys"{RIGHT 10}"
+		wait 2
+		Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance (Bulk)"), "Berikut Data dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+		wait 2
+	End If
+End Sub
+
+'View Detail Inquiry Split Balance (Bulk)
+Sub ViewInquirySplitBalanceBulk
+	dtSearch			= DataTable.Value("NO_REGISTER",dtlocalsheet)
+	dtExplain			= "No.Register"
+	
+	wait 2
+	Call SearchInquirySplitBalanceBulk(dtSearch, dtExplain)
+	
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance (Bulk)").WebElement("Btn View"), "Klik Button View", " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	Browser("DPLK").Page("Inquiry Split Balance (Bulk)").WebElement("Btn View").Click
+	wait 2
+	Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+	wait 2
+	objkey.SendKeys"{DOWN 12}"
+	wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+    objkey.SendKeys"{PGDN}"
+    wait 2
+    Call CaptureImageUFTV2(Browser("DPLK").Page("Inquiry Split Balance (Bulk)"), "Berikut Detail Data Dengan "&dtExplain&" : "&dtSearch, " ", compatibilityMode.Desktop, ReportStatus.Done)
+    wait 2
+End Sub

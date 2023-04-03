@@ -1,4 +1,4 @@
-﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult @@ script infofile_;_ZIP::ssf7.xml_;_
+﻿Dim dt_TCID, dt_TestScenarioDesc, dt_ScenarioDesc, dt_ExpectedResult @@ hightlight id_;_198558_;_script infofile_;_ZIP::ssf8.xml_;_
 Dim preparation ,iteration
 
 REM -------------- Call Function
